@@ -1,0 +1,11 @@
+train: train/images
+val: valid/images
+test: test/images
+
+names: 
+  0: fifty
+  1: five
+  2: hundred
+  3: one
+  4: ten
+  5: twenty
