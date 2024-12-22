@@ -7,19 +7,22 @@ def resize(input_img_path: str, output_img_path: str, target_size: tuple()):
             try:
                 resized_img = img.resize(target_size, Image.LANCZOS)
                 resized_img.save(output_img_path, format="JPEG", quality=100)
+                print(output_img_path)
             except Exception as e:
                 print(f"El archivo {input_img_path} da error un '{e}'")
                 exit()
             
-
-def resize_group(inputs_path: str, target_size: tuple()):
+def resize_group(base_path: str, input_dir: str, output_dir: str, target_size: tuple()):
     from get_struct import get_struct
     
-    struct = get_struct(inputs_path) #TODO Cambiar la estructura de los archivos para mejorar esto
+    struct = get_struct(base_path, input_dir, output_dir)
 
     for input_img_path, output_img_path in zip(struct['input'], struct['output']):
         resize(input_img_path, output_img_path, target_size)
 
-resize_group("backend/src/data/unprocessed/img-data-vef/",
-             (416, 416),
+resize_group(
+            base_path  = "backend/src/data/img-data-vef/",
+            input_dir  = "unprocessed",
+            output_dir = "processed",
+            target_size= (416, 416),
             )
