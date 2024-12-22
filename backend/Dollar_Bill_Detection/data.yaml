@@ -1,4 +1,4 @@
-train: ../train/images
+train: ../datasets/images
 val: ../valid/images
 test: ../test/images
 
