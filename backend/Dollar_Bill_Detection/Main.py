@@ -10,7 +10,7 @@ def train_model():
     model = YOLO("yolov8n.yaml") 
     
     # Entrenar el modelo
-    results = model.train(data='backend/Dollar_Bill_Detection/data.yaml', epochs = 100)
+    results = model.train(data='data.yaml', epochs = 50)
     print(results)
 
 if __name__ == "__main__":
