@@ -9,6 +9,10 @@ def random_select(struct: dict, percentage):
     struct['input']  = [item for i, item in enumerate(struct['input']) if i in id_to_select]
     struct['output'] = [item for i, item in enumerate(struct['output']) if i in id_to_select]
 
+    mixed = list(zip(struct['input'], struct['output']))
+    random.shuffle(mixed)
+    struct['input'], struct['output'] = zip(*mixed)
+
     return struct
 
 def divide_select(struct, transformations):
@@ -19,15 +23,19 @@ def divide_select(struct, transformations):
 
 
 def noise(input_img_path: str, output_img_path: str, transformations):
+    #print(transformations)
+
     input_img = cv2.imread(input_img_path) # Cargar la imagen de entrada
-    transform = A.Compose(transformations) # Obtener la imagen transformada
-    augmented = transform(image=input_img) # Aplicar la transformación de ruido
+    augmented = transformations(image=input_img) # Aplicar la transformación de ruido
     transformed_img = augmented['image'] # Obtener la imagen transformada
     
+    path_list = output_img_path.split(".") 
+    output_img_path = path_list[0] + "_augmented." + path_list[1] 
+
     cv2.imwrite(output_img_path, transformed_img)
     print(f"Imagen transformada guardada en {output_img_path}")
 
-def noise_group(base_path: str, input_dir: str, output_dir: str, q_percentage: int, transformations: list):
+def noise_group(base_path: str, input_dir: str, output_dir: str, q_percentage: int, transformations):
     from get_struct import get_struct
     
     struct = get_struct(base_path, input_dir, output_dir)
@@ -45,7 +53,7 @@ def noise_group(base_path: str, input_dir: str, output_dir: str, q_percentage: i
         if index_transform == len(num_of_output)-1:# El mix y la ultima transformación
             noise(input_img_path, output_img_path, transformations)
         else:
-            noise(input_img_path, output_img_path, [transformations[index_transform]])
+            noise(input_img_path, output_img_path, transformations[index_transform])
        
         num_imgs+=1
 
@@ -56,8 +64,10 @@ noise_group(
             input_dir    = "processed",
             output_dir   = "augmentation",
             q_percentage = 5,
-            transformations = [
-                    A.MultiplicativeNoise(multiplier=(0.9, 1.1), per_channel=True, p=0.5),
-                    A.CoarseDropout(max_holes=8, max_height=16, max_width=16, fill_value=0, p=0.5),
-                ]
+            transformations = A.Compose([
+                    A.RGBShift(r_shift_limit=20, g_shift_limit=20, b_shift_limit=20, p=1),
+                    A.RandomBrightnessContrast(brightness_limit=0.15, contrast_limit=0.25, p=1),
+                    A.Blur(blur_limit=4, p=1),
+                    A.SaltAndPepper(salt_vs_pepper=(0.4, 0.6), amount=(0.01, 0.06), p=1),
+                ])
             )
