@@ -1,0 +1,13 @@
+train: ../datasets/images
+val: ../valid/images
+test: ../test/images
+
+nc: 10
+names: ['fifty-back', 'fifty-front', 'five-back', 'five-front', 'one-back', 'one-front', 'ten-back', 'ten-front', 'twenty-back', 'twenty-front']
+
+roboflow:
+  workspace: alex-hyams-cosqx
+  project: dollar-bill-detection
+  version: 20
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/alex-hyams-cosqx/dollar-bill-detection/dataset/20
