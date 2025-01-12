@@ -1,16 +1,19 @@
 from flask import Flask, jsonify, request
-from werkzeug.utils import secure_filename
 import numpy as np
 from PIL import Image
-import cv2
-import os
 from ultralytics import YOLO
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'backend/src/api/uploads'
 
 # Carga del modelo YOLO
 model = YOLO('backend/src/models/Dollar_Model.pt')
+classes = [
+    'fifty-back',  'fifty-front', 
+    'five-back',   'five-front', 
+    'one-back',    'one-front', 
+    'ten-back',    'ten-front', 
+    'twenty-back', 'twenty-front',
+]
 
 @app.route('/detection', methods=['POST'])
 def bill_detection():
@@ -23,34 +26,31 @@ def bill_detection():
         return jsonify({'error': 'No selected file'}), 400
 
     if file:
-        # Guardar temporalmente el archivo
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
+        try:
+            # Leer la imagen directamente desde la memoria
+            img = Image.open(file.stream).convert("RGB")
+            img = np.array(img)
 
-        # Preprocesar la imagen
-        img = Image.open(file_path).convert("RGB")
-        #img = np.array(img)
+            # Realizar predicción con el modelo YOLO
+            results = model.predict(img)
 
-        # Realizar predicción con el modelo YOLO
-        results = model.predict(img)
+            # Procesar resultados del modelo
+            if len(results[0].boxes) > 0:
+                boxes = []
+                for box in results[0].boxes:
+                    boxes.append({
+                        'label': classes[int(box.cls.item())],          # Clase detectada
+                        'confidence': box.conf.item(),   # Confianza
+                        'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
+                    })
 
-        # Eliminar el archivo temporal
-        os.remove(file_path)
-
-        # Procesar resultados del modelo
-        if len(results[0].boxes) > 0:
-            # Encontrar la detección con mayor confianza
-            highest_conf_box = max(results[0].boxes, key=lambda box: box.conf.item())
-            result_data = {
-                'label': highest_conf_box.cls.item(),  # Clase detectada
-                'confidence': highest_conf_box.conf.item(),  # Confianza
-                'bbox': highest_conf_box.xyxy.tolist()  # Coordenadas del cuadro
-            }
-            return jsonify(result_data), 200
-        else:
-            # Si no hay detecciones
-            return jsonify({'message': 'No objects detected'}), 200
+                # Retornar todos los boxes como un array
+                return jsonify({'detections': boxes}), 200
+            else:
+                # Si no hay detecciones
+                return jsonify({'message': 'No objects detected'}), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
