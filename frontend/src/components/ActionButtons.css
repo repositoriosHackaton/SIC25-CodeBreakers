@@ -1,0 +1,42 @@
+.action-buttons-container {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.action-button {
+    width: 50%;
+    height: 6rem;
+    border: none;
+    border-top: 0.25rem solid var(--color-base-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.action-button img {
+    width: 5.8rem;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.green-button {
+    background-color: var(--color-green, #28a745);
+    border-right: 0.125rem solid var(--color-base-dark);
+}
+
+.green-button:hover img {
+    transform: scale(0.9);
+}
+
+.red-button {
+    background-color: var(--color-red, #dc3545);
+    border-left: 0.125rem solid var(--color-base-dark);
+}
+
+.red-button:hover img {
+    transform: scale(0.9);
+}

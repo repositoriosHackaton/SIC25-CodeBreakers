@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    padding: 0.8rem 10px; /* Espaciado a los lados */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center; /* Centrado vertical dentro del contenedor */
+}
+
+.logo {
+    width: 5rem; /* Tamaño del logo, ajusta según sea necesario */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin-right: 10px; /* Espaciado entre el logo y el nombre de la app */
+}
+
+.app-name {
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--color-base-dark);
+    margin: 0; /* Eliminar margen predeterminado del h1 */
+}
