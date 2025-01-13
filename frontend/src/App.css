@@ -22,28 +22,9 @@
 
 /* Estilo del encabezado */
 .header {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    /* border: 2px solid var(--color-emphasis); */
-}
-
-/* Sección de la cámara */
-.camera-section {
-    /* Ocupa el espacio disponible */
-    /* flex-grow: 1; */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 2px solid var(--color-emphasis); */
-    /* padding: 1rem 0 1rem 0; */
-}
-
-/* Sección de botones */
-.buttons-section {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    padding: 0.8rem 0;
     /* border: 2px solid var(--color-emphasis); */
 }

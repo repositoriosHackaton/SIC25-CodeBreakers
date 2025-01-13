@@ -10,12 +10,7 @@ const App = () => {
             <header className="header">
                 <Header />
             </header>
-            <section className="camera-section">
-                <Camera />
-            </section>
-            <section className="buttons-section">
-                <ActionButtons />
-            </section>
+            <Camera />
         </div>
     );
 };

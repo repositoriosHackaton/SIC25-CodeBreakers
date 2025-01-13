@@ -1,8 +1,19 @@
-.header {
+.header-button {
     display: flex;
     justify-content: center; /* Centrado horizontal */
     align-items: center; /* Centrado vertical */
-    padding: 0.8rem 10px; /* Espaciado a los lados */
+    padding: 10px;
+    background-color: var(--color-base-light);
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 8px var(--color-base-dark-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: calc(85% + 0.5rem);
+}
+
+.header-button.active {
+    transform: scale(1.025); /* Escala el botón ligeramente */
+    box-shadow: 0 10px 10px var(--color-base-dark-shadow);
 }
 
 .logo-container {
@@ -11,14 +22,15 @@
 }
 
 .logo {
-    width: 5rem; /* Tamaño del logo, ajusta según sea necesario */
-    height: auto; /* Mantiene la proporción de la imagen */
-    margin-right: 10px; /* Espaciado entre el logo y el nombre de la app */
+    width: 5rem;
+    height: auto;
+    margin-right: 10px;
 }
 
 .app-name {
+    text-align: center;
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--color-base-dark);
-    margin: 0; /* Eliminar margen predeterminado del h1 */
+    margin: 0;
 }

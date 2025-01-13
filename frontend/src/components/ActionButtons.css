@@ -7,9 +7,8 @@
 
 .action-button {
     width: 50%;
-    height: 6rem;
+    height: 20vh;
     border: none;
-    border-top: 0.25rem solid var(--color-base-dark);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,19 +23,14 @@
 }
 
 .green-button {
-    background-color: var(--color-green, #28a745);
-    border-right: 0.125rem solid var(--color-base-dark);
+    background-color: var(--color-accent);
 }
 
-.green-button:hover img {
+.green-button:hover img,
+.camera-button:hover img {
     transform: scale(0.9);
 }
 
-.red-button {
-    background-color: var(--color-red, #dc3545);
-    border-left: 0.125rem solid var(--color-base-dark);
-}
-
-.red-button:hover img {
-    transform: scale(0.9);
+.camera-button {
+    background-color: var(--color-base-dark);
 }
