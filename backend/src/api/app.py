@@ -13,6 +13,7 @@ classes = [
     'one-back',    'one-front', 
     'ten-back',    'ten-front', 
     'twenty-back', 'twenty-front',
+    'one_hundred-back', 'one_hundred-front',
 ]
 
 @app.route('/detection', methods=['POST'])
