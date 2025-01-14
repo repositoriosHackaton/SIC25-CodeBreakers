@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 DEBUG = True
-HOST = 'working-shortly-mammal.ngrok-free.app'
+HOST = '127.0.0.1'
 PORT = 5000
 
 # Carga del modelo YOLO
