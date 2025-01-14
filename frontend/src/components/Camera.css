@@ -1,26 +1,22 @@
-/* Sección de la cámara */
 .camera-section {
-    /* Ocupa el espacio disponible */
-    flex-grow: 1;
+    flex-grow: 1; /* Ocupa el espacio disponible */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /* border: 2px solid var(--color-emphasis); */
-    /* padding: 1rem 0 1rem 0; */
 }
 
 .camera-container {
     width: 80%;
-    height: 0;
-    padding-bottom: 80%; /* Esto asegura que la altura sea igual al ancho (proporción cuadrada) */
+    height: 0; /* Esto asegura que la altura sea igual al ancho (proporción cuadrada) */
+    padding-bottom: 80%;
     position: relative;
-    border: 0.5rem solid var(--color-accent); /* Borde verde */
+    border: 0.5rem solid var(--color-accent);
     border-radius: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .camera-video {

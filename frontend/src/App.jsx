@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./components/Header";
 import Camera from "./components/Camera";
-import ActionButtons from "./components/ActionButtons";
 import "./App.css";
 
 const App = () => {
