@@ -32,8 +32,8 @@ def process_images(input_dir, output_dir, ranges):
     print("Procesamiento completado.")
 
 # Configuración
-input_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\src\data\img-data-vef\processed\50\3\front'
-output_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\src\data\img-data-vef\processed\50\3\front2'
+input_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\src\data\img-data-vef\processed\200\3\back'
+output_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\src\data\img-data-vef\processed\200\3\back2'
 ranges = [(-90, -95), (-180, -170), (90,92)]  # Rango de ángulos en grados, dos ángulos, por lo tanto será la mitad del 100%
 
 process_images(input_dir, output_dir, ranges)
