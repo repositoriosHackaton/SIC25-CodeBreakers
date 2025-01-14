@@ -2,8 +2,14 @@ from flask import Flask, jsonify, request
 import numpy as np
 from PIL import Image
 from ultralytics import YOLO
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
+DEBUG = True
+HOST = 'working-shortly-mammal.ngrok-free.app'
+PORT = 5000
 
 # Carga del modelo YOLO
 model = YOLO('backend/src/models/Dollar_Model.pt')
@@ -54,4 +60,4 @@ def bill_detection():
             return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=DEBUG, host=HOST, port=PORT)
