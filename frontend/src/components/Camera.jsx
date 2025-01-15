@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
-import ActionButtons from "./ActionButtons"; // Importamos ActionButtons
+import ActionButtons from "./ActionButtons";
 import "./Camera.css";
 
 const Camera = () => {
@@ -51,30 +51,6 @@ const Camera = () => {
             clearInterval(autoCaptureRef.current); // Detener el intervalo si es 0
         }
     }, [autoCaptureInterval]);
-
-    // Manejar eventos de teclado para botones de volumen
-    useEffect(() => {
-        const handleKeydown = (event) => {
-            if (event.code === "MediaVolumeUp") {
-                setAutoCaptureInterval((prev) => {
-                    const updatedInterval = prev + 1;
-                    console.log(`Intervalo para capturar imagen automática actualizado a: ${updatedInterval}s`);
-                    return updatedInterval;
-                });
-            } else if (event.code === "MediaVolumeDown") {
-                setAutoCaptureInterval((prev) => {
-                    const updatedInterval = Math.max(0, prev - 1); // No permitir valores negativos
-                    console.log(`Intervalo para capturar imagen automática actualizado a: ${updatedInterval}s`);
-                    return updatedInterval;
-                });
-            }
-        };
-
-        window.addEventListener("keydown", handleKeydown);
-        return () => {
-            window.removeEventListener("keydown", handleKeydown);
-        };
-    }, []);
 
     const takePhoto = () => {
         const canvas = document.createElement("canvas");
