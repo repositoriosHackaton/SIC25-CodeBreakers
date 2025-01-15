@@ -75,7 +75,7 @@ const Camera = () => {
             const formData = new FormData();
             formData.append("image", blob, "captura.jpg");
 
-            const response = await axios.post("http://localhost:5000/detection", formData, {
+            const response = await axios.post("https://more-tough-herring.ngrok-free.app/detection", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 

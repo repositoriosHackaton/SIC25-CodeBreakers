@@ -30,10 +30,16 @@ export default defineConfig({
                         purpose: "any",
                     },
                     {
-                        src: "/pwa-512x512.png",
+                        src: "/icon_test2.png",
                         sizes: "512x512",
                         type: "image/png",
                         purpose: "maskable",
+                    },
+                    {
+                        src: "/favicon.svg",
+                        sizes: "any",
+                        type: "image/svg+xml",
+                        purpose: "any maskable",
                     },
                 ],
                 screenshots: [
