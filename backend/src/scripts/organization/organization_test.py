@@ -3,25 +3,24 @@ import shutil
 import random
 
 # Define el directorio raíz donde están las carpetas 1, 2 y 3
-root_dir = r"C:\Users\jesus\Desktop\Datasets\Prueb"
+root_dir = r"C:\Users\jesus\Downloads\output"
 
 # Definir las rutas de las carpetas
-folders = ["1", "2", "3"]
-subfolders = ["back", "front"]
-test_images_path = os.path.join(root_dir, "test", "image")
-test_labels_path = os.path.join(root_dir, "test", "label")
+folders = ["0", "1", "2", "3","4","5","6","7","8","9","10","11"]
+subfolders = ["images", "labels"]
+test_images_path = os.path.join(root_dir, "valid", "image")
+test_labels_path = os.path.join(root_dir, "valid", "label")
 
 # Crear las carpetas de test si no existen
 os.makedirs(test_images_path, exist_ok=True)
 os.makedirs(test_labels_path, exist_ok=True)
 
 # Cantidad de imágenes a extraer por en cada subfolder del folder
-num_images = {"1": 14, "2": 36, "3": 10}
-
+num_images = {"0":17 , "1":18, "2":17, "3":18,"4":17,"5":18,"6":17,"7":18,"8":17,"9":18,"10":17,"11":18}
 for folder in folders:
     for subfolder in subfolders:
-        image_path = os.path.join(root_dir, folder, subfolder)
-        label_path = os.path.join(root_dir, folder, "label")
+        image_path = os.path.join(root_dir, folder,"images")
+        label_path = os.path.join(root_dir, folder, "labels")
 
         # Obtener todas las imágenes y etiquetas
         all_images = [f for f in os.listdir(image_path) if f.endswith(".jpg")]

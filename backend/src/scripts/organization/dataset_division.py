@@ -25,19 +25,29 @@ def process_files(label_dir, image_dir, output_dir):
                 
                 if os.path.exists(image_path):
                     subfolder_path = os.path.join(output_dir, first_two_digits)
+                    image_folder_path = os.path.join(subfolder_path, 'images')
+                    txt_folder_path = os.path.join(subfolder_path, 'labels')
+                    
+                    # Crear las subcarpetas si no existen
                     if not os.path.exists(subfolder_path):
                         os.makedirs(subfolder_path)
+                    if not os.path.exists(image_folder_path):
+                        os.makedirs(image_folder_path)
+                    if not os.path.exists(txt_folder_path):
+                        os.makedirs(txt_folder_path)
                     
-                    shutil.copy(image_path, subfolder_path)
-                    print(f"Imagen {image_name} copiada a la carpeta {subfolder_path}")
+                    # Copiar la imagen y el archivo .txt en sus respectivas subcarpetas
+                    shutil.copy(image_path, image_folder_path)
+                    shutil.copy(txt_path, txt_folder_path)
+                    print(f"Imagen {image_name} copiada a {image_folder_path} y archivo {txt_file} copiado a {txt_folder_path}")
                 else:
                     print(f"Imagen {image_name} no encontrada en {image_dir}")
             else:
                 print(f"No se encontraron cifras en el archivo {txt_file}")
 
 # Configuración
-label_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division\labels'
-image_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division\images'
-output_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division\output'
+label_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\dataset_ordenado\label'
+image_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\dataset_ordenado\image'
+output_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\dataset_ordenado\output'
 
 process_files(label_dir, image_dir, output_dir)
