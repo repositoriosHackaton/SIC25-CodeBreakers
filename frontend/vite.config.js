@@ -14,7 +14,7 @@ export default defineConfig({
                 lang: "es-ES",
                 name: "Cash reader",
                 short_name: "CashReader",
-                description: "PWA Cash Reader para la identificacion de billetes xd",
+                description: "PWA Cash Reader para la identificacion de billetes",
                 theme_color: "#28a745",
                 background_color: "#343a40",
                 icons: [
