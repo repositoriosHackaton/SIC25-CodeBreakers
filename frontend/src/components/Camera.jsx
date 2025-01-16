@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import ActionButtons from "./ActionButtons";
 import VoiceInterface from "./VoiceInterface";
-import ApiProcessResponse from "./APIProcessResponse";
+import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
+import Narrator from "./Narrator";
 import "./Camera.css";
 
 const Camera = () => {
@@ -11,6 +12,8 @@ const Camera = () => {
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0); // Intervalo en segundos por defecto
     const autoCaptureRef = useRef(null); // Referencia para manejar el intervalo automático
     const videoTrackRef = useRef(null); // Referencia para el track de video
+    const [narration, setNarration] = useState("");
+    const { processResponse } = useApiResponseProcessor(setNarration);
 
     const activateFlash = async () => {
         if (videoTrackRef.current) {
@@ -143,7 +146,7 @@ const Camera = () => {
             });
 
             console.log("Respuesta de la API:", response.data);
-            <ApiProcessResponse apiResponse={response.data} />;
+            processResponse(response.data);
         } catch (error) {
             console.error("Error al enviar la imagen a la API:", error);
         }
@@ -162,6 +165,7 @@ const Camera = () => {
                 )}
             </div>
             <ActionButtons onRedClick={takePhoto} />
+            <Narrator text={narration} />
         </section>
     );
 };
