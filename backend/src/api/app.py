@@ -4,6 +4,23 @@ from PIL import Image
 from ultralytics import YOLO
 from flask_cors import CORS
 
+from logging.config import dictConfig
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s]: %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
+
 app = Flask(__name__)
 CORS(app)
 
@@ -39,7 +56,7 @@ def bill_detection():
             img = np.array(img)
 
             # Realizar predicción con el modelo YOLO
-            results = model.predict(img)
+            results = model.predict(img, verbose=False)
 
             # Procesar resultados del modelo
             if len(results[0].boxes) > 0:
@@ -50,7 +67,8 @@ def bill_detection():
                         'confidence': box.conf.item(),   # Confianza
                         'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
                     })
-
+                app.logger.info(boxes)
+                app.logger.info("\n")
                 # Retornar todos los boxes como un array
                 return jsonify({'detections': boxes}), 200
             else:
@@ -60,4 +78,4 @@ def bill_detection():
             return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=DEBUG, host=HOST, port=PORT)
+    app.run(host=HOST, port=PORT)
