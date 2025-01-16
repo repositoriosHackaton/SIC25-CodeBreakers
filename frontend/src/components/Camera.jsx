@@ -10,6 +10,37 @@ const Camera = () => {
     const autoCaptureRef = useRef(null); // Referencia para manejar el intervalo automático
     const videoTrackRef = useRef(null); // Referencia para el track de video
 
+    const activateFlash = async () => {
+        if (videoTrackRef.current) {
+            const capabilities = videoTrackRef.current.getCapabilities();
+            if (capabilities.torch) {
+                try {
+                    await videoTrackRef.current.applyConstraints({
+                        advanced: [{ torch: true }],
+                    });
+                    console.log("Flash activado.");
+                } catch (error) {
+                    console.error("Error al activar el flash:", error);
+                }
+            } else {
+                console.warn("El dispositivo no soporta el control del flash.");
+            }
+        }
+    };
+
+    const deactivateFlash = async () => {
+        if (videoTrackRef.current) {
+            try {
+                await videoTrackRef.current.applyConstraints({
+                    advanced: [{ torch: false }],
+                });
+                console.log("Flash desactivado.");
+            } catch (error) {
+                console.error("Error al desactivar el flash:", error);
+            }
+        }
+    };
+
     useEffect(() => {
         // Obtener acceso a la cámara
         const getCameraStream = async () => {
@@ -29,15 +60,8 @@ const Camera = () => {
                     const [videoTrack] = stream.getVideoTracks();
                     videoTrackRef.current = videoTrack;
 
-                    // Intentar activar el flash si está soportado
-                    const capabilities = videoTrack.getCapabilities();
-                    if (capabilities.torch) {
-                        await videoTrack.applyConstraints({
-                            advanced: [{ torch: true }],
-                        });
-                    } else {
-                        console.warn("El dispositivo no soporta el control del flash.");
-                    }
+                    // Activar el flash inicialmente
+                    activateFlash();
                 }
             } catch (error) {
                 console.error("Error al acceder a la cámara:", error);
@@ -45,6 +69,18 @@ const Camera = () => {
         };
 
         getCameraStream();
+
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === "visible") {
+                console.log("La app volvió al primer plano.");
+                activateFlash(); // Reactivar el flash al volver al primer plano
+            } else {
+                console.log("La app pasó al segundo plano.");
+                deactivateFlash(); // Desactivar el flash al ir al segundo plano
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
             // Limpiar recursos al desmontar el componente
@@ -54,17 +90,14 @@ const Camera = () => {
                 tracks.forEach((track) => track.stop());
             }
 
-            // Apagar el flash antes de detener el track
+            deactivateFlash(); // Apagar el flash antes de detener el track
+
             if (videoTrackRef.current) {
-                videoTrackRef.current
-                    .applyConstraints({
-                        advanced: [{ torch: false }],
-                    })
-                    .catch(() => {});
                 videoTrackRef.current.stop();
             }
 
             clearInterval(autoCaptureRef.current); // Limpiar el intervalo automático
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
     }, []);
 
