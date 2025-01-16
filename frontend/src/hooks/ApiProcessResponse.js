@@ -3,12 +3,12 @@ import { useCallback } from "react";
 const useApiResponseProcessor = (narrate) => {
     const processResponse = useCallback(
         (apiResponse) => {
-            if (!apiResponse || !apiResponse.detencions) {
+            if (!apiResponse || !apiResponse.detections) {
                 narrate("No se pudo procesar la respuesta de la API.");
                 return;
             }
 
-            for (const detection of apiResponse.detencions) {
+            for (const detection of apiResponse.detections) {
                 const { confidence, label } = detection;
 
                 if (confidence < 0.3) {
