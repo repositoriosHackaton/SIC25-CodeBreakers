@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { useSpeechSynthesis } from '../hooks/useSpeechSynthesis';
+import React, { useEffect } from "react";
+import { useSpeechSynthesis } from "../hooks/useSpeechSynthesis";
 
 const Narrator = ({ text }) => {
-  const { speak } = useSpeechSynthesis();
+    const { speak } = useSpeechSynthesis();
 
-  useEffect(() => {
-    if (text) {
-      speak(text); // Narra el texto recibido como prop
-    }
-  }, [text, speak]); // Solo se ejecuta cuando cambia el texto
+    useEffect(() => {
+        if (text) {
+            speak(text); // Narra el texto recibido como prop
+        }
+    }, [text, speak]); // Solo se ejecuta cuando cambia el texto
 
-  return null; // Este componente no tiene UI
+    return null; // Este componente no tiene UI
 };
 
 export default Narrator;

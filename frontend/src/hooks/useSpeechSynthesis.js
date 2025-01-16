@@ -1,17 +1,18 @@
 export const useSpeechSynthesis = () => {
-  const speak = (text) => {
-    if (!window.speechSynthesis) {
-      console.error('Speech Synthesis API no está soportada en este navegador.');
-      return;
-    }
+    const speak = (text) => {
+        if (!window.speechSynthesis) {
+            console.error("Speech Synthesis API no está soportada en este navegador.");
+            return;
+        }
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'es-ES';
-    utterance.rate = 1; // Velocidad normal
-    utterance.pitch = 1; // Tono normal
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "es-ES";
+        utterance.rate = 1; // Velocidad normal
+        utterance.pitch = 1; // Tono normal
 
-    window.speechSynthesis.speak(utterance);
-  };
+        window.speechSynthesis.speak(utterance);
+        console.log(text);
+    };
 
-  return { speak };
+    return { speak };
 };
