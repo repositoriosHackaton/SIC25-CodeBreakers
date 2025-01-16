@@ -1,45 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const InstallButton = () => {
+    const [installEvent, setInstallEvent] = useState(null);
+
     useEffect(() => {
-        // Asegurarnos de que el navegador soporte service worker
         if ("serviceWorker" in navigator) {
-            // Registra el service worker
-            navigator.serviceWorker
-                .register("/serviceworker.js", { scope: "/" })
-                .then((registration) => {
-                    registration.unregister(); // Esto normalmente no se necesita, pero lo dejaremos para pruebas
-                })
-                .catch((error) => {
-                    console.error("Error al registrar el service worker", error);
-                });
-
-            // Agregar evento para mostrar el prompt de instalación
-            window.addEventListener("beforeinstallprompt", (event) => {
-                // Prevenir el comportamiento por defecto del navegador
-                event.preventDefault();
-
-                // Guardamos el evento para poder dispararlo manualmente
-                let installEvent = event;
-
-                // Crear y agregar el botón de instalación al DOM
-                const installDiv = document.getElementById("divInstallApp");
-                installDiv.innerHTML = `
-          <button id="installApp" ">
-            Instalar App
-          </button>
-        `;
-
-                // Manejar clic en el botón para mostrar el prompt de instalación
-                installDiv.addEventListener("click", () => {
-                    installEvent.prompt(); // Mostrar el prompt
-                    installDiv.innerHTML = ""; // Limpiar el contenido del div después de la interacción
-                });
+            // Registrar el service worker
+            navigator.serviceWorker.register("/serviceworker.js", { scope: "/" }).catch((error) => {
+                console.error("Error al registrar el service worker:", error);
             });
         }
-    }, []); // Este useEffect solo se ejecuta una vez cuando el componente se monta
 
-    return <div id="divInstallApp"></div>;
+        // Manejar el evento 'beforeinstallprompt'
+        const handleBeforeInstallPrompt = (event) => {
+            event.preventDefault();
+            setInstallEvent(event); // Guardar el evento para dispararlo después
+        };
+
+        window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+
+        return () => {
+            window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+        };
+    }, []);
+
+    const handleInstallClick = () => {
+        if (installEvent) {
+            installEvent.prompt(); // Mostrar el prompt de instalación
+            installEvent.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === "accepted") {
+                    console.log("El usuario aceptó la instalación.");
+                } else {
+                    console.log("El usuario rechazó la instalación.");
+                }
+            });
+        } else {
+            alert("La instalación no está disponible en este momento.");
+        }
+    };
+
+    return (
+        <button
+            onClick={handleInstallClick}
+            style={{
+                padding: "0.5rem 1rem",
+                fontSize: "1rem",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+            }}
+        >
+            Instalar App
+        </button>
+    );
 };
 
 export default InstallButton;
