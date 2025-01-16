@@ -5,10 +5,15 @@ const InstallButton = () => {
 
     useEffect(() => {
         if ("serviceWorker" in navigator) {
-            // Registrar el service worker
-            navigator.serviceWorker.register("/serviceworker.js", { scope: "/" }).catch((error) => {
-                console.error("Error al registrar el service worker:", error);
-            });
+            // Registra el service worker
+            navigator.serviceWorker
+                .register("/serviceworker.js", { scope: "/" })
+                .then((registration) => {
+                    registration.unregister(); // Esto normalmente no se necesita, pero lo dejaremos para pruebas
+                })
+                .catch((error) => {
+                    console.error("Error al registrar el service worker", error);
+                });
         }
 
         // Manejar el evento 'beforeinstallprompt'
