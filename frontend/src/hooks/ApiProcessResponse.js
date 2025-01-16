@@ -3,7 +3,18 @@ import { useCallback } from "react";
 const useApiResponseProcessor = (narrate) => {
     const processResponse = useCallback(
         (apiResponse) => {
-            if (!apiResponse || !apiResponse.detections) {
+            if (!apiResponse) {
+                narrate("No se pudo procesar la respuesta de la API.");
+                return;
+            }
+
+            // Manejo del caso cuando la API devuelve un mensaje indicando "No objects detected"
+            if (apiResponse.message === "No objects detected") {
+                narrate("No se ha detectado ningún billete.");
+                return;
+            }
+
+            if (!apiResponse.detections) {
                 narrate("No se pudo procesar la respuesta de la API.");
                 return;
             }
