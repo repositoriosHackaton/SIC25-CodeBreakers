@@ -59,7 +59,7 @@ def noise_group(base_path: str, input_dir: str, output_dir: str, q_percentage: i
         shutil.copy(input_img_path, new_output_img_path)
         logging.info(f"Archivo de imagen copiado a {new_output_img_path}")
         
-        # Buscar el archivo de etiquetas correspondiente
+        # Buscar el archivo de etiquetas correspondientes
         original_label_path = os.path.join(label_dir, f"{name}.txt")
         new_label_path = os.path.join(label_dir, f"{name}_{random_number}.txt")
 
@@ -80,10 +80,10 @@ def noise_group(base_path: str, input_dir: str, output_dir: str, q_percentage: i
 logging.info("Iniciando procesamiento de grupo de imágenes")
 
 noise_group(
-    base_path = r"C:\Users\jesus\Downloads\otra prueba\one",
-    input_dir = r"C:\Users\jesus\Downloads\otra prueba\one\image",
-    output_dir = r"C:\Users\jesus\Downloads\otra prueba\one\augmentation",
-    q_percentage = 35,
+    base_path = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division-copy\output",
+    input_dir = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division-copy\output\9",
+    output_dir = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division-copy\output\9",
+    q_percentage = 25,
     transformations = A.Compose([
         A.RGBShift(r_shift_limit=20, g_shift_limit=20, b_shift_limit=20, p=1),
         A.RandomBrightnessContrast(brightness_limit=0.15, contrast_limit=0.25, p=1),
