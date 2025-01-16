@@ -22,7 +22,7 @@ const useApiResponseProcessor = (narrate) => {
             for (const detection of apiResponse.detections) {
                 const { confidence, label } = detection;
 
-                if (confidence < 0.3) {
+                if (confidence < 0.45) {
                     narrate("No se ha detectado el valor del billete correctamente.");
                     return;
                 }
