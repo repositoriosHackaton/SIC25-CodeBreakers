@@ -160,7 +160,6 @@ const Camera = () => {
                 )}
             </div>
             <ActionButtons onRedClick={takePhoto} />
-            <VoiceInterface callTakePhoto={takePhoto} />
         </section>
     );
 };
