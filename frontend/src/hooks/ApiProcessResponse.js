@@ -7,14 +7,10 @@ const useApiResponseProcessor = (narrate) => {
             if (apiResponse.message === "No objects detected") {
                 narrate("No se ha detectado ningún billete.");
                 return;
-            }
-
-            if (!apiResponse) {
+            } else if (!apiResponse) {
                 narrate("No se pudo procesar la respuesta de la API.");
                 return;
-            }
-
-            if (!apiResponse.detections) {
+            } else if (!apiResponse.detections) {
                 narrate("No se pudo procesar la respuesta de la API.");
                 return;
             }
