@@ -3,15 +3,23 @@ import { useCallback } from "react";
 const useApiResponseProcessor = (narrate) => {
     const processResponse = useCallback(
         (apiResponse) => {
+            let narrationCalled = false; // Bandera para evitar múltiples narraciones
+
+            const safeNarrate = (message) => {
+                if (!narrationCalled) {
+                    narrate(message);
+                    narrationCalled = true; // Marcar que ya se narró
+                }
+            };
+
             // Manejo del caso cuando la API devuelve un mensaje indicando "No objects detected"
             if (apiResponse.message === "No objects detected") {
-                narrate("No se ha detectado ningún billete.");
+                safeNarrate("No se ha detectado ningún billete.");
                 return;
-            } else if (!apiResponse) {
-                narrate("No se pudo procesar la respuesta de la API.");
-                return;
-            } else if (!apiResponse.detections) {
-                narrate("No se pudo procesar la respuesta de la API.");
+            }
+
+            if (!apiResponse || !apiResponse.detections) {
+                safeNarrate("No se pudo procesar la respuesta de la API.");
                 return;
             }
 
@@ -19,7 +27,7 @@ const useApiResponseProcessor = (narrate) => {
                 const { confidence, label } = detection;
 
                 if (confidence < 0.45) {
-                    narrate("No se ha detectado el valor del billete correctamente.");
+                    safeNarrate("No se ha detectado el valor del billete correctamente.");
                     return;
                 }
 
@@ -40,12 +48,12 @@ const useApiResponseProcessor = (narrate) => {
 
                 const narration = labelMap[label];
                 if (narration) {
-                    narrate(narration);
+                    safeNarrate(narration);
                     return;
                 }
             }
 
-            narrate("No se encontró un billete válido en la imagen.");
+            safeNarrate("No se encontró un billete válido en la imagen.");
         },
         [narrate]
     );
