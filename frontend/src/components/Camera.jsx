@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import ActionButtons from "./ActionButtons";
 import VoiceInterface from "./VoiceInterface";
-import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
+import useApiResponseProcessor from "../hooks/ApiProcessResponse";
 import Narrator from "./Narrator";
 import "./Camera.css";
 
