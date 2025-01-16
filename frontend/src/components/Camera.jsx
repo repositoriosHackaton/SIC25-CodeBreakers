@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import ActionButtons from "./ActionButtons";
+import VoiceInterface from "./VoiceInterface";
 import "./Camera.css";
 
 const Camera = () => {
@@ -159,6 +160,7 @@ const Camera = () => {
                 )}
             </div>
             <ActionButtons onRedClick={takePhoto} />
+            <VoiceInterface callTakePhoto={takePhoto} />
         </section>
     );
 };

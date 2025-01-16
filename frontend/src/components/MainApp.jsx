@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Header";
 import Camera from "./Camera";
-import VoiceInterface from "./VoiceInterface";
 import "./MainApp.css";
 
 const App = () => {
@@ -11,7 +10,6 @@ const App = () => {
                 <Header />
             </header>
             <Camera />
-            <VoiceInterface />
         </div>
     );
 };
