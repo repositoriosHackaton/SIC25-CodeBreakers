@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSpeechSynthesis } from "../hooks/useSpeechSynthesis";
 
 const Narrator = ({ text }) => {
     const { speak } = useSpeechSynthesis();
+    const lastTextRef = useRef(""); // Almacena el último texto narrado
 
     useEffect(() => {
-        if (text) {
-            speak(text); // Narra el texto recibido como prop
-            console.log(text);
+        if (text && text !== lastTextRef.current) {
+            speak(text);
+            lastTextRef.current = text; // Actualiza el texto narrado
+            console.log("Narración:", text);
         }
-    }, [text, speak]); // Solo se ejecuta cuando cambia el texto
+    }, [text, speak]);
 
     return null; // Este componente no tiene UI
 };

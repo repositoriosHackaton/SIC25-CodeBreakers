@@ -13,7 +13,11 @@ const Camera = () => {
     const autoCaptureRef = useRef(null); // Referencia para manejar el intervalo automático
     const videoTrackRef = useRef(null); // Referencia para el track de video
     const [narration, setNarration] = useState("");
-    const { processResponse } = useApiResponseProcessor(setNarration);
+    const { processResponse } = useApiResponseProcessor((message) => {
+        if (message !== narration) {
+            setNarration(message); // Actualizar solo si el mensaje cambia
+        }
+    });
 
     const activateFlash = async () => {
         if (videoTrackRef.current) {
@@ -149,6 +153,7 @@ const Camera = () => {
             processResponse(response.data);
         } catch (error) {
             console.error("Error al enviar la imagen a la API:", error);
+            setNarration("Error al procesar la imagen.");
         }
     };
 
