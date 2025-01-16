@@ -7,7 +7,7 @@ const VoiceInterface = ({ callTakePhoto, additionalCommands = [] }) => {
         {
             keyword: "tomar foto", // Palabra clave para el comando
             callback: () => {
-                callTakePhoto;
+                callTakePhoto();
             },
         },
     ];
