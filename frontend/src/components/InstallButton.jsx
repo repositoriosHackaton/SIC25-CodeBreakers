@@ -1,25 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const InstallButton = () => {
     const [installEvent, setInstallEvent] = useState(null);
 
     useEffect(() => {
-        if ("serviceWorker" in navigator) {
-            // Registra el service worker
-            navigator.serviceWorker
-                .register("/serviceworker.js", { scope: "/" })
-                .then((registration) => {
-                    registration.unregister(); // Esto normalmente no se necesita, pero lo dejaremos para pruebas
-                })
-                .catch((error) => {
-                    console.error("Error al registrar el service worker", error);
-                });
-        }
-
-        // Manejar el evento 'beforeinstallprompt'
         const handleBeforeInstallPrompt = (event) => {
             event.preventDefault();
-            setInstallEvent(event); // Guardar el evento para dispararlo después
+            setInstallEvent(event);
         };
 
         window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
@@ -31,7 +18,7 @@ const InstallButton = () => {
 
     const handleInstallClick = () => {
         if (installEvent) {
-            installEvent.prompt(); // Mostrar el prompt de instalación
+            installEvent.prompt();
             installEvent.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === "accepted") {
                     console.log("El usuario aceptó la instalación.");
@@ -63,3 +50,15 @@ const InstallButton = () => {
 };
 
 export default InstallButton;
+
+{
+    /*style={{
+    padding: "0.5rem 1rem",
+    fontSize: "1rem",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+}}*/
+}
