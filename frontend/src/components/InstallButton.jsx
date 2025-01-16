@@ -36,12 +36,13 @@ const InstallButton = () => {
             onClick={handleInstallClick}
             style={{
                 padding: "0.5rem 1rem",
-                fontSize: "1rem",
-                backgroundColor: "#007bff",
-                color: "#fff",
+                fontSize: "1.5rem",
+                backgroundColor: "#28a745",
+                color: "#f8f9fa",
                 border: "none",
-                borderRadius: "5px",
+                borderRadius: ".5rem",
                 cursor: "pointer",
+                boxShadow: "0 6px 8px var(--color-base-dark-shadow)",
             }}
         >
             Instalar App
@@ -50,15 +51,3 @@ const InstallButton = () => {
 };
 
 export default InstallButton;
-
-{
-    /*style={{
-    padding: "0.5rem 1rem",
-    fontSize: "1rem",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-}}*/
-}
