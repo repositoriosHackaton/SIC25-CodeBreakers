@@ -3,13 +3,21 @@ import Narrator from "./Narrator"; // Importa tu componente Narrador
 
 const TextProcessor = ({ apiResponse }) => {
     // Función para procesar la respuesta y obtener el texto
+    console.log(apiResponse);
+    try {
+        console.log(apiResponse.detections);
+    } catch (error) {
+        console.log(apiResponse.message);
+        console.error("no leyo el detections", error);
+    }
+
     const getNarrationText = () => {
-        if (!apiResponse || !apiResponse.detencions || apiResponse.detencions.length === 0) {
+        if (!apiResponse || !apiResponse.detections || apiResponse.detections.length === 0) {
             return "No se ha detectado el valor del billete correctamente";
         }
 
         // Procesamos el primer objeto de detección
-        const { confidence, label } = apiResponse.detencions[0];
+        const { confidence, label } = apiResponse.detections[0];
 
         if (confidence < 0.3) {
             return "No se ha detectado el valor del billete correctamente";
