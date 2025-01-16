@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import ActionButtons from "./ActionButtons";
 import VoiceInterface from "./VoiceInterface";
+import ApiProcessResponse from "./APIProcessResponse";
 import "./Camera.css";
 
 const Camera = () => {
@@ -142,6 +143,7 @@ const Camera = () => {
             });
 
             console.log("Respuesta de la API:", response.data);
+            <ApiProcessResponse apiResponse={response.data} />;
         } catch (error) {
             console.error("Error al enviar la imagen a la API:", error);
         }
