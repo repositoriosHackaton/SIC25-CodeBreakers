@@ -27,8 +27,8 @@ def check_labels_for_boxes(label_dir, output_file):
         print(f"Lista de archivos de etiquetas incorrectos guardada en {output_file}")
 
 # Ruta a la carpeta que contiene los archivos de etiquetas
-label_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection\valid\labels'
+label_dir = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection\datasets\labels'
 # Ruta al archivo de salida para los nombres de los archivos incorrectos
-output_file = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection\valid\incorrect_labels.txt'
+output_file = r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection\datasets\incorrect_labels.txt'
 
 check_labels_for_boxes(label_dir, output_file)
