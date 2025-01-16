@@ -7,6 +7,7 @@ const Narrator = ({ text }) => {
     useEffect(() => {
         if (text) {
             speak(text); // Narra el texto recibido como prop
+            console.log(text);
         }
     }, [text, speak]); // Solo se ejecuta cuando cambia el texto
 

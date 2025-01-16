@@ -11,7 +11,6 @@ export const useSpeechSynthesis = () => {
         utterance.pitch = 1; // Tono normal
 
         window.speechSynthesis.speak(utterance);
-        console.log(text);
     };
 
     return { speak };
