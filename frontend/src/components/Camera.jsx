@@ -8,6 +8,7 @@ const Camera = () => {
     const [photo, setPhoto] = useState(null);
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0); // Intervalo en segundos por defecto
     const autoCaptureRef = useRef(null); // Referencia para manejar el intervalo automático
+    const videoTrackRef = useRef(null); // Referencia para el track de video
 
     useEffect(() => {
         // Obtener acceso a la cámara
@@ -20,8 +21,23 @@ const Camera = () => {
                         height: { exact: 416 },
                     },
                 });
+
                 if (videoRef.current) {
                     videoRef.current.srcObject = stream;
+
+                    // Guardar el primer track de video
+                    const [videoTrack] = stream.getVideoTracks();
+                    videoTrackRef.current = videoTrack;
+
+                    // Intentar activar el flash si está soportado
+                    const capabilities = videoTrack.getCapabilities();
+                    if (capabilities.torch) {
+                        await videoTrack.applyConstraints({
+                            advanced: [{ torch: true }],
+                        });
+                    } else {
+                        console.warn("El dispositivo no soporta el control del flash.");
+                    }
                 }
             } catch (error) {
                 console.error("Error al acceder a la cámara:", error);
@@ -37,6 +53,17 @@ const Camera = () => {
                 const tracks = stream.getTracks();
                 tracks.forEach((track) => track.stop());
             }
+
+            // Apagar el flash antes de detener el track
+            if (videoTrackRef.current) {
+                videoTrackRef.current
+                    .applyConstraints({
+                        advanced: [{ torch: false }],
+                    })
+                    .catch(() => {});
+                videoTrackRef.current.stop();
+            }
+
             clearInterval(autoCaptureRef.current); // Limpiar el intervalo automático
         };
     }, []);
