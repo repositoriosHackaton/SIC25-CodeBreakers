@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const InstallButton2 = () => {
+const InstallButton = () => {
     useEffect(() => {
         // Asegurarnos de que el navegador soporte service worker
         if ("serviceWorker" in navigator) {
@@ -25,7 +25,7 @@ const InstallButton2 = () => {
                 // Crear y agregar el botón de instalación al DOM
                 const installDiv = document.getElementById("divInstallApp");
                 installDiv.innerHTML = `
-          <button id="installApp" class="btn btn-outline-secondary ms-1">
+          <button id="installApp" ">
             Instalar App
           </button>
         `;
@@ -42,4 +42,4 @@ const InstallButton2 = () => {
     return <div id="divInstallApp"></div>;
 };
 
-export default InstallButton2;
+export default InstallButton;
