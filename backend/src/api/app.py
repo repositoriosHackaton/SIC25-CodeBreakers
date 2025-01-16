@@ -67,8 +67,8 @@ def bill_detection():
                         'confidence': box.conf.item(),   # Confianza
                         'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
                     })
-                app.logger.info(boxes)
                 app.logger.info("\n")
+                app.logger.info(boxes)
                 # Retornar todos los boxes como un array
                 return jsonify({'detections': boxes}), 200
             else:
