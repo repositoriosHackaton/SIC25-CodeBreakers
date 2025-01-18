@@ -4,6 +4,7 @@ from PIL import Image
 from ultralytics import YOLO
 from flask_cors import CORS
 
+from log import log
 from logging.config import dictConfig
 dictConfig({
     'version': 1,
@@ -53,10 +54,11 @@ def bill_detection():
         try:
             # Leer la imagen directamente desde la memoria
             img = Image.open(file.stream).convert("RGB")
-            img = np.array(img)
+            img = img.resize((416, 416), Image.LANCZOS)
+            img_array = np.array(img)
 
             # Realizar predicción con el modelo YOLO
-            results = model.predict(img, verbose=False)
+            results = model.predict(img_array, verbose=False)
 
             # Procesar resultados del modelo
             if len(results[0].boxes) > 0:
@@ -69,6 +71,7 @@ def bill_detection():
                     })
                 app.logger.info("\n")
                 app.logger.info(boxes)
+                log('backend/src/api/logs/', boxes, img)
                 # Retornar todos los boxes como un array
                 return jsonify({'detections': boxes}), 200
             else:
