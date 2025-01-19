@@ -25,7 +25,7 @@ dictConfig({
 app = Flask(__name__)
 CORS(app)
 
-DEBUG = True
+DEBUG = False
 HOST = '127.0.0.1'
 PORT = 5000
 
@@ -81,4 +81,4 @@ def bill_detection():
             return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host=HOST, port=PORT)
+    app.run(debug=DEBUG, host=HOST, port=PORT)
