@@ -1,3 +1,5 @@
 venv
 unprocessed
 temp
+*.key
+logs
