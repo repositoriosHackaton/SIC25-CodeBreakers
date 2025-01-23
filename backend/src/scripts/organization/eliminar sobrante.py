@@ -17,8 +17,8 @@ def recorrer_por_denominacion(base_path: str):
 
 def recorrer_por_caso(bill_path: str):
     for route, dirs, files in os.walk(bill_path):
-        for direc in casos.keys():
-            recorrer_por_cara(f'{route}{direc}/')
+        for direc in casos.keys(): #TODO Cambiar por for direc in dirs, y luego un if
+            recorrer_por_cara(f'{route}{direc}/') 
 
 def recorrer_por_cara(case_path: str):
     for route, dirs, files in os.walk(case_path):
