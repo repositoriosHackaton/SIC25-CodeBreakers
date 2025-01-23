@@ -1,3 +1,4 @@
+#organizar las carpteas del dataset de dollar
 import os
 import shutil
 import random

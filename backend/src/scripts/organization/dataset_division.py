@@ -1,3 +1,5 @@
+#Creado para dividir el dataset de dollar para entrenarlo mejor
+
 import os
 import shutil
 import re
