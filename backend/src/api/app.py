@@ -30,7 +30,7 @@ HOST = '127.0.0.1'
 PORT = 5000
 
 # Carga del modelo YOLO
-model = YOLO('backend/src/models/Dollar_Model_3.pt')
+model = YOLO('backend/src/models/VEF_Model.pt')
 classes = [
     'fifty-back',  'fifty-front', 
     'five-back',   'five-front', 
@@ -71,7 +71,7 @@ def bill_detection():
                     })
                 app.logger.info("\n")
                 app.logger.info(boxes)
-                log('backend/src/api/logs/', boxes, img)
+                log('backend/src/api/logs/VEF/', boxes, img)
                 # Retornar todos los boxes como un array
                 return jsonify({'detections': boxes}), 200
             else:

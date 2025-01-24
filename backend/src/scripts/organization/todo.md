@@ -14,3 +14,7 @@ Billete 100%
 Caso 1 30%
 Caso 2 55%
 Caso 3 15%
+
+
+
+Sesgo de distancia con los billetes en el VEF
