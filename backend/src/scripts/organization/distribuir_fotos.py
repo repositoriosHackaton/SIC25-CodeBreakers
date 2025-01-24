@@ -1,6 +1,7 @@
 import os
 import random
 import json
+import shutil
 
 def cargar_json_desde_archivo(ruta_json: str) -> dict:
     """
@@ -8,6 +9,7 @@ def cargar_json_desde_archivo(ruta_json: str) -> dict:
     """
     with open(ruta_json, 'r', encoding='utf-8') as archivo:
         return json.load(archivo)
+
 
 def listar_archivos_en_carpeta(ruta: str) -> list:
     """
@@ -52,21 +54,43 @@ def generar_selecciones_por_denominacion(ruta_base: str, datos_json: dict()) -> 
     return selecciones
 
 
-# Ruta base donde están las carpetas con las imágenes
-ruta_base = "backend/src/data/img-data-vef/processed/"
+def mover_archivos(selecciones: dict(), ruta_origen_base: str, ruta_destino_base: str):
+    """
+    Simula el movimiento de archivos a las carpetas correspondientes.
+    """
+    for denominacion, casos in selecciones.items():
+        for caso, caras in casos.items():
+            for cara, grupos in caras.items():
+                for grupo, fotos_seleccionadas in grupos.items():
+                    # Construir la ruta de destino (sin estructura de carpetas adicional)
+                    ruta_destino = os.path.join(ruta_destino_base, grupo, "images")
+                    # Crear la carpeta de destino si no existe
+                    os.makedirs(ruta_destino, exist_ok=True)
 
-# JSON con las cantidades de fotos a seleccionar
-datos_json = cargar_json_desde_archivo("backend/src/scripts/organization/resultados.json")
+                    for foto in fotos_seleccionadas:
+                        # Construir la ruta de origen y destino de la foto
+                        ruta_origen = os.path.join(ruta_origen_base, denominacion, caso, cara, foto)
+                        ruta_destino_foto = os.path.join(ruta_destino, foto)
+
+                        # Simular el movimiento de la foto
+                        print(f"Moviendo {ruta_origen} a {ruta_destino_foto}")
+                        # shutil.move(ruta_origen, ruta_destino_foto)  # Comentado para simular
+
+
+# Ruta base donde están las carpetas con las imágenes
+ruta_origen_base = "backend/src/data/img-data-vef/processed/"
+
+# Ruta base donde se moverán las imágenes (datasets, valid, test)
+ruta_destino_base = "backend/Dollar_Bill_Detection_VEF/"
+
+# Ruta del archivo JSON
+ruta_json = "backend/src/scripts/organization/resultados.json"
+
+# Cargar el JSON desde el archivo
+datos_json = cargar_json_desde_archivo(ruta_json)
 
 # Generar las selecciones de fotos
-selecciones = generar_selecciones_por_denominacion(ruta_base, datos_json)
+selecciones = generar_selecciones_por_denominacion(ruta_origen_base, datos_json)
 
-# Mostrar las selecciones
-for denominacion, casos in selecciones.items():
-    print(f"\nSelecciones para {denominacion}:")
-    for caso, caras in casos.items():
-        print(f"\nCaso {caso}:")
-        for cara, grupos in caras.items():
-            print(f"\n{cara.capitalize()}:")
-            for grupo, fotos_seleccionadas in grupos.items():
-                print(f"{grupo.capitalize()}: {fotos_seleccionadas}")
+# Mover (simular) los archivos a las carpetas correspondientes
+mover_archivos(selecciones, ruta_origen_base, ruta_destino_base)
