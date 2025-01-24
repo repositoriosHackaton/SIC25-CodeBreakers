@@ -85,13 +85,34 @@ porcentajes = {
     'test': 10,  # 10%
 }
 
+### Nueva etapa ###
+
+import json
+
+# Función para reorganizar la estructura del diccionario
+def reorganizar_estructura(resultados: dict) -> dict:
+    nueva_estructura = dict()
+    for denominacion, caras in resultados.items():
+        nueva_estructura[denominacion] = dict()
+        for cara, grupos in caras.items():
+            for grupo, fotos_por_caso in grupos.items():
+                for caso, cantidad in fotos_por_caso.items():
+                    if caso not in nueva_estructura[denominacion]:
+                        nueva_estructura[denominacion][caso] = {"front": {}, "back": {}}
+                    nueva_estructura[denominacion][caso][cara][grupo] = cantidad
+    return nueva_estructura # Simplemente funciona
+
 # Procesar todas las denominaciones
-resultados = procesar_denominaciones(denominaciones, casos, porcentajes)
+resultados = reorganizar_estructura(procesar_denominaciones(denominaciones, casos, porcentajes))
+
+# Guardar el resultado en un archivo JSON
+with open('backend/src/scripts/organization/resultados.json', 'w') as archivo_json:
+    json.dump(resultados, archivo_json, indent=4)
 
 # Mostrar resultados
-for denominacion, caras in resultados.items():
+for denominacion, casos in resultados.items():
     print(f"\nResultados para {denominacion}:")
-    for cara, grupos in caras.items():
-        print(f"\n{cara.capitalize()}:")
-        for grupo, fotos_por_caso in grupos.items():
-            print(f"{grupo}: {fotos_por_caso}")
+    for caso, caras in casos.items():
+        print(f"\nCaso {caso}:")
+        for cara, grupos in caras.items():
+            print(f"{cara.capitalize()}: {grupos}")
