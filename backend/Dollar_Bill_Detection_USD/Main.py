@@ -17,7 +17,7 @@ def train_model():
         epochs = 100,
         batch = 8,
         imgsz = 640,
-        cls=0.8, 
+        cls=0.7, 
     )
     print(results)
 
