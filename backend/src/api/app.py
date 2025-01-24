@@ -30,7 +30,7 @@ HOST = '127.0.0.1'
 PORT = 5000
 
 # Carga del modelo YOLO
-model = YOLO('backend/src/models/Dollar_Model_2.pt')
+model = YOLO('backend/src/models/Dollar_Model_3.pt')
 classes = [
     'fifty-back',  'fifty-front', 
     'five-back',   'five-front', 
