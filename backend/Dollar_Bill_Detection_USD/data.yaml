@@ -7,9 +7,9 @@ names: ['fifty-back', 'fifty-front', 'five-back', 'five-front', 'one-back', 'one
 
 
 # Hyperparameters for Adam Optimizer
-lr0: 0.001  # Initial learning rate (Adam typically uses a lower lr than SGD)
+lr0: 0.0001 # Initial learning rate (Adam typically uses a lower lr than SGD)
 momentum: 0.9  # Momentum for Adam (beta1)
-weight_decay: 0.0005  # Optimizer weight decay
+weight_decay: 0.001  # Optimizer weight decay
 warmup_epochs: 3.0  # Warmup epochs
 warmup_momentum: 0.8  # Warmup initial momentum
 warmup_bias_lr: 0.1  # Warmup initial bias lr
@@ -17,8 +17,8 @@ box: 0.05  # Box loss gain
 cls: 0.5  # Class loss gain
 cls_pw: 1.0  # Class positive weight
 obj: 1.0  # Object loss gain
-obj_pw: 1.0  # Object positive weight
-iou_t: 0.20  # IoU training threshold
+obj_pw: 1.0  # Object positive weight x
+iou_t: 0.20  # IoU training threshold subir
 anchor_t: 4.0  # Anchor-multiple threshold
 fl_gamma: 0.0  # Focal loss gamma
 hsv_h: 0.015  # Image HSV-Hue augmentation
@@ -26,7 +26,7 @@ hsv_s: 0.7  # Image HSV-Saturation augmentation
 hsv_v: 0.4  # Image HSV-Value augmentation
 degrees: 0.0  # Image rotation (+/- deg)
 translate: 0.1  # Image translation (+/- fraction)
-scale: 0.0  # Image scale (+/- gain)
+scale: 0.0  # Image scale (+/- gain) subir
 shear: 0.0  # Image shear (+/- deg)
 perspective: 0.0  # Image perspective (+/- fraction)
 flipud: 0.0  # Image flip up-down (probability)
