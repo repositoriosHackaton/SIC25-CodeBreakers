@@ -1,11 +1,3 @@
-import React, { useRef, useEffect, useState } from "react";
-import axios from "axios";
-import ActionButtons from "./ActionButtons";
-import VoiceInterface from "./VoiceInterface";
-import useApiResponseProcessor from "../hooks/ApiProcessResponse";
-import Narrator from "./Narrator";
-import "./Camera.css";
-
 const Camera = () => {
     const videoRef = useRef(null);
     const [photo, setPhoto] = useState(null);
@@ -57,8 +49,6 @@ const Camera = () => {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: {
                         facingMode: "environment", // Para usar la cámara trasera
-                        width: { exact: 416 },
-                        height: { exact: 416 },
                     },
                 });
 
@@ -123,17 +113,33 @@ const Camera = () => {
     }, [autoCaptureInterval]);
 
     const takePhoto = () => {
-        const canvas = document.createElement("canvas");
         const video = videoRef.current;
+
+        if (!video) {
+            console.error("Video no disponible.");
+            return;
+        }
+
+        const nativeWidth = video.videoWidth;
+        const nativeHeight = video.videoHeight;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = nativeWidth;
+        canvas.height = nativeHeight;
+
         const context = canvas.getContext("2d");
+        context.drawImage(video, 0, 0, nativeWidth, nativeHeight);
 
+        // Crear un segundo canvas para reescalar la imagen
+        const resizedCanvas = document.createElement("canvas");
         const size = 416;
-        canvas.width = size;
-        canvas.height = size;
+        resizedCanvas.width = size;
+        resizedCanvas.height = size;
 
-        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, size, size);
+        const resizedContext = resizedCanvas.getContext("2d");
+        resizedContext.drawImage(canvas, 0, 0, nativeWidth, nativeHeight, 0, 0, size, size);
 
-        const imageUrl = canvas.toDataURL("image/jpeg");
+        const imageUrl = resizedCanvas.toDataURL("image/jpeg");
         setPhoto(imageUrl);
         console.log("Captura tomada");
         sendPhotoToAPI(imageUrl);
