@@ -3,11 +3,15 @@ val: ../valid/images
 test: ../test/images
 
 nc: 12
-names: ['fifty-back', 'fifty-front', 'five-back', 'five-front', 'one-back', 'one-front', 'ten-back', 'ten-front', 'twenty-back', 'twenty-front','one_hundred-back','one_hundred-front']
-
-roboflow:
-  workspace: alex-hyams-cosqx
-  project: dollar-bill-detection
-  version: 20
-  license: CC BY 4.0
-  url: https://universe.roboflow.com/alex-hyams-cosqx/dollar-bill-detection/dataset/20
+names: ['fifty-back-vef',
+'fifty-front-vef',
+'five-back-vef',
+'five-front-vef',
+'ten-back-vef',
+'ten-front-vef',
+'twenty-back-vef',
+'twenty-front-vef',
+'one_hundred-back-vef',
+'one_hundred-front-vef',
+'two_hundred-back-vef',
+'two_hundred-front-vef']
