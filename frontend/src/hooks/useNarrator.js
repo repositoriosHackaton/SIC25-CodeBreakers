@@ -1,4 +1,3 @@
-// useNarrator.js
 import { useEffect, useRef } from "react";
 import { useSpeechSynthesis } from "./useSpeechSynthesis";
 
@@ -8,21 +7,16 @@ const useNarrator = (text, onNarrationComplete) => {
 
     useEffect(() => {
         if (text) {
-            speak(text);
-            lastTextRef.current = text; // Actualiza el texto narrado
+            lastTextRef.current = text;
             console.log("Narración:", text);
 
-            // Limpiar el valor de `narration` después de la narración
-            const handleNarrationEnd = () => {
-                if (onNarrationComplete) {
-                    onNarrationComplete(); // Llama a la función para limpiar `narration`
-                }
-            };
-
-            // Escuchar el evento de finalización de la narración
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.onend = handleNarrationEnd;
-            window.speechSynthesis.speak(utterance);
+            speak(text, {
+                onend: () => {
+                    if (onNarrationComplete) {
+                        onNarrationComplete();
+                    }
+                },
+            });
         }
     }, [text, speak, onNarrationComplete]);
 };
