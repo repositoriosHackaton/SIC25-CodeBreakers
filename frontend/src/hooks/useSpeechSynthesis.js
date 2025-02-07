@@ -10,7 +10,7 @@ export const useSpeechSynthesis = () => {
         utterance.rate = 1; // Velocidad normal
         utterance.pitch = 1; // Tono normal
 
-        window.speechSynthesis.speak(utterance);
+        //window.speechSynthesis.speak(utterance);
     };
 
     return { speak };

@@ -22,7 +22,7 @@ const useNarrator = (text, onNarrationComplete) => {
             // Escuchar el evento de finalización de la narración
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.onend = handleNarrationEnd;
-            //window.speechSynthesis.speak(utterance);
+            window.speechSynthesis.speak(utterance);
         }
     }, [text, speak, onNarrationComplete]);
 };
