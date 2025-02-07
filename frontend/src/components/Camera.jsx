@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import ActionButtons from "./ActionButtons";
 import VoiceInterface from "./VoiceInterface";
-import useApiResponseProcessor from "../hooks/useApiProcessResponse";
-import useNarrator from "../hooks/useNarrator";
+import useApiResponseProcessor from "../hooks/ApiProcessResponse";
+import useNarrator from "../hooks/useNarrator"; // Importar el hook useNarrator
 import "./Camera.css";
 
 const Camera = () => {
@@ -14,12 +14,15 @@ const Camera = () => {
     const videoTrackRef = useRef(null);
     const [narration, setNarration] = useState("");
 
-    useNarrator(narration);
+    // Función para limpiar el valor de `narration` después de la narración
+    const handleNarrationComplete = () => {
+        setNarration(""); // Limpiar el valor de `narration`
+    };
+
+    useNarrator(narration, handleNarrationComplete);
 
     const { processResponse } = useApiResponseProcessor((message) => {
-        if (message !== narration) {
-            setNarration(message); // Actualizar solo si el mensaje cambia
-        }
+        setNarration(message); // Actualizar `narration` con el nuevo mensaje
     });
 
     const activateFlash = async () => {
