@@ -1,7 +1,8 @@
+// useApiResponseProcessor.js
 import { useCallback, useRef } from "react";
 
 const useApiResponseProcessor = (narrate) => {
-    const isNarratingRef = useRef(false); // Estado para bloquear múltiples llamadas
+    const isNarratingRef = useRef(false);
 
     const processResponse = useCallback(
         (apiResponse) => {
@@ -45,8 +46,8 @@ const useApiResponseProcessor = (narrate) => {
             );
 
             if (validDetections.length > 0) {
-                const narration = labelMap[validDetections[0].label]; // Narrar el primer billete válido
-                narrateWithUnlock(narration);
+                const narration = labelMap[validDetections[0].label];
+                narrateWithUnlock(narration); // Forzar la narración
             } else {
                 narrateWithUnlock("No se ha detectado el valor del billete correctamente.");
             }

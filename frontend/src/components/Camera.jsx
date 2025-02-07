@@ -2,17 +2,20 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import ActionButtons from "./ActionButtons";
 import VoiceInterface from "./VoiceInterface";
-import useApiResponseProcessor from "../hooks/ApiProcessResponse";
-import Narrator from "./Narrator";
+import useApiResponseProcessor from "../hooks/useApiProcessResponse";
+import useNarrator from "../hooks/useNarrator";
 import "./Camera.css";
 
 const Camera = () => {
     const videoRef = useRef(null);
     const [photo, setPhoto] = useState(null);
-    const [autoCaptureInterval, setAutoCaptureInterval] = useState(0); // Intervalo en segundos por defecto
-    const autoCaptureRef = useRef(null); // Referencia para manejar el intervalo automático
-    const videoTrackRef = useRef(null); // Referencia para el track de video
+    const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
+    const autoCaptureRef = useRef(null);
+    const videoTrackRef = useRef(null);
     const [narration, setNarration] = useState("");
+
+    useNarrator(narration);
+
     const { processResponse } = useApiResponseProcessor((message) => {
         if (message !== narration) {
             setNarration(message); // Actualizar solo si el mensaje cambia
@@ -184,7 +187,6 @@ const Camera = () => {
                 )}
             </div>
             <ActionButtons onRedClick={takePhoto} />
-            <Narrator text={narration} />
         </section>
     );
 };
