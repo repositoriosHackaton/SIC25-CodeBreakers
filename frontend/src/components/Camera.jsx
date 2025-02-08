@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import ActionButtons from "./ActionButtons";
-import VoiceInterface from "./VoiceInterface";
 import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
 import useNarrator from "../hooks/useNarrator"; // Importar el hook useNarrator
 import "./Camera.css";
