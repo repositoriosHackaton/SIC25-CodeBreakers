@@ -26,7 +26,16 @@ const VoiceInterface = ({ callTakePhoto, additionalCommands = [] }) => {
         }
     });
 
+    useEffect(() => {
+        console.log('🎤 VoiceInterface activo: escuchando comandos de voz...');
+      }, []);
+    
+    
+    
+
     return null; // Este componente no tiene UI visible
 };
+
+
 
 export default VoiceInterface;
