@@ -22,4 +22,4 @@ const MainApp = () => {
     );
 };
 
-export default App;
+export default MainApp;
