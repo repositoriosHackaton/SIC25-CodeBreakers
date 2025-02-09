@@ -2,6 +2,16 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
+const version = (() => {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    return `${day}.${month}.${year}.${hours}.${minutes}`;
+})();
+
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
@@ -12,9 +22,10 @@ export default defineConfig({
                 display: "standalone",
                 display_override: ["window-controls-overlay"],
                 lang: "es-ES",
-                name: "Cash reader",
+                name: `Cash reader v${version}`,
                 short_name: "CashReader",
                 description: "PWA Cash Reader para la identificacion de billetes",
+                version: version,
                 theme_color: "#28a745",
                 background_color: "#343a40",
                 icons: [
