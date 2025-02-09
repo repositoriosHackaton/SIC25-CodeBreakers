@@ -3,6 +3,7 @@ import axios from "axios";
 import ActionButtons from "./ActionButtons";
 import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
 import useNarrator from "../hooks/useNarrator";
+import { useVoiceInterface } from "../hooks/useVoiceInterface";
 import "./Camera.css";
 
 const Camera = () => {
@@ -167,6 +168,12 @@ const Camera = () => {
         }
         return () => clearInterval(autoCaptureRef.current);
     }, [autoCaptureInterval, takePhoto]);
+
+    // Configurar el hook useVoiceInterface
+    const { error, isListening } = useVoiceInterface({
+        callTakePhoto: takePhoto,
+        debug: true, // Puedes desactivar el modo debug si no lo necesitas
+    });
 
     return (
         <section className="camera-section">
