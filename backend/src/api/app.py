@@ -30,7 +30,18 @@ HOST = '127.0.0.1'
 PORT = 5000
 
 # Carga del modelo YOLO
-model = YOLO('backend/src/models/Dollar_Model_7.pt')
+model = YOLO('backend/src/models/VEF_Model_03.pt')
+
+classes = [
+    'fifty-back-vef',       'fifty-front-vef',
+    'five-back-vef',        'five-front-vef',
+    'ten-back-vef',         'ten-front-vef',
+    'twenty-back-vef',      'twenty-front-vef',
+    'one_hundred-back-vef', 'one_hundred-front-vef',
+    'two_hundred-back-vef', 'two_hundred-front-vef'
+]
+
+''' Dolares
 classes = [
     'fifty-back',  'fifty-front', 
     'five-back',   'five-front', 
@@ -39,7 +50,7 @@ classes = [
     'twenty-back', 'twenty-front',
     'one_hundred-back', 'one_hundred-front',
 ]
-
+'''
 @app.route('/detection', methods=['POST'])
 def bill_detection():
     # Verificar si la solicitud incluye un archivo de imagen
@@ -71,7 +82,7 @@ def bill_detection():
                     })
                 app.logger.info("\n")
                 app.logger.info(boxes)
-                log('backend/src/api/logs/USD7/', boxes, img)
+                log('backend/src/api/logs/VEF3/', boxes, img)
                 # Retornar todos los boxes como un array
                 return jsonify({'detections': boxes}), 200
             else:
