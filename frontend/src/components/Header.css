@@ -7,13 +7,14 @@
     border: none;
     border-radius: 0.5rem;
     box-shadow: 0 8px 8px var(--color-base-dark-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
     width: calc(85% + 0.5rem);
 }
 
-.header-button.active {
+.header-button:active {
     transform: scale(1.025); /* Escala el botón ligeramente */
     box-shadow: 0 10px 10px var(--color-base-dark-shadow);
+    filter: brightness(50%);
 }
 
 .logo-container {
