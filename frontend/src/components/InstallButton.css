@@ -1,0 +1,10 @@
+.install-button {
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    background-color: #28a745;
+    color: #f8f9fa;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 6px 8px var(--color-base-dark-shadow);
+}
