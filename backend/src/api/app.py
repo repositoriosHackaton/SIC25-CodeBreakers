@@ -4,6 +4,10 @@ from PIL import Image
 from ultralytics import YOLO
 from flask_cors import CORS
 
+from werkzeug.utils import secure_filename
+import cv2
+import os
+
 from log import log
 from logging.config import dictConfig
 dictConfig({
@@ -30,7 +34,7 @@ HOST = '127.0.0.1'
 PORT = 5000
 
 # Carga del modelo YOLO
-model = YOLO('backend/src/models/VEF_Model_03.pt')
+model = YOLO('backend/src/models/VEF_Model_06.pt')
 
 classes = [
     'fifty-back-vef',       'fifty-front-vef',
@@ -63,13 +67,23 @@ def bill_detection():
 
     if file:
         try:
-            # Leer la imagen directamente desde la memoria
-            img = Image.open(file.stream).convert("RGB")
-            img = img.resize((416, 416), Image.LANCZOS)
-            img_array = np.array(img)
+            filename = secure_filename(file.filename)
+            file_path = os.path.join('backend/src/api/uploads/', filename)
+            file.save(file_path)
+
+            # Preprocesar la imagen
+            img = Image.open(file_path).convert("RGB")
+            #img = np.array(img)
+
+            app.logger.info("\n")
+            app.logger.info(img.size)
+            app.logger.info(f'{len(img.tobytes()) / (1024 * 1024)} MB')
 
             # Realizar predicción con el modelo YOLO
-            results = model.predict(img_array, verbose=False)
+            results = model.predict(img)
+
+            # Eliminar el archivo temporal
+            os.remove(file_path)
 
             # Procesar resultados del modelo
             if len(results[0].boxes) > 0:
@@ -80,9 +94,8 @@ def bill_detection():
                         'confidence': box.conf.item(),   # Confianza
                         'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
                     })
-                app.logger.info("\n")
                 app.logger.info(boxes)
-                log('backend/src/api/logs/VEF3/', boxes, img)
+                log('backend/src/api/logs/VEF6/', boxes, img)
                 # Retornar todos los boxes como un array
                 return jsonify({'detections': boxes}), 200
             else:
