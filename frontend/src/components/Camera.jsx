@@ -30,7 +30,7 @@ const Camera = () => {
 
     /**
      * Función unificada para controlar el flash.
-     * Recibe un booleano `enabled` para activar (true) o desactivar (false) el flash.
+     * Recibe un booleano enabled para activar (true) o desactivar (false) el flash.
      */
     const setFlash = async (enabled) => {
         if (videoTrackRef.current) {
@@ -50,7 +50,7 @@ const Camera = () => {
         }
     };
 
-    // Estado para obtener el stream de la cámara y gestionar el flash según la visibilidad
+    // Obtener el stream de la cámara y gestionar el flash según la visibilidad
     useEffect(() => {
         const getCameraStream = async () => {
             try {
@@ -71,13 +71,10 @@ const Camera = () => {
 
         getCameraStream();
 
-        // Función para reactivar o desactivar el flash según la visibilidad de la página
         const handleVisibilityChange = () => {
             if (document.visibilityState === "visible") {
-                //console.log("La app volvió al primer plano.");
                 setFlash(true);
             } else {
-                //console.log("La app pasó al segundo plano.");
                 setFlash(false);
             }
         };
@@ -85,12 +82,10 @@ const Camera = () => {
         document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
-            // Detener todos los tracks del stream de video
             if (videoRef.current && videoRef.current.srcObject) {
                 const stream = videoRef.current.srcObject;
                 stream.getTracks().forEach((track) => track.stop());
             }
-            // Limpiar el intervalo de auto-captura
             clearInterval(autoCaptureRef.current);
             document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
@@ -122,7 +117,7 @@ const Camera = () => {
     );
 
     /**
-     * Función para tomar la foto, redimensionarla y enviar la imagen.
+     * Función para tomar la foto en resolución nativa y enviar la imagen.
      * Se utiliza useCallback para estabilizar su referencia y evitar recreaciones innecesarias.
      */
     const takePhoto = useCallback(() => {
@@ -142,21 +137,15 @@ const Camera = () => {
         const context = canvas.getContext("2d");
         context.drawImage(video, 0, 0, nativeWidth, nativeHeight);
 
-        // Canvas para redimensionar la imagen a 416x416
-        const resizedCanvas = document.createElement("canvas");
-        const size = 416;
-        resizedCanvas.width = size;
-        resizedCanvas.height = size;
-        const resizedContext = resizedCanvas.getContext("2d");
-        resizedContext.drawImage(canvas, 0, 0, nativeWidth, nativeHeight, 0, 0, size, size);
-
-        const imageUrl = resizedCanvas.toDataURL("image/jpeg");
+        // Obtenemos la imagen en la máxima calidad posible.
+        // Se puede especificar la calidad (de 0 a 1) en el toDataURL; usamos 1 para máxima calidad.
+        const imageUrl = canvas.toDataURL("image/jpeg", 1.0);
         setPhoto(imageUrl);
         console.log("Foto tomada");
         sendPhotoToAPI(imageUrl);
     }, [sendPhotoToAPI]);
 
-    // Estado para manejar el intervalo automático de captura según autoCaptureInterval
+    // Manejar el intervalo automático de captura según autoCaptureInterval
     useEffect(() => {
         if (autoCaptureInterval > 0) {
             clearInterval(autoCaptureRef.current);
