@@ -102,7 +102,7 @@ const Camera = () => {
                 const formData = new FormData();
                 formData.append("image", blob, "captura.jpg");
 
-                const response = await axios.post("https://cashreader.share.zrok.io/detection", formData, {
+                const response = await axios.post("https://cashreader.share.zrok.io/", formData, {
                     headers: { "Content-Type": "multipart/form-data" },
                 });
 
