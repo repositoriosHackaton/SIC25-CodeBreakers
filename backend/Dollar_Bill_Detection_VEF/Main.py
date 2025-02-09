@@ -12,10 +12,10 @@ def train_model():
     # Entrenar el modelo
     results = model.train(
         data=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\data.yaml', 
-        epochs = 100,
+        epochs = 150,
         batch = 16,
         imgsz = 416,
-        cls=0.7,
+        cls=0.8,
         patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
         optimizer = "SGD",
     )
