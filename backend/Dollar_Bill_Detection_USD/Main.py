@@ -14,7 +14,7 @@ def train_model():
     # Entrenar el modelo
     results = model.train(
         data=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\data.yaml',
-        epochs = 100,
+        epochs = 350,
         batch = 16,
         imgsz = 416,
         cls=0.7,
