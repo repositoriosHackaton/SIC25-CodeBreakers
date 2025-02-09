@@ -28,7 +28,7 @@
 
 .green-button:hover img,
 .camera-button:hover img {
-    transform: scale(0.9);
+    transform: scale(1.1);
 }
 
 .camera-button {
