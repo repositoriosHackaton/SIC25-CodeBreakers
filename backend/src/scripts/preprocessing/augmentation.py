@@ -80,15 +80,15 @@ def noise_group(base_path: str, input_dir: str, output_dir: str, q_percentage: i
 logging.info("Iniciando procesamiento de grupo de imágenes")
 
 noise_group(
-    base_path = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division-copy\output",
-    input_dir = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division-copy\output\9",
-    output_dir = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection - Copy\datasets _division-copy\output\9",
-    q_percentage = 25,
+    base_path = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\datasets",
+    input_dir = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\datasets\images",
+    output_dir = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\datasets\augmentation",
+    q_percentage = 70,
     transformations = A.Compose([
         A.RGBShift(r_shift_limit=20, g_shift_limit=20, b_shift_limit=20, p=1),
         A.RandomBrightnessContrast(brightness_limit=0.15, contrast_limit=0.25, p=1),
-        A.Blur(blur_limit=4, p=1),
-        A.SaltAndPepper(salt_vs_pepper=(0.4, 0.6), amount=(0.01, 0.06), p=1),
+        A.Blur(blur_limit=4, p=0.4),
+        A.SaltAndPepper(salt_vs_pepper=(0.4, 0.6), p=1),
     ])
 )
 
