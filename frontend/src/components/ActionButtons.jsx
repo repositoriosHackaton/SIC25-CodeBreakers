@@ -3,7 +3,7 @@ import "./ActionButtons.css";
 import cameraButtonIcon from "/src/assets/camera_button.svg";
 import changeButtonIcon from "/src/assets/change_button.svg";
 
-const ActionButtons = ({ onRedClick }) => {
+const ActionButtons = ({ onCameraButton }) => {
     const handleGreenClick = () => {
         console.log("Botón verde presionado");
     };
@@ -13,7 +13,7 @@ const ActionButtons = ({ onRedClick }) => {
             <button className="action-button green-button" onClick={handleGreenClick}>
                 <img src={changeButtonIcon} alt="Vuelto" />
             </button>
-            <button className="action-button camera-button" onClick={onRedClick}>
+            <button className="action-button camera-button" onClick={onCameraButton}>
                 <img src={cameraButtonIcon} alt="Tomar foto" />
             </button>
         </div>

@@ -180,7 +180,7 @@ const Camera = () => {
                     </div>
                 )}
             </div>
-            <ActionButtons onRedClick={takePhoto} />
+            <ActionButtons onCameraButton={takePhoto} />
         </section>
     );
 };
