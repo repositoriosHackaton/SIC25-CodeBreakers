@@ -30,7 +30,7 @@ def noise(input_img_path: str, output_img_path: str, transformations):
     cv2.imwrite(output_img_path, transformed_img)
     logging.info(f"Imagen transformada guardada en {output_img_path}")
 
-def noise_group(base_path: str, input_dir: str, labels_dir: str, output_dir: str, q_percentage: int, transformations, target_label: str, augment_percentage: float):
+def noise_group(base_path: str, input_dir: str, labels_dir: str, output_dir: str, transformations, target_label: str, augment_percentage: float):
     struct = {
         'input': [],
         'output': []
@@ -89,19 +89,18 @@ if __name__ == "__main__":
         os.makedirs(output_dir)
     
     target_label = "11"  # Etiqueta específica que deseas augmentar
-    augment_percentage = 70  # Porcentaje de imágenes con la etiqueta específica que deseas augmentar (50%)
+    augment_percentage = 100  # Porcentaje de imágenes con la etiqueta específica que deseas augmentar (50%)
     
     noise_group(
         base_path=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\valid',
         input_dir=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\valid\images',
         labels_dir=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\valid\labels',  # Carpeta de labels
         output_dir=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\valid\augmentation',  # Carpeta de salida
-        q_percentage=70,
         transformations=A.Compose([
             #A.RGBShift(p=1),
             #A.RandomBrightnessContrast(p=1),
             A.Blur(p=0.1),
-            A.SaltAndPepper(p=0.3)
+            A.SaltAndPepper(p=1)
         ]),
         target_label=target_label,
         augment_percentage=augment_percentage

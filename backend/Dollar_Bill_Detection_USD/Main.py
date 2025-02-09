@@ -17,7 +17,7 @@ def train_model():
         epochs = 100,
         batch = 16,
         imgsz = 416,
-        cls=0.8,
+        cls=0.7,
         patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
         optimizer = "SGD",
     )
