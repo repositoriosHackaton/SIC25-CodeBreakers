@@ -1,0 +1,217 @@
+/* ----- SECCIÓN PORTADA ----- */
+.front-page {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    min-height: 100vh;
+    background: no-repeat center center;
+    background-size: cover;
+    position: relative;
+    margin: 0;
+    border-bottom: 0.25rem solid var(--color-base-dark);
+}
+
+/* ----- CONTENEDOR DEL TEXTO ----- */
+.front-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    max-width: 600px;
+    height: 100vh;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.head-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.front-content h1 {
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--color-base-dark);
+}
+
+.front-content p {
+    font-size: clamp(1.5rem, 2.5vw, 1.6rem);
+    color: black;
+    font-weight: 700;
+    max-width: 550px;
+}
+
+.front-content p em {
+    font-size: clamp(1.8rem, 3vw, 2rem);
+    font-style: italic;
+}
+
+.front-content .cta-button {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-accent);
+    color: white;
+    font-size: clamp(1.5rem, 2.5vw, 1.6rem);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    max-width: 250px;
+    align-self: center;
+    margin-bottom: 5%;
+}
+
+/* ----- IMAGEN DEL TELÉFONO ----- */
+.front-image {
+    position: relative;
+    align-self: end;
+    height: auto;
+    width: 100%;
+    max-width: 650px;
+    justify-self: end;
+}
+
+/* ----- MEDIA QUERIES PARA RESPONSIVE ----- */
+
+@media (max-width: 1024px) {
+    /*
+    .front-page {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-content: center;
+    }
+    */
+
+    .front-content .text-front {
+        display: none;
+    }
+
+    .front-content {
+        max-width: 100%;
+        align-items: center;
+    }
+}
+
+@media (max-width: 944px) {
+    .front-content h1 {
+        font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    }
+
+    .front-content {
+        text-align: center;
+    }
+}
+
+@media (max-width: 872px) {
+    .front-page {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .head-container h1 {
+        font-size: clamp(4rem, 5vw, 4rem);
+    }
+
+    .head-container img {
+        width: 30%;
+    }
+
+    .front-image {
+        display: none;
+    }
+
+    .front-content p {
+        text-align: center;
+        font-size: clamp(2rem, 3vw, 3rem);
+    }
+
+    .front-content p em {
+        font-size: clamp(2.5rem, 3vw, 3.5rem);
+    }
+
+    .front-content .text-front {
+        display: block;
+    }
+}
+
+@media (max-width: 656px) {
+    .head-container h1 {
+        font-size: clamp(3.5rem, 5vw, 3.5rem);
+    }
+
+    .head-container img {
+        width: 25%;
+    }
+}
+
+@media (max-width: 537px) {
+    .head-container h1 {
+        font-size: clamp(3rem, 4vw, 3rem);
+    }
+}
+
+@media (max-width: 462px) {
+    .head-container h1 {
+        font-size: clamp(2.5rem, 3vw, 2.5rem);
+    }
+
+    .front-content .text-front {
+        font-size: clamp(1.8rem, 2vw, 1.5rem);
+    }
+
+    .front-content p em {
+        font-size: clamp(2rem, 2vw, 1.8rem);
+    }
+}
+
+@media (max-width: 388px) {
+    .head-container h1 {
+        font-size: clamp(2rem, 3vw, 2rem);
+    }
+
+    .front-content .text-front {
+        font-size: clamp(1.4rem, 2vw, 1.4rem);
+    }
+
+    .front-content p em {
+        font-size: clamp(1.4rem, 2vw, 1.4rem);
+    }
+}
+
+@media (max-width: 345px) {
+    .front-content .cta-button {
+        font-size: clamp(1.2rem, 2.5vw, 1.2rem);
+    }
+
+    .front-content .text-front,
+    .front-content p em {
+        font-size: clamp(1.2rem, 2vw, 1.2rem);
+    }
+}
+
+/* ------ ABOUT ------- */
+.about-us {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.title-about {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title-about h2 {
+    font-size: 3rem;
+}
+
+.title-about img {
+    width: 8%;
+}
+
+container-about {
+    display: flex;
+}

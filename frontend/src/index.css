@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@1,100..900&display=swap");
 
 :root {
     --color-base-light: #f8f9fa;
@@ -8,6 +8,7 @@
     --color-accent-support: #e0efe3;
     --color-emphasis: #dc3545;
 
+    box-sizing: border-box;
     font-family: "Lato", "Roboto", sans-serif;
     color: var(--color-base-dark);
     line-height: 1.5;
@@ -19,6 +20,38 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.lato-regular {
+    font-family: "Lato", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.lato-bold {
+    font-family: "Lato", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.lato-regular-italic {
+    font-family: "Lato", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.roboto {
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: italic;
+    font-variation-settings: 100;
+}
+
+.archivo-black-regular {
+    font-family: "Archivo Black", serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 :focus-visible {
