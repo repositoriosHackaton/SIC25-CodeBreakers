@@ -2,7 +2,6 @@ import React from "react";
 import "./PageApp.css";
 import backgroundSvg from "../assets/page/bg/bg_front_page.svg";
 import backgroundTwoSvg from "../assets/page/bg/bg_neural.svg";
-import backgroundPage from "../assets/page/page.png";
 import portadaImage from "../assets/page/hand_phone_front_page.png";
 import iconInfo from "../assets/page/icons/info.svg";
 import iconWcag from "../assets/page/icons/wcag.png";
@@ -85,9 +84,6 @@ const PageApp = () => {
                     </div>
                 </div>
             </section>
-
-            <section className="full-page-image" style={{ backgroundImage: `url(${backgroundPage})` }}></section>
-
             <footer className="footer">
                 <div className="left-column">
                     <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer">
