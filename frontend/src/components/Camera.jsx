@@ -78,6 +78,7 @@ const Camera = () => {
 
         const handleVisibilityChange = () => {
             if (document.visibilityState === "visible") {
+                handleNarrationComplete();
                 setFlash(true);
             } else {
                 setFlash(false);
