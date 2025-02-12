@@ -16,7 +16,7 @@ const Header = () => {
     const handleClick = () => {
         // Iniciar narración
         setNarration(
-            "Ayuda para los comandos de voz. Puede pronunciar Tomar Foto para evaluar el valor de un billete."
+            "Ayuda para los comandos de voz. Puede pronunciar que Tome Foto para evaluar el valor de un billete que cambie moneda para cambiar el modelo entre bolívares y dólares"
         );
     };
 
