@@ -100,7 +100,7 @@ const Camera = () => {
     const toggleModelHandler = () => {
         setToggleModel((prev) => !prev); // Invierte el valor actual
         // Opcional: Podrías añadir un mensaje de narración al cambiar
-        setNarration(`Modo cambiado a ${!toggleModel ? "VEF" : "USD"}`);
+        setNarration(`Modo cambiado a ${!toggleModel ? "Bolívares" : "Dólares"}`);
     };
 
     /**
