@@ -192,13 +192,13 @@ const Camera = () => {
         <section className="camera-section">
             <div className="camera-container" onTouchStart={start} onTouchEnd={stop}>
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
-                {photo && (
+                {/*photo && (
                     <div className="download-container">
                         <a href={photo} download="captura.jpg">
                             <button className="download-button">Descargar Foto</button>
                         </a>
                     </div>
-                )}
+                )*/}
             </div>
             <div className="scan-indicator">Scan: {toggleModel ? "VEF" : "USD"}</div>
             <ActionButtons onCameraButton={takePhoto} onToggleModel={toggleModelHandler} />
