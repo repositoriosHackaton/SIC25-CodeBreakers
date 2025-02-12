@@ -2,9 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 
 /* Apply the Lato font to the body */
-body {
+.page-app {
     font-family: "Lato", sans-serif;
     overflow-x: hidden; /* Prevent horizontal scrollbar */
+    max-width: 100vw;
 }
 
 /* Apply the Lato font to the titles */
@@ -409,7 +410,6 @@ a {
     background-color: #343a40; /* Add background color */
     padding: 1rem; /* Add padding */
     border-radius: 1rem; /* Add border radius */
-    margin-right: 2rem; /* Increase right margin */
     flex-wrap: nowrap; /* Prevent wrapping */
 }
 
