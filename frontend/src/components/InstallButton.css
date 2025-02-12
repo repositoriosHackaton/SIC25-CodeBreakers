@@ -4,6 +4,7 @@
     background-color: var(--color-accent);
     color: white;
     font-size: clamp(1.5rem, 2.5vw, 1.6rem);
+    border: none;
     border-radius: 0.5rem;
     text-decoration: none;
     font-weight: bold;

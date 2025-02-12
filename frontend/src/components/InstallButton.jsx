@@ -36,7 +36,7 @@ const InstallButton = () => {
 
     return (
         <button className="install-button" onClick={handleInstallClick}>
-            ¡Empieza hoy mismo!
+            ¡Descarga hoy Nuestra app!
         </button>
     );
 };
