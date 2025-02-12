@@ -54,7 +54,7 @@ const useApiResponseProcessor = (narrate) => {
             };
 
             const validDetections = apiResponse.detections.filter(
-                (detection) => detection.confidence >= 0.45 && labelMap[detection.label]
+                (detection) => detection.confidence >= 0.7 && labelMap[detection.label]
             );
 
             if (validDetections.length > 0) {
