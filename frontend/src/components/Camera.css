@@ -32,10 +32,23 @@
     position: relative;
 }
 
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .scan-indicator {
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-base-dark);
     margin-top: 10px;
+    /* Aplica la animación cada vez que el elemento se renderiza */
+    animation: fadeInUp 0.5s ease-out;
 }

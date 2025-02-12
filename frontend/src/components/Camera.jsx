@@ -200,7 +200,9 @@ const Camera = () => {
                     </div>
                 )*/}
             </div>
-            <div className="scan-indicator">Scan: {toggleModel ? "VEF" : "USD"}</div>
+            <div className="scan-indicator" key={toggleModel ? "VEF" : "USD"}>
+                Scan: {toggleModel ? "VEF" : "USD"}
+            </div>
             <ActionButtons onCameraButton={takePhoto} onToggleModel={toggleModelHandler} />
         </section>
     );
