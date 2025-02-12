@@ -175,16 +175,22 @@ const Camera = () => {
         return () => clearInterval(autoCaptureRef.current);
     }, [autoCaptureInterval, takePhoto]);
 
-    // Configurar el hook useVoiceInterface
-    const { error, isListening } = useVoiceInterface({
+    // Usamos el hook de voz, el cual devuelve start y stop
+    const {
+        error: voiceError,
+        start,
+        stop,
+    } = useVoiceInterface({
         callTakePhoto: takePhoto,
         callToggleModel: toggleModelHandler,
-        debug: true, // Puedes desactivar el modo debug si no lo necesitas
+        debug: true,
     });
 
+    // Agregamos handlers de gestos a la sección:
+    // Al presionar (onTouchStart) se activa el micrófono; al soltar (onTouchEnd) se detiene.
     return (
         <section className="camera-section">
-            <div className="camera-container">
+            <div className="camera-container" onTouchStart={start} onTouchEnd={stop}>
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
                 {photo && (
                     <div className="download-container">

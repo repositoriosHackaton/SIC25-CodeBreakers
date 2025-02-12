@@ -1,6 +1,7 @@
+// useSpeechRecognition.js
 import { useEffect, useRef, useCallback } from "react";
 
-// Tiempos configurables para mejor mantenimiento
+// Tiempos configurables
 const RETRY_DELAY = 1000; // 1 segundo entre reintentos
 const MAX_RETRIES = 3; // Máximo de reintentos tras errores
 const COMMAND_DEBOUNCE = 500; // Tiempo mínimo entre comandos procesados
@@ -12,12 +13,10 @@ export const useSpeechRecognition = (onCommand) => {
     const commandQueue = useRef([]);
     const isProcessing = useRef(false);
 
-    // Usamos useCallback para memoizar el handler y evitar recreaciones
+    // Función para manejar cada comando, con debounce
     const handleCommand = useCallback(
         (command) => {
             const now = Date.now();
-
-            // Debounce para evitar comandos demasiado cercanos en el tiempo
             if (now - lastCommandTime.current > COMMAND_DEBOUNCE) {
                 lastCommandTime.current = now;
                 onCommand(command);
@@ -39,19 +38,18 @@ export const useSpeechRecognition = (onCommand) => {
         }
     }, [handleCommand]);
 
-    // Configuración inicial del reconocimiento de voz
+    // Configuración inicial del reconocimiento
     const setupRecognition = useCallback(() => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
         if (!SpeechRecognition) {
             console.error("API no soportada");
             return null;
         }
-
         const recognition = new SpeechRecognition();
         recognition.lang = "es-ES";
         recognition.interimResults = false;
-        recognition.continuous = false; // Cambiado a false para mejor control
+        // Usamos continuous=false para que se active solo durante la pulsación
+        recognition.continuous = false;
 
         recognition.onresult = (event) => {
             try {
@@ -73,16 +71,8 @@ export const useSpeechRecognition = (onCommand) => {
         };
 
         recognition.onend = () => {
-            // Reinicio seguro con delay
-            setTimeout(() => {
-                if (!recognitionRef.current || recognitionRef.current === recognition) {
-                    try {
-                        recognition.start();
-                    } catch (error) {
-                        console.error("Error al reiniciar:", error);
-                    }
-                }
-            }, 500);
+            console.log("Reconocimiento finalizado");
+            // No reiniciamos automáticamente para que el control sea manual
         };
 
         return recognition;
@@ -91,15 +81,8 @@ export const useSpeechRecognition = (onCommand) => {
     useEffect(() => {
         const recognition = setupRecognition();
         if (!recognition) return;
-
         recognitionRef.current = recognition;
-
-        try {
-            recognition.start();
-        } catch (error) {
-            console.error("Error inicializando reconocimiento:", error);
-        }
-
+        // Eliminamos el start automático para que se invoque solo mediante la función expuesta.
         return () => {
             if (recognitionRef.current) {
                 recognitionRef.current.abort();
@@ -108,9 +91,23 @@ export const useSpeechRecognition = (onCommand) => {
         };
     }, [setupRecognition]);
 
-    // Actualización en caliente del handler de comandos
-    const savedHandler = useRef(onCommand);
-    useEffect(() => {
-        savedHandler.current = onCommand;
-    }, [onCommand]);
+    // Función para iniciar la escucha manualmente
+    const start = useCallback(() => {
+        if (recognitionRef.current) {
+            try {
+                recognitionRef.current.start();
+            } catch (error) {
+                console.error("Error iniciando reconocimiento:", error);
+            }
+        }
+    }, []);
+
+    // Función para detener la escucha manualmente
+    const stop = useCallback(() => {
+        if (recognitionRef.current) {
+            recognitionRef.current.stop();
+        }
+    }, []);
+
+    return { start, stop };
 };
