@@ -1,5 +1,5 @@
-import { useMemo, useCallback, useEffect, useState } from 'react';
-import { useSpeechRecognition } from './useSpeechRecognition';
+import { useMemo, useCallback, useEffect, useState } from "react";
+import { useSpeechRecognition } from "./useSpeechRecognition";
 
 /**
  * @typedef {Object} VoiceInterfaceConfig
@@ -19,49 +19,59 @@ import { useSpeechRecognition } from './useSpeechRecognition';
  * @param {VoiceInterfaceConfig} config - Configuración de la interfaz de voz
  * @returns {{error: string|null, isListening: boolean, commands: Command[]}} Estado del reconocimiento
  */
-export const useVoiceInterface = ({ callTakePhoto, additionalCommands = [], debug = false }) => {
-  // Memoiza los comandos para evitar recreación en cada render
-  const mergedCommands = useMemo(() => {
-    /** @type {Command[]} */
-    const defaults = [{
-      keyword: 'tomar foto',
-      callback: callTakePhoto,
-      description: 'Captura una foto usando la cámara'
-    }];
-    
-    return [...defaults, ...additionalCommands];
-  }, [additionalCommands, callTakePhoto]); // Solo recalcula si cambian las dependencias
+export const useVoiceInterface = ({ callTakePhoto, callToggleModel, additionalCommands = [], debug = false }) => {
+    // Memoiza los comandos para evitar recreación en cada render
+    const mergedCommands = useMemo(() => {
+        /** @type {Command[]} */
+        const defaults = [
+            {
+                keyword: "tomar foto",
+                callback: callTakePhoto,
+                description: "Captura una foto usando la cámara",
+            },
+            {
+                keyword: "cambiar moneda",
+                callback: callToggleModel,
+                description: "Cambia el modelo de IA usado",
+            },
+        ];
 
-  // Manejo centralizado de errores
-  const [error, setError] = useState(null);
-  const [isListening, setIsListening] = useState(false);
+        return [...defaults, ...additionalCommands];
+    }, [additionalCommands, callTakePhoto]); // Solo recalcula si cambian las dependencias
 
-  // Handler optimizado con memoización
-  const handleVoiceCommand = useCallback((command) => {
-    if (debug) console.debug('[Voice] Comando detectado:', command);
-    
-    try {
-      const matchedCommand = mergedCommands.find(c => {
-        const cleanCommand = command.toLowerCase().trim();
-        return cleanCommand.includes(c.keyword.toLowerCase());
-      });
+    // Manejo centralizado de errores
+    const [error, setError] = useState(null);
+    const [isListening, setIsListening] = useState(false);
 
-      if (matchedCommand) {
-        if (debug) console.info(`[Voice] Ejecutando comando: ${matchedCommand.keyword}`);
-        matchedCommand.callback();
-      }
-    } catch (e) {
-      setError(`Error procesando comando: ${e.message}`);
-      console.error('[Voice Error]', e);
-    }
-  }, [mergedCommands, debug]);
+    // Handler optimizado con memoización
+    const handleVoiceCommand = useCallback(
+        (command) => {
+            if (debug) console.debug("[Voice] Comando detectado:", command);
 
-  // Estado del reconocimiento de voz
-  useSpeechRecognition(handleVoiceCommand);
+            try {
+                const matchedCommand = mergedCommands.find((c) => {
+                    const cleanCommand = command.toLowerCase().trim();
+                    return cleanCommand.includes(c.keyword.toLowerCase());
+                });
 
-  return {
-    error,
-    isListening,
-    commands: mergedCommands // Expone comandos para debugging
-  };
+                if (matchedCommand) {
+                    if (debug) console.info(`[Voice] Ejecutando comando: ${matchedCommand.keyword}`);
+                    matchedCommand.callback();
+                }
+            } catch (e) {
+                setError(`Error procesando comando: ${e.message}`);
+                console.error("[Voice Error]", e);
+            }
+        },
+        [mergedCommands, debug]
+    );
+
+    // Estado del reconocimiento de voz
+    useSpeechRecognition(handleVoiceCommand);
+
+    return {
+        error,
+        isListening,
+        commands: mergedCommands, // Expone comandos para debugging
+    };
 };

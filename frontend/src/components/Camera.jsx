@@ -177,6 +177,7 @@ const Camera = () => {
     // Configurar el hook useVoiceInterface
     const { error, isListening } = useVoiceInterface({
         callTakePhoto: takePhoto,
+        callToggleModel: toggleModelHandler,
         debug: true, // Puedes desactivar el modo debug si no lo necesitas
     });
 
