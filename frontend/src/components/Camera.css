@@ -50,5 +50,5 @@
     color: var(--color-base-dark);
     margin-top: 10px;
     /* Aplica la animación cada vez que el elemento se renderiza */
-    animation: fadeInUp 0.5s ease-out;
+    animation: fadeInUp 1s ease-out;
 }
