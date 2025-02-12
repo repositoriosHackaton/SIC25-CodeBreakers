@@ -25,7 +25,6 @@ const PageApp = () => {
                         <img src="/favicon.svg" alt="Logo Cash Reader" width="100" />
                         <h1>Cash Reader</h1>
                     </div>
-
                     <p className="text-front">
                         Nuestra app está pensada para brindarle independencia en el manejo del dinero en efectivo a
                         personas invidentes o con discapacidad visual.
@@ -37,11 +36,11 @@ const PageApp = () => {
                         <InstallButton />
                     </div>
                 </div>
-
                 <div className="image-container">
                     <img src={portadaImage} alt="App en teléfono" className="front-image" />
                 </div>
             </section>
+            {/* Sección 2: Sobre nosotros (about-us)*/}
             <section className="about-us" style={{ backgroundImage: `url(${backgroundTwoSvg})` }}>
                 <div className="title-about">
                     <h2>Sobre Nosotros</h2>
