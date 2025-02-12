@@ -16,6 +16,7 @@ const Camera = () => {
     const [photo, setPhoto] = useState(null);
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
     const [narration, setNarration] = useState("");
+    const [toggleModel, setToggleModel] = useState(true);
 
     // Función para limpiar la narración cuando finaliza
     const handleNarrationComplete = () => {
@@ -95,6 +96,13 @@ const Camera = () => {
         };
     }, []);
 
+    // Función para cambiar el modelo
+    const toggleModelHandler = () => {
+        setToggleModel((prev) => !prev); // Invierte el valor actual
+        // Opcional: Podrías añadir un mensaje de narración al cambiar
+        setNarration(`Modo cambiado a ${!toggleModel ? "VEF" : "USD"}`);
+    };
+
     /**
      * Función para enviar la imagen capturada a la API.
      * Se utiliza useCallback para que su referencia sea estable.
@@ -106,7 +114,11 @@ const Camera = () => {
                 const formData = new FormData();
                 formData.append("image", blob, "captura.jpg");
 
-                const response = await axios.post("https://cashreader.share.zrok.io/detection", formData, {
+                // Determinamos el endpoint basado en toggleModel
+                const endpoint = toggleModel ? "vef" : "usd";
+                const url = `https://cashreader.share.zrok.io/detection/${endpoint}`;
+
+                const response = await axios.post(url, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
                 });
 
@@ -117,7 +129,7 @@ const Camera = () => {
                 setNarration("No se ha podido comunicar con el servidor, intentelo mas tarde");
             }
         },
-        [processResponse]
+        [processResponse, toggleModel] // Añadimos toggleModel a las dependencias
     );
 
     /**
@@ -180,7 +192,7 @@ const Camera = () => {
                     </div>
                 )}
             </div>
-            <ActionButtons onCameraButton={takePhoto} />
+            <ActionButtons onCameraButton={takePhoto} onToggleModel={toggleModelHandler} />
         </section>
     );
 };
