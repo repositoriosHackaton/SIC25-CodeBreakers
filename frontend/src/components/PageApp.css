@@ -341,6 +341,7 @@ h1, h2, h3, p, a {
     flex-wrap: wrap; /* Allow wrapping */
     justify-content: space-between; /* Space between columns */
     gap: 1rem; /* Add gap between columns */
+    overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 .footer p {
@@ -453,6 +454,7 @@ h1, h2, h3, p, a {
     .footer {
         flex-direction: column; /* Stack columns vertically */
         align-items: center; /* Center align columns */
+        padding: 1rem; /* Adjust padding for mobile */
     }
 
     .footer .right-column {
