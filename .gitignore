@@ -3,3 +3,6 @@ unprocessed
 temp
 *.key
 logs
+img-API
+__pycache__
+*.pyc
