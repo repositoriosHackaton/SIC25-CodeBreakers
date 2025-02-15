@@ -63,7 +63,7 @@ async def detection_vef(image: UploadFile):
                 'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
             })
         print(boxes)
-        log(f'backend/src/data/img-API/VEF/Model_{versions['VEF']}/', boxes, imageFile)
+        await log(f'backend/src/data/img-API/VEF/Model_{versions['VEF']}/', boxes, imageFile)
         return {'detections': boxes}
     else:
         return {'message': 'No objects detected'}
@@ -85,7 +85,7 @@ async def detection_usd(image: UploadFile):
                 'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
             })
         print(boxes)
-        log(f'backend/src/data/img-API/USD/Model_{versions['USD']}/', boxes, imageFile)
+        await log(f'backend/src/data/img-API/USD/Model_{versions['USD']}/', boxes, imageFile)
         return {'detections': boxes}
     else:
         return {'message': 'No objects detected'}

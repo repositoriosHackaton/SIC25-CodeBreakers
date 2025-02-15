@@ -29,7 +29,7 @@ values = {
     'two_hundred-back-vef' : '100b-vef', 'two_hundred-front-vef' : '100f-vef',
 }
 
-def log(path, boxes, image):
+async def log(path, boxes, image):
     if not os.path.exists(path):
         os.makedirs(path)
     file_name = datetime.now().strftime("%d-%m-%y_%H:%M:%S")
