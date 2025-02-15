@@ -30,7 +30,7 @@ const InstallButton = () => {
             });
             */
         } else {
-            alert("La instalación no está disponible en este momento.");
+            alert("La instalación no está disponible en este momento, Verifica si ya tienes la app instalada");
         }
     };
 

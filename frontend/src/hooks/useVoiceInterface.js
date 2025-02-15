@@ -1,67 +1,58 @@
-import { useMemo, useCallback, useEffect, useState } from 'react';
-import { useSpeechRecognition } from './useSpeechRecognition';
+// useVoiceInterface.js
+import { useMemo, useCallback, useState } from "react";
+import { useSpeechRecognition } from "./useSpeechRecognition";
 
 /**
- * @typedef {Object} VoiceInterfaceConfig
- * @property {Function} callTakePhoto - Función para capturar foto
- * @property {Array<Command>} [additionalCommands=[]] - Comandos personalizados adicionales
- * @property {boolean} [debug=false] - Modo debug para logs detallados
+ * Hook para manejar comandos de voz.
+ * @param {Object} config - Configuración de la interfaz de voz.
+ * @param {Function} config.callTakePhoto - Función para capturar foto.
+ * @param {Function} config.callToggleModel - Función para cambiar modelo.
+ * @param {Array} [config.additionalCommands=[]] - Comandos adicionales.
+ * @param {boolean} [config.debug=false] - Modo debug.
+ * @returns {Object} { error, isListening, start, stop, commands }
  */
+export const useVoiceInterface = ({ callTakePhoto, callToggleModel, additionalCommands = [], debug = false }) => {
+    // Mezcla de comandos
+    const mergedCommands = useMemo(() => {
+        const defaults = [
+            {
+                keyword: "tomar foto",
+                callback: callTakePhoto,
+                description: "Captura una foto usando la cámara",
+            },
+            {
+                keyword: "cambiar moneda",
+                callback: callToggleModel,
+                description: "Cambia el modelo de IA usado",
+            },
+        ];
+        return [...defaults, ...additionalCommands];
+    }, [additionalCommands, callTakePhoto, callToggleModel]);
 
-/**
- * @typedef {Object} Command
- * @property {string} keyword - Palabra clave para activar el comando
- * @property {Function} callback - Función a ejecutar
- */
+    const [error, setError] = useState(null);
 
-/**
- * Hook personalizado para manejar una interfaz de voz robusta
- * @param {VoiceInterfaceConfig} config - Configuración de la interfaz de voz
- * @returns {{error: string|null, isListening: boolean, commands: Command[]}} Estado del reconocimiento
- */
-export const useVoiceInterface = ({ callTakePhoto, additionalCommands = [], debug = false }) => {
-  // Memoiza los comandos para evitar recreación en cada render
-  const mergedCommands = useMemo(() => {
-    /** @type {Command[]} */
-    const defaults = [{
-      keyword: 'tomar foto',
-      callback: callTakePhoto,
-      description: 'Captura una foto usando la cámara'
-    }];
-    
-    return [...defaults, ...additionalCommands];
-  }, [additionalCommands, callTakePhoto]); // Solo recalcula si cambian las dependencias
+    // Handler para procesar el comando reconocido
+    const handleVoiceCommand = useCallback(
+        (command) => {
+            if (debug) console.debug("[Voice] Comando detectado:", command);
+            try {
+                const matchedCommand = mergedCommands.find((c) =>
+                    command.toLowerCase().includes(c.keyword.toLowerCase())
+                );
+                if (matchedCommand) {
+                    if (debug) console.info(`[Voice] Ejecutando comando: ${matchedCommand.keyword}`);
+                    matchedCommand.callback();
+                }
+            } catch (e) {
+                setError(`Error procesando comando: ${e.message}`);
+                console.error("[Voice Error]", e);
+            }
+        },
+        [mergedCommands, debug]
+    );
 
-  // Manejo centralizado de errores
-  const [error, setError] = useState(null);
-  const [isListening, setIsListening] = useState(false);
+    // Usamos nuestro hook de reconocimiento, el cual ahora NO se inicia automáticamente.
+    const { start, stop } = useSpeechRecognition(handleVoiceCommand);
 
-  // Handler optimizado con memoización
-  const handleVoiceCommand = useCallback((command) => {
-    if (debug) console.debug('[Voice] Comando detectado:', command);
-    
-    try {
-      const matchedCommand = mergedCommands.find(c => {
-        const cleanCommand = command.toLowerCase().trim();
-        return cleanCommand.includes(c.keyword.toLowerCase());
-      });
-
-      if (matchedCommand) {
-        if (debug) console.info(`[Voice] Ejecutando comando: ${matchedCommand.keyword}`);
-        matchedCommand.callback();
-      }
-    } catch (e) {
-      setError(`Error procesando comando: ${e.message}`);
-      console.error('[Voice Error]', e);
-    }
-  }, [mergedCommands, debug]);
-
-  // Estado del reconocimiento de voz
-  useSpeechRecognition(handleVoiceCommand);
-
-  return {
-    error,
-    isListening,
-    commands: mergedCommands // Expone comandos para debugging
-  };
+    return { error, start, stop, commands: mergedCommands };
 };

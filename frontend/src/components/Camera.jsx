@@ -16,6 +16,7 @@ const Camera = () => {
     const [photo, setPhoto] = useState(null);
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
     const [narration, setNarration] = useState("");
+    const [toggleModel, setToggleModel] = useState(true);
 
     // Función para limpiar la narración cuando finaliza
     const handleNarrationComplete = () => {
@@ -77,6 +78,7 @@ const Camera = () => {
 
         const handleVisibilityChange = () => {
             if (document.visibilityState === "visible") {
+                handleNarrationComplete();
                 setFlash(true);
             } else {
                 setFlash(false);
@@ -95,6 +97,13 @@ const Camera = () => {
         };
     }, []);
 
+    // Función para cambiar el modelo
+    const toggleModelHandler = () => {
+        setToggleModel((prev) => !prev); // Invierte el valor actual
+        // Opcional: Podrías añadir un mensaje de narración al cambiar
+        setNarration(`Modo cambiado a ${!toggleModel ? "Bolívares" : "Dólares"}`);
+    };
+
     /**
      * Función para enviar la imagen capturada a la API.
      * Se utiliza useCallback para que su referencia sea estable.
@@ -106,7 +115,11 @@ const Camera = () => {
                 const formData = new FormData();
                 formData.append("image", blob, "captura.jpg");
 
-                const response = await axios.post("https://cashreader.share.zrok.io/detection", formData, {
+                // Determinamos el endpoint basado en toggleModel
+                const endpoint = toggleModel ? "vef" : "usd";
+                const url = `https://cashreader.share.zrok.io/detection/${endpoint}`;
+
+                const response = await axios.post(url, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
                 });
 
@@ -117,7 +130,7 @@ const Camera = () => {
                 setNarration("No se ha podido comunicar con el servidor, intentelo mas tarde");
             }
         },
-        [processResponse]
+        [processResponse, toggleModel] // Añadimos toggleModel a las dependencias
     );
 
     /**
@@ -162,25 +175,35 @@ const Camera = () => {
         return () => clearInterval(autoCaptureRef.current);
     }, [autoCaptureInterval, takePhoto]);
 
-    // Configurar el hook useVoiceInterface
-    const { error, isListening } = useVoiceInterface({
+    // Usamos el hook de voz, el cual devuelve start y stop
+    const {
+        error: voiceError,
+        start,
+        stop,
+    } = useVoiceInterface({
         callTakePhoto: takePhoto,
-        debug: true, // Puedes desactivar el modo debug si no lo necesitas
+        callToggleModel: toggleModelHandler,
+        debug: true,
     });
 
+    // Agregamos handlers de gestos a la sección:
+    // Al presionar (onTouchStart) se activa el micrófono; al soltar (onTouchEnd) se detiene.
     return (
         <section className="camera-section">
-            <div className="camera-container">
+            <div className="camera-container" onTouchStart={start} onTouchEnd={stop}>
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
-                {photo && (
+                {/*photo && (
                     <div className="download-container">
                         <a href={photo} download="captura.jpg">
                             <button className="download-button">Descargar Foto</button>
                         </a>
                     </div>
-                )}
+                )*/}
             </div>
-            <ActionButtons onCameraButton={takePhoto} />
+            <div className="scan-indicator" key={toggleModel ? "VEF" : "USD"}>
+                Scan: {toggleModel ? "VEF" : "USD"}
+            </div>
+            <ActionButtons onCameraButton={takePhoto} onToggleModel={toggleModelHandler} />
         </section>
     );
 };
