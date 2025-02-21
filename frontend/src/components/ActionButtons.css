@@ -1,0 +1,36 @@
+.action-buttons-container {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.action-button {
+    width: 50%;
+    height: 20vh;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.action-button img {
+    width: 5.8rem;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.green-button {
+    background-color: var(--color-accent);
+}
+
+.green-button:hover img,
+.camera-button:hover img {
+    transform: scale(1.1);
+}
+
+.camera-button {
+    background-color: var(--color-base-dark);
+}

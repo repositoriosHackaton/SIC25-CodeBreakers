@@ -1,0 +1,54 @@
+.camera-section {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.camera-container {
+    width: 80%;
+    height: 0; /* Esto asegura que la altura sea igual al ancho (proporción cuadrada) */
+    padding-bottom: 80%;
+    position: relative;
+    border: 0.5rem solid var(--color-accent);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.camera-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para que la imagen de la cámara cubra el área sin deformarse */
+}
+
+.download-container {
+    position: relative;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scan-indicator {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-base-dark);
+    margin-top: 10px;
+    /* Aplica la animación cada vez que el elemento se renderiza */
+    animation: fadeInUp 1s ease-out;
+}

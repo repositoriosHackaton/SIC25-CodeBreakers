@@ -2,6 +2,7 @@ venv
 unprocessed
 temp
 *.key
+<<<<<<< HEAD
 logs
 img-API
 __pycache__

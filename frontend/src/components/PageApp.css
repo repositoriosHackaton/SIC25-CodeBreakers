@@ -1,0 +1,492 @@
+/* Import the Lato font */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+/* Apply the Lato font to the body */
+.page-app {
+    font-family: "Lato", sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+    max-width: 100vw;
+}
+
+/* Apply the Lato font to the titles */
+h1,
+h2,
+h3,
+p,
+a {
+    font-family: "Lato", sans-serif;
+}
+
+/* ----- SECCIÓN PORTADA ----- */
+.front-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    background: no-repeat center center;
+    background-size: cover;
+    position: relative;
+    margin: 0;
+    padding-bottom: 0.5rem; /* Reduce padding to ensure space between sections */
+    border-bottom: 0.25rem solid var(--color-base-dark);
+    z-index: 1; /* Ensure front-page is above other sections */
+    opacity: 0.9; /* Make background slightly transparent */
+}
+
+/* ----- CONTENEDOR DEL TEXTO ----- */
+.front-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    max-width: 600px;
+    margin-left: 10%;
+    margin-right: 10%;
+    grid-column: 1 / 2; /* Ensure content is in the left column */
+}
+
+.head-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.front-content h1 {
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--color-base-dark);
+}
+
+.front-content p {
+    font-size: clamp(1.5rem, 2.5vw, 1.6rem);
+    color: black;
+    font-weight: 700;
+    max-width: 550px;
+}
+
+.front-content p em {
+    font-size: clamp(1.8rem, 3vw, 2rem);
+    font-style: italic;
+}
+
+.install-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.front-content .cta-button {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-accent);
+    color: white;
+    font-size: clamp(1.5rem, 2.5vw, 1.6rem);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    max-width: 250px;
+    align-self: center;
+    margin-bottom: 5%;
+}
+
+/* ----- IMAGEN DEL TELÉFONO ----- */
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    max-width: 650px;
+    margin-bottom: -0.5rem; /* Reduce margin to ensure space between sections */
+    grid-column: 2 / 3; /* Ensure image is in the right column */
+}
+
+.front-image {
+    position: relative;
+    height: auto;
+    width: 100%;
+    max-width: 650px;
+    z-index: 2; /* Ensure front-image is above other sections */
+}
+
+/* ----- MEDIA QUERIES PARA RESPONSIVE ----- */
+
+@media (max-width: 1024px) {
+    .front-page {
+        grid-template-columns: 1fr;
+    }
+
+    .front-content .text-front {
+        display: none;
+    }
+
+    .front-content {
+        max-width: 100%;
+        align-items: center;
+    }
+}
+
+@media (max-width: 944px) {
+    .front-content h1 {
+        font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    }
+
+    .front-content {
+        text-align: center;
+    }
+}
+
+@media (max-width: 872px) {
+    .front-page {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .head-container h1 {
+        font-size: clamp(4rem, 5vw, 4rem);
+    }
+
+    .head-container img {
+        width: 30%;
+    }
+
+    .front-image {
+        display: block;
+        max-width: 100%;
+        z-index: 2; /* Ensure front-image is above other sections */
+    }
+
+    .front-content p {
+        text-align: center;
+        font-size: clamp(2rem, 3vw, 3rem);
+    }
+
+    .front-content p em {
+        font-size: clamp(2.5rem, 3vw, 3.5rem);
+    }
+
+    .front-content .text-front {
+        display: block;
+    }
+}
+
+@media (max-width: 656px) {
+    .head-container h1 {
+        font-size: clamp(3.5rem, 5vw, 3.5rem);
+    }
+
+    .head-container img {
+        width: 25%;
+    }
+}
+
+@media (max-width: 537px) {
+    .head-container h1 {
+        font-size: clamp(3rem, 4vw, 3rem);
+    }
+}
+
+@media (max-width: 462px) {
+    .head-container h1 {
+        font-size: clamp(2.5rem, 3vw, 2.5rem);
+    }
+
+    .front-content .text-front {
+        font-size: clamp(1.8rem, 2vw, 1.5rem);
+    }
+
+    .front-content p em {
+        font-size: clamp(2rem, 2vw, 1.8rem);
+    }
+}
+
+@media (max-width: 388px) {
+    .head-container h1 {
+        font-size: clamp(2rem, 3vw, 2rem);
+    }
+
+    .front-content .text-front {
+        font-size: clamp(1.4rem, 2vw, 1.4rem);
+    }
+
+    .front-content p em {
+        font-size: clamp(1.4rem, 2vw, 1.4rem);
+    }
+}
+
+@media (max-width: 345px) {
+    .front-content .cta-button {
+        font-size: clamp(1.2rem, 2.5vw, 1.2rem);
+    }
+
+    .front-content .text-front,
+    .front-content p em {
+        font-size: clamp(1.2rem, 2vw, 1.2rem);
+    }
+}
+
+/* ------ ABOUT ------- */
+.about-us {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2rem;
+    background: no-repeat center center;
+    background-size: cover;
+    background-image: url("../assets/page/bg/bg_neural.svg"); /* Ensure proper background usage */
+    border-bottom: 0.25rem solid var(--color-base-dark);
+    z-index: 0; /* Ensure about-us is below front-page */
+    opacity: 0.9; /* Make background slightly transparent */
+}
+
+.title-about {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title-about h2 {
+    font-size: 3rem;
+}
+
+.title-about img {
+    width: 8%;
+}
+
+.container-mission,
+.container-vision {
+    flex: 1 1 45%;
+    margin: 1rem;
+    position: relative; /* Ensure separator is positioned correctly */
+}
+
+.container-mission::after {
+    display: none; /* Remove separator */
+}
+
+.container-mission h3,
+.container-vision h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center; /* Center the h3 elements */
+}
+
+.container-mission p,
+.container-vision p {
+    font-size: 1.6rem;
+    line-height: 1.5;
+}
+
+/* Center align text in about-us section on mobile */
+@media (max-width: 872px) {
+    .container-mission,
+    .container-vision {
+        text-align: center;
+        flex: 1 1 100%;
+        margin-bottom: 2rem; /* Add space for horizontal separator */
+    }
+    .title-about img {
+        width: 25%;
+    }
+    .container-mission::after {
+        display: none; /* Hide separator in mobile version */
+    }
+
+    .title-about h2 {
+        text-align: center; /* Center h2 in mobile version */
+    }
+}
+
+/* Styles for the new features section */
+.features {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 2rem; /* Add gap between columns */
+    margin-bottom: 2rem;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.feature img {
+    width: 25%; /* Increase image size */
+    height: 25%;
+    margin-bottom: 1rem;
+    object-fit: contain; /* Ensure images fit well within their container */
+}
+
+.feature h3 {
+    font-size: 1.75rem; /* Increase font size */
+    font-weight: bold; /* Make text bold */
+    margin-bottom: -1rem;
+}
+
+.feature p {
+    font-size: 1.75rem; /* Increase font size */
+    line-height: 1.5;
+}
+
+/* ------ FOOTER ------- */
+.footer {
+    background-color: #28a745; /* Change background color */
+    color: white;
+    text-align: center;
+    padding: 1%; /* Reduce padding to decrease height */
+    position: relative;
+    bottom: 0;
+    max-width: 100vw;
+    display: flex; /* Use flex layout */
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: space-between; /* Space between columns */
+    gap: 1rem; /* Add gap between columns */
+}
+
+.footer p {
+    margin: 0.5rem 0;
+}
+
+.footer .left-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1; /* Ensure columns take equal space */
+    min-width: 200px; /* Minimum width for columns */
+    font-size: 1.2rem; /* Increase font size */
+}
+
+.footer .left-column a {
+    display: flex;
+    flex-direction: row; /* Align image and text horizontally */
+    align-items: center;
+    justify-content: flex-start; /* Justify content to the left */
+    padding: 0.5rem 1rem;
+    background-color: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.footer .left-column a img {
+    margin-right: 0.5rem; /* Add margin to the right of the image */
+    width: 35%; /* Increase the size of the image */
+}
+
+.footer .left-column .contact-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.footer .right-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align content horizontally */
+    justify-content: center; /* Center align content vertically */
+    flex: 1; /* Ensure columns take equal space */
+    min-width: 200px; /* Minimum width for columns */
+}
+
+.partner-logos {
+    display: flex;
+    justify-content: center; /* Center justify the logos horizontally */
+    align-items: center; /* Center align the logos vertically */
+    gap: 1rem; /* Add gap between images */
+    margin-top: 0rem;
+    width: 100%; /* Ensure it takes full width */
+    height: auto; /* Adjust height to fit content */
+    background-color: #343a40; /* Add background color */
+    padding: 1rem; /* Add padding */
+    border-radius: 1rem; /* Add border radius */
+    flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+.partner-logos img {
+    flex: 0 1 auto; /* Allow images to grow and take available space */
+    max-width: 160px; /* Reduce the maximum width */
+    height: auto;
+    object-fit: contain; /* Ensure images fit well within their container */
+    border-radius: 1rem; /* Add rounded corners */
+}
+
+@media (min-width: 1024px) {
+    .partner-logos {
+        width: 100%; /* Increase the width of the container */
+        padding: 0.5rem; /* Adjust padding */
+    }
+    .partner-logos img {
+        border-radius: 1rem; /* Round the corners for desktop */
+    }
+}
+
+@media (max-width: 872px) {
+    .features {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+
+    .container-mission,
+    .container-vision {
+        text-align: center;
+        flex: 1 1 100%;
+        margin-bottom: 2rem; /* Add space for horizontal separator */
+    }
+    .title-about img {
+        width: 25%;
+    }
+    .container-mission::after {
+        display: none; /* Hide separator in mobile version */
+    }
+
+    .title-about h2 {
+        text-align: center; /* Center h2 in mobile version */
+    }
+
+    .footer {
+        flex-direction: column; /* Stack columns vertically */
+        align-items: center; /* Center align columns */
+    }
+
+    .footer .right-column {
+        width: 100%; /* Full width */
+        margin-top: 1rem; /* Add margin for spacing */
+    }
+
+    .footer .left-column {
+        width: 100%; /* Full width */
+    }
+
+    .partner-logos {
+        flex-wrap: wrap; /* Allow wrapping */
+        width: auto; /* Do not take full width */
+    }
+
+    .partner-logos img {
+        width: 25%; /* Increase size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    .footer p {
+        font-size: 0.875rem; /* Adjust font size */
+    }
+
+    .partner-logos img {
+        width: 25%; /* Further increase size for smaller screens */
+    }
+}
