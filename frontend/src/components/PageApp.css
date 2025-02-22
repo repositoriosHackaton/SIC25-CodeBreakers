@@ -26,7 +26,7 @@ a {
     background-size: cover;
     position: relative;
     margin: 0;
-    padding-bottom: 0.5rem; /* Reduce padding to ensure space between sections */
+    padding-bottom: 0rem; /* Reduce padding to ensure space between sections */
     border-bottom: 0.25rem solid var(--color-base-dark);
     z-index: 1; /* Ensure front-page is above other sections */
     opacity: 0.9; /* Make background slightly transparent */
@@ -95,9 +95,14 @@ a {
     align-items: center;
     height: auto;
     width: 100%;
-    max-width: 650px;
+    max-width: 700px;
     margin-bottom: -0.5rem; /* Reduce margin to ensure space between sections */
     grid-column: 2 / 3; /* Ensure image is in the right column */
+}
+
+.image-container img {
+    max-width: 100%; /* La imagen no superará el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
 }
 
 .front-image {
@@ -105,10 +110,16 @@ a {
     height: auto;
     width: 100%;
     max-width: 650px;
-    z-index: 2; /* Ensure front-image is above other sections */
+    z-index: 2;
 }
 
 /* ----- MEDIA QUERIES PARA RESPONSIVE ----- */
+
+@media (min-width: 768px) {
+    .image-container {
+        max-width: 1000px; /* Aumenta el ancho máximo en pantallas grandes */
+    }
+}
 
 @media (max-width: 1024px) {
     .front-page {
@@ -305,6 +316,8 @@ a {
     grid-template-columns: 1fr 1fr; /* Two columns */
     gap: 2rem; /* Add gap between columns */
     margin-bottom: 2rem;
+    margin: 0 auto; /* Centra el contenedor en pantallas grandes */
+    padding: 0 1rem; /* Añade un poco de padding en los lados */
 }
 
 .feature {
@@ -332,40 +345,169 @@ a {
     line-height: 1.5;
 }
 
-/* ------ FOOTER ------- */
-.footer {
-    background-color: #28a745; /* Change background color */
-    color: white;
+
+/* ----- SECCIÓN CREADORES----- */
+.creators-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    background-repeat: no-repeat;
     text-align: center;
-    padding: 1%; /* Reduce padding to decrease height */
+    min-height: 100vh;
+    background: no-repeat center center;
+    background-size: cover;
     position: relative;
-    bottom: 0;
-    max-width: 100vw;
-    display: flex; /* Use flex layout */
-    flex-wrap: wrap; /* Allow wrapping */
-    justify-content: space-between; /* Space between columns */
-    gap: 1rem; /* Add gap between columns */
-    overflow-x: hidden; /* Prevent horizontal overflow */
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 2rem; /* Reduce padding to ensure space between sections */
+    border-bottom: 0.25rem solid var(--color-base-dark);
+    z-index: 1; /* Ensure front-page is above other sections */
+    opacity: 0.9; /* Make background slightly transparent */
 }
 
+.creators-title {
+    width: auto;
+    text-align: center;
+    font-size: 3.5rem;
+    padding-top: 0;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+    display: flex;
+}
+
+.creators-description {
+    width: auto;
+    text-align: center;
+    font-size: 2.1rem;
+    margin-bottom: 3rem;
+    display: flex;
+}
+
+.creators-grid {
+    display: flex;
+    margin-top: 5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.creator-card {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.creator-card:hover {
+    transform: translateY(-10px);
+}
+
+.creator-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.creator-name {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.creator-role {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Estilos responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .creator-card {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* ----- SECCIÓN DONACIONES----- */
+
+.donations-page {
+    padding: 7rem 2rem;
+    background-color: #f8f9fa; /* Color de fondo */
+    text-align: center;
+    background: no-repeat center center;
+    background-size: cover;
+}
+
+.donations-title {
+    font-size: 2.5rem;
+    color: #333; /* Color del título */
+    margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.donations-description {
+    font-size: 2rem;
+    color: #666; /* Color de la descripción */
+    margin-bottom: 2rem; /* Espaciado inferior */
+}
+
+/* Estilos para el botón de donación */
+.donate-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #28a745; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.donate-button:hover {
+    background-color: #218838; /* Cambia el color al hacer hover */
+}
+
+/* ------ FOOTER ------- */
+.footer {
+    background-color: #28a745; /* Color de fondo */
+    color: white;
+    text-align: center;
+    padding: 1%; /* Padding reducido */
+    position: relative;
+    bottom: 0;
+    width: 100%; /* Ocupa el ancho completo */
+    display: flex;
+    flex-wrap: wrap; /* Permite que el contenido se ajuste */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    gap: 2rem; /* Espacio entre columnas */
+    box-sizing: border-box; /* Incluye padding en el ancho total */
+}
+
+/* Estilos para los párrafos dentro del footer */
 .footer p {
     margin: 0.5rem 0;
 }
 
+/* Estilos para la columna izquierda */
 .footer .left-column {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    flex: 1; /* Ensure columns take equal space */
-    min-width: 200px; /* Minimum width for columns */
-    font-size: 1.2rem; /* Increase font size */
+    align-items: center; /* Centra el contenido horizontalmente */
+    flex: 1; /* Ocupa el espacio disponible */
+    min-width: 200px; /* Ancho mínimo */
+    font-size: 1.2rem; /* Tamaño de fuente */
 }
 
+/* Estilos para los enlaces en la columna izquierda */
 .footer .left-column a {
     display: flex;
-    flex-direction: row; /* Align image and text horizontally */
+    flex-direction: row; /* Alinea imagen y texto horizontalmente */
     align-items: center;
-    justify-content: flex-start; /* Justify content to the left */
+    justify-content: flex-start; /* Alinea el contenido a la izquierda */
     padding: 0.5rem 1rem;
     background-color: var(--color-accent);
     color: white;
@@ -375,11 +517,13 @@ a {
     margin-bottom: 0.5rem;
 }
 
+/* Estilos para las imágenes dentro de los enlaces */
 .footer .left-column a img {
-    margin-right: 0.5rem; /* Add margin to the right of the image */
-    width: 35%; /* Increase the size of the image */
+    margin-right: 0.5rem; /* Margen a la derecha de la imagen */
+    width: 35%; /* Tamaño de la imagen */
 }
 
+/* Estilos para el botón de contacto */
 .footer .left-column .contact-button {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -391,13 +535,14 @@ a {
     margin-top: 0.5rem;
 }
 
+/* Estilos para la columna derecha */
 .footer .right-column {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center align content horizontally */
-    justify-content: center; /* Center align content vertically */
-    flex: 1; /* Ensure columns take equal space */
-    min-width: 200px; /* Minimum width for columns */
+    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
+    flex: 1; /* Ocupa el espacio disponible */
+    min-width: 200px; /* Ancho mínimo */
 }
 
 .partner-logos {
@@ -457,7 +602,6 @@ a {
     .footer {
         flex-direction: column; /* Stack columns vertically */
         align-items: center; /* Center align columns */
-        padding: 1rem; /* Adjust padding for mobile */
     }
 
     .footer .right-column {

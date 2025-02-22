@@ -1,5 +1,9 @@
 import React from "react";
 import "./PageApp.css";
+import creator1 from "../assets/page/creators/creator1.png"; // Ajusta las rutas según tu proyecto
+import creator2 from "../assets/page/creators/creator2.png"; // Ajusta las rutas según tu proyecto
+import creator3 from "../assets/page/creators/creator3.png"; // Ajusta las rutas según tu proyecto
+import creator4 from "../assets/page/creators/creator4.png"; // Ajusta las rutas según tu proyecto
 import backgroundSvg from "../assets/page/bg/bg_front_page.svg";
 import backgroundTwoSvg from "../assets/page/bg/bg_neural.svg";
 import portadaImage from "../assets/page/hand_phone_front_page.png";
@@ -42,8 +46,8 @@ const PageApp = () => {
             {/* Sección 2: Sobre nosotros (about-us)*/}
             <section className="about-us" style={{ backgroundImage: `url(${backgroundTwoSvg})` }}>
                 <div className="title-about">
-                    <img src={iconInfo} alt="info" />
                     <h2>Sobre Nosotros</h2>
+                    <img src={iconInfo} alt="info" />
                 </div>
                 <div className="container-mission">
                     <h3>Misión</h3>
@@ -84,6 +88,46 @@ const PageApp = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="creators-page" style={{ backgroundImage: `url(${backgroundSvg})` }}>
+                <h2 className="creators-title">Nuestros Creadores</h2>
+                <p className="creators-description">Conoce al equipo que hizo posible este proyecto.</p>
+                <div className="creators-grid">
+                    {/* Creador 1 */}
+                    <div className="creator-card">
+                        <img src={creator1} alt="Creador 1" className="creator-image" />
+                        <h3 className="creator-name">Nombre del Creador 1</h3>
+                        <p className="creator-role">Rol del Creador 1</p>
+                    </div>
+                    {/* Creador 2 */}
+                    <div className="creator-card">
+                        <img src={creator2} alt="Creador 2" className="creator-image" />
+                        <h3 className="creator-name">Nombre del Creador 2</h3>
+                        <p className="creator-role">Rol del Creador 2</p>
+                    </div>
+                    {/* Creador 3 */}
+                    <div className="creator-card">
+                        <img src={creator3} alt="Creador 3" className="creator-image" />
+                        <h3 className="creator-name">Nombre del Creador 3</h3>
+                        <p className="creator-role">Rol del Creador 3</p>
+                    </div>
+                    {/* Creador 4 */}
+                    <div className="creator-card">
+                        <img src={creator4} alt="Creador 4" className="creator-image" />
+                        <h3 className="creator-name">Nombre del Creador 4</h3>
+                        <p className="creator-role">Rol del Creador 4</p>
+                    </div>
+                </div>
+            </section>
+
+            <section className="donations-page" style={{ backgroundImage: `url(${backgroundTwoSvg})` }}>
+                <h2 className="donations-title">Apoya Nuestro Proyecto</h2>
+                <p className="donations-description">
+                    Tu contribución nos ayuda a seguir mejorando y manteniendo esta aplicación gratuita para todos.
+                </p>
+                <a href="https://tudominio.com/donar" target="_blank" rel="noopener noreferrer" className="donate-button"> Hacer una Donación</a>
+            </section>
+
             <footer className="footer">
                 <div className="left-column">
                     <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer">
