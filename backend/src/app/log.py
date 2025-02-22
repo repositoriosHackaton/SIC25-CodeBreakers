@@ -34,7 +34,7 @@ async def log(path, boxes, image):
         os.makedirs(path)
     file_name = datetime.now().strftime("%d-%m-%y_%H:%M:%S")
     value = values[boxes[0]["label"]] # Valor pasado por el diccionario
-    orign_image_output_path = f"{path}{value}_{file_name}_og.jpg"
+    orign_image_output_path = f"{path}{value}_{file_name}_orign.jpg"
     boxes_image_output_path = f"{path}{value}_{file_name}_boxes.jpg"
     text_output_path =        f"{path}{value}_{file_name}_json.txt"
     try:
