@@ -1,6 +1,7 @@
 services:
   web:
     build: backend/
+    container_name: cashreader-api
     command: sh -c "fastapi run backend/src/app/app.py --port 5000"
     ports:
       - 5000:5000
