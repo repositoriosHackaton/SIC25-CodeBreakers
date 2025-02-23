@@ -6,23 +6,41 @@ import "./App.css";
 
 const App = () => {
     const [isStandalone, setIsStandalone] = useState(false);
+    const [updateAvailable, setUpdateAvailable] = useState(false);
 
     useEffect(() => {
-        // Verificar si la app está en modo standalone
+        // Registra el Service Worker y escucha actualizaciones
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/sw.js").then((registration) => {
+                registration.addEventListener("updatefound", () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener("statechange", () => {
+                        if (newWorker.state === "activated") {
+                            setUpdateAvailable(true); // Notifica al usuario
+                        }
+                    });
+                });
+            });
+        }
+
+        // Verificar modo standalone
         const checkStandalone = () => {
-            const standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone; // Para iOS
+            const standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
             setIsStandalone(standalone);
         };
-
         checkStandalone();
-
-        // Escuchar cambios en el estado del display-mode (si el navegador soporta)
         window.addEventListener("resize", checkStandalone);
-
-        return () => {
-            window.removeEventListener("resize", checkStandalone);
-        };
+        return () => window.removeEventListener("resize", checkStandalone);
     }, []);
+
+    // Recargar cuando haya una actualización
+    useEffect(() => {
+        if (updateAvailable) {
+            if (confirm("¡Nueva versión disponible! ¿Recargar ahora?")) {
+                window.location.reload();
+            }
+        }
+    }, [updateAvailable]);
 
     return isStandalone ? <MainApp /> : <PageApp />;
 };

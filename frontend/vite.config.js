@@ -18,6 +18,19 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: "autoUpdate",
+            strategies: "generateSW", // Genera el SW automáticamente
+            workbox: {
+                cleanupOutdatedCaches: true, // Elimina cachés obsoletos
+                clientsClaim: true, // El SW toma control inmediato
+                skipWaiting: true, // Ignora la espera de pestañas cerradas
+                runtimeCaching: [
+                    // Estrategia de caché
+                    {
+                        urlPattern: /\.(js|css|html|png|svg|ico)/,
+                        handler: "StaleWhileRevalidate",
+                    },
+                ],
+            },
             manifest: {
                 display: "standalone",
                 display_override: ["window-controls-overlay"],
