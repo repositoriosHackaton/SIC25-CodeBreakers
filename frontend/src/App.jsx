@@ -36,9 +36,7 @@ const App = () => {
     // Recargar cuando haya una actualización
     useEffect(() => {
         if (updateAvailable) {
-            if (confirm("¡Nueva versión disponible! ¿Recargar ahora?")) {
-                window.location.reload();
-            }
+            window.location.reload();
         }
     }, [updateAvailable]);
 
