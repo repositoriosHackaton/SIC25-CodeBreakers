@@ -8,6 +8,18 @@ const App = () => {
     const [isStandalone, setIsStandalone] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
 
+    // Esto se puede colocar en un useEffect en App.jsx o en el entry point de tu app
+    const setVhProperty = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    // Establecer al cargar la app
+    setVhProperty();
+
+    // Actualizar la variable al cambiar el tamaño de la ventana
+    window.addEventListener("resize", setVhProperty);
+
     useEffect(() => {
         // Registra el Service Worker y escucha actualizaciones
         if ("serviceWorker" in navigator) {
@@ -36,9 +48,7 @@ const App = () => {
     // Recargar cuando haya una actualización
     useEffect(() => {
         if (updateAvailable) {
-            if (confirm("¡Nueva versión disponible! ¿Recargar ahora?")) {
-                window.location.reload();
-            }
+            window.location.reload();
         }
     }, [updateAvailable]);
 
