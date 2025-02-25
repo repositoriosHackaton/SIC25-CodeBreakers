@@ -89,7 +89,7 @@ a {
 }
 
 /* ----- IMAGEN DEL TELÉFONO ----- */
-.image-container {
+.image-container { /* imagen del telefono corregida*/
     display: flex;
     justify-content: center;
     align-items: center;
