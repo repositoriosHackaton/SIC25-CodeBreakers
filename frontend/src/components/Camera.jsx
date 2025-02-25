@@ -4,6 +4,7 @@ import ActionButtons from "./ActionButtons";
 import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
 import useNarrator from "../hooks/useNarrator";
 import { useVoiceInterface } from "../hooks/useVoiceInterface";
+import { HELP_MESSAGE } from "../constants/HELP_MESSAGE";
 import "./Camera.css";
 
 const Camera = () => {
@@ -175,6 +176,8 @@ const Camera = () => {
         return () => clearInterval(autoCaptureRef.current);
     }, [autoCaptureInterval, takePhoto]);
 
+    const HelpMessage = () => setNarration(HELP_MESSAGE);
+
     // Usamos el hook de voz, el cual devuelve start y stop
     const {
         error: voiceError,
@@ -183,6 +186,7 @@ const Camera = () => {
     } = useVoiceInterface({
         callTakePhoto: takePhoto,
         callToggleModel: toggleModelHandler,
+        callHelpMessage: HelpMessage,
         debug: true,
     });
 
