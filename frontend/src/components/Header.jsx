@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import useNarrator from "../hooks/useNarrator";
-import { useVoiceInterface } from "../hooks/useVoiceInterface";
 import "./Header.css";
 
 // Mensaje de ayuda inicial
@@ -14,10 +13,10 @@ const HELP_MESSAGE = `
     En la parte superior: 
     - Botón de ayuda: Escuchar estas instrucciones nuevamente.
 
-    Comandos de voz alternativos (debe mantener presionado el centro de la pantalla para usar):
-    - "tomar foto": Iniciar evaluación del billete.
-    - "cambiar moneda": Alternar entre bolívares y dólares.
-    - "ayuda": Repetir instrucciones.
+    Comandos de voz alternativos (mantenga presionado el centro de la pantalla):
+    - "Tomar Foto": Iniciar evaluación del billete.
+    - "Cambiar Moneda": Alternar entre bolívares y dólares.
+    - "Ayuda": Repetir instrucciones.
 `;
 
 const Header = () => {
@@ -40,11 +39,6 @@ const Header = () => {
 
     // Handler del botón (existente)
     const handleClick = () => setNarration(HELP_MESSAGE);
-
-    const { error: voiceError } = useVoiceInterface({
-        callHelpMessage: () => setNarration(HELP_MESSAGE),
-        debug: true,
-    });
 
     return (
         <button className={`header-button`} onClick={handleClick}>

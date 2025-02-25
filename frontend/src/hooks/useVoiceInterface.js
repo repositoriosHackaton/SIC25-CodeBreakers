@@ -2,51 +2,36 @@
 import { useMemo, useCallback, useState } from "react";
 import { useSpeechRecognition } from "./useSpeechRecognition";
 
-export const useVoiceInterface = ({
-    callTakePhoto = null,
-    callToggleModel = null,
-    callHelpMessage = null,
-    additionalCommands = [],
-    debug = false,
-} = {}) => {
-    // Generar comandos base condicionalmente
-    const baseCommands = useMemo(() => {
-        const commands = [];
-
-        if (callTakePhoto) {
-            commands.push({
+/**
+ * Hook para manejar comandos de voz.
+ * @param {Object} config - Configuración de la interfaz de voz.
+ * @param {Function} config.callTakePhoto - Función para capturar foto.
+ * @param {Function} config.callToggleModel - Función para cambiar modelo.
+ * @param {Array} [config.additionalCommands=[]] - Comandos adicionales.
+ * @param {boolean} [config.debug=false] - Modo debug.
+ * @returns {Object} { error, isListening, start, stop, commands }
+ */
+export const useVoiceInterface = ({ callTakePhoto, callToggleModel, additionalCommands = [], debug = false }) => {
+    // Mezcla de comandos
+    const mergedCommands = useMemo(() => {
+        const defaults = [
+            {
                 keyword: "tomar foto",
                 callback: callTakePhoto,
                 description: "Captura una foto usando la cámara",
-            });
-        }
-
-        if (callToggleModel) {
-            commands.push({
+            },
+            {
                 keyword: "cambiar moneda",
                 callback: callToggleModel,
-                description: "Cambia el modelo de divisa",
-            });
-        }
+                description: "Cambia el modelo de IA usado",
+            },
+        ];
+        return [...defaults, ...additionalCommands];
+    }, [additionalCommands, callTakePhoto, callToggleModel]);
 
-        if (callHelpMessage) {
-            commands.push({
-                keyword: "ayuda",
-                callback: callHelpMessage,
-                description: "Muestra las instrucciones de uso",
-            });
-        }
-
-        return commands;
-    }, [callTakePhoto, callToggleModel, callHelpMessage]);
-
-    const mergedCommands = useMemo(() => {
-        return [...baseCommands, ...additionalCommands];
-    }, [baseCommands, additionalCommands]);
-
-    // Resto del hook permanece igual
     const [error, setError] = useState(null);
 
+    // Handler para procesar el comando reconocido
     const handleVoiceCommand = useCallback(
         (command) => {
             if (debug) console.debug("[Voice] Comando detectado:", command);
@@ -66,6 +51,7 @@ export const useVoiceInterface = ({
         [mergedCommands, debug]
     );
 
+    // Usamos nuestro hook de reconocimiento, el cual ahora NO se inicia automáticamente.
     const { start, stop } = useSpeechRecognition(handleVoiceCommand);
 
     return { error, start, stop, commands: mergedCommands };

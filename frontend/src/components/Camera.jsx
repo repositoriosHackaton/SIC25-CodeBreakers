@@ -190,7 +190,7 @@ const Camera = () => {
     // Al presionar (onTouchStart) se activa el micrófono; al soltar (onTouchEnd) se detiene.
     return (
         <section className="camera-section">
-            <div className="camera-container" onClick={start} onTouchStart={start} onTouchEnd={stop}>
+            <div className="camera-container" onTouchStart={start} onTouchEnd={stop}>
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
                 {/*photo && (
                     <div className="download-container">
