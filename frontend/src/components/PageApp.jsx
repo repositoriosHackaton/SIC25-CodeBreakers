@@ -96,8 +96,10 @@ const PageApp = () => {
                     {/* Creador 1 */}
                     <div className="creator-card">
                         <img src={creator1} alt="Creador 1" className="creator-image" />
-                        <h3 className="creator-name">Nombre del Creador 1</h3>
-                        <p className="creator-role">Rol del Creador 1</p>
+                        <h3 className="creator-name">Jesus Cabello</h3>
+                        <p className="creator-role">Desarrollador</p>
+                        <div class="badge-base LI-profile-badge" data-locale="es_ES" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="jesus-cabello-8b15862aa" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://ve.linkedin.com/in/jesus-cabello-8b15862aa?trk=profile-badge">Jesus Cabello</a></div>
+                        <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
                     </div>
                     {/* Creador 2 */}
                     <div className="creator-card">

@@ -96,7 +96,7 @@ a {
     height: auto;
     width: 100%;
     max-width: 700px;
-    margin-bottom: 0; /* Remove margin to ensure no distance with the next section */
+    margin-bottom: -0.5rem; /* Remove margin to ensure no distance with the next section */
     grid-column: 2 / 3; /* Ensure image is in the right column */
 }
 
