@@ -12,14 +12,13 @@ const Camera = () => {
     const videoRef = useRef(null);
     const autoCaptureRef = useRef(null);
     const videoTrackRef = useRef(null);
-    const initialLoad = useRef(true);
 
     // Estados locales
     const [photo, setPhoto] = useState(null);
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
     const [narration, setNarration] = useState("");
     const [toggleModel, setToggleModel] = useState(true);
-    const toggleModelRef = useRef(toggleModel);
+
     // Función para limpiar la narración cuando finaliza
     const handleNarrationComplete = () => {
         setNarration("");
@@ -78,18 +77,9 @@ const Camera = () => {
 
         getCameraStream();
 
-        useEffect(() => {
-            toggleModelRef.current = toggleModel;
-        }, [toggleModel]);
-
-        // Modifica el manejador de visibilidad
         const handleVisibilityChange = () => {
             if (document.visibilityState === "visible") {
-                if (!initialLoad.current) {
-                    // Usa la referencia actualizada
-                    setNarration(`Modo actual: ${toggleModelRef.current ? "Bolívares" : "Dólares"}`);
-                }
-                initialLoad.current = false;
+                handleNarrationComplete();
                 setFlash(true);
             } else {
                 setFlash(false);
