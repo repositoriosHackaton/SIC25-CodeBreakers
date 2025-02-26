@@ -9,17 +9,19 @@ settings.update(datasets_dir = '.')
 
 def train_model():
     # Cargar el modelo YOLO preentrenado
-    model = YOLO(r'C:\Users\jesus\Desktop\Clones\cash_reader\yolov8n.pt') 
+    model = YOLO(r'C:\Users\jesus\Documents\Proyectos\Cashreader\yolov8m.pt') 
 
     # Entrenar el modelo
     results = model.train(
-        data=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\data.yaml',
+        data=r'C:\Users\jesus\Documents\Proyectos\Cashreader\backend\Dollar_Bill_Detection_USD\data.yaml',
         epochs = 350,
         batch = 16,
         imgsz = 416,
         cls=0.7,
         patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
         optimizer = "SGD",
+        freeze = [0,1], #indice de las cpas que se congelarán
+        task = "detect",
     )
     print(results)
 
