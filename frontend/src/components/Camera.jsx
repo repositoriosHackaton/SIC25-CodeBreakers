@@ -77,20 +77,9 @@ const Camera = () => {
 
         getCameraStream();
 
-        return () => {
-            if (videoRef.current && videoRef.current.srcObject) {
-                const stream = videoRef.current.srcObject;
-                stream.getTracks().forEach((track) => track.stop());
-            }
-            clearInterval(autoCaptureRef.current);
-        };
-    }, []);
-
-    useEffect(() => {
         const handleVisibilityChange = () => {
             if (document.visibilityState === "visible") {
                 handleNarrationComplete();
-                setNarration(`Modo actual: ${toggleModel ? "Bolívares" : "Dólares"}`);
                 setFlash(true);
             } else {
                 setFlash(false);
@@ -98,8 +87,16 @@ const Camera = () => {
         };
 
         document.addEventListener("visibilitychange", handleVisibilityChange);
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-    }, [toggleModel]);
+
+        return () => {
+            if (videoRef.current && videoRef.current.srcObject) {
+                const stream = videoRef.current.srcObject;
+                stream.getTracks().forEach((track) => track.stop());
+            }
+            clearInterval(autoCaptureRef.current);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
+    }, []);
 
     // Función para cambiar el modelo
     const toggleModelHandler = () => {
