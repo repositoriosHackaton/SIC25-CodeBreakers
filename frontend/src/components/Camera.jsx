@@ -12,7 +12,7 @@ const Camera = () => {
     const videoRef = useRef(null);
     const autoCaptureRef = useRef(null);
     const videoTrackRef = useRef(null);
-
+    const toggleModelRef = useRef(true);
     // Estados locales
     const [photo, setPhoto] = useState(null);
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
@@ -23,6 +23,10 @@ const Camera = () => {
     const handleNarrationComplete = () => {
         setNarration("");
     };
+
+    useEffect(() => {
+        toggleModelRef.current = toggleModel;
+    }, [toggleModel]);
 
     // Hooks personalizados para la narración y el procesamiento de respuesta de la API
     useNarrator(narration, handleNarrationComplete);
@@ -96,6 +100,22 @@ const Camera = () => {
             clearInterval(autoCaptureRef.current);
             document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
+    }, []);
+
+    useEffect(() => {
+        const handleStateModel = () => {
+            if (document.visibilityState === "visible") {
+                setNarration(`Modo actual: ${toggleModelRef.current ? "Bolívares" : "Dólares"}`);
+                console.log("si");
+                console.log(toggleModelRef.current);
+                console.log(toggleModel);
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleStateModel);
+        if (document.visibilityState === "visible") {
+            handleStateModel();
+        }
     }, []);
 
     // Función para cambiar el modelo
