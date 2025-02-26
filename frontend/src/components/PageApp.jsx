@@ -17,6 +17,9 @@ import iconSamsung from "../assets/page/samsung.jpg";
 import iconUmc from "../assets/page/umc.png";
 import iconSteam from "../assets/page/steam.svg";
 import InstallButton from "./InstallButton";
+import TensorIcon from "../assets/page/tensor.png";
+import FastIcon from "../assets/page/fastapi.png"
+import ReactIcon from "../assets/page/react.png"
 
 const PageApp = () => {
     return (
@@ -98,6 +101,7 @@ const PageApp = () => {
                         <img src={creator1} alt="Creador 1" className="creator-image" />
                         <h3 className="creator-name">Jesus Cabello</h3>
                         <p className="creator-role">Desarrollador</p>
+                        
                         <div class="badge-base LI-profile-badge" data-locale="es_ES" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="jesus-cabello-8b15862aa" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://ve.linkedin.com/in/jesus-cabello-8b15862aa?trk=profile-badge">Jesus Cabello</a></div>
                         <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
                     </div>
@@ -146,6 +150,9 @@ const PageApp = () => {
                         <img src={iconUmc} alt="UMC" />
                         <img src={iconSteam} alt="Steam" />
                         <img src={iconSamsung} alt="Samsung" />
+                        <img src={TensorIcon} alt="TensorFlow"/>
+                        <img src={FastIcon} alt="FastApi"/>
+                        <img src={ReactIcon} alt="React"/>
                     </div>
                 </div>
             </footer>

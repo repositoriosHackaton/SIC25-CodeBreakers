@@ -399,8 +399,8 @@ a {
     padding: 1.5rem;
     width: 250px;
     text-align: center;
-    transition: transform 0.3s ease;
-}
+    transition: transform 0.3s ease; 
+} 
 
 .creator-card:hover {
     transform: translateY(-10px);
@@ -553,16 +553,17 @@ a {
     gap: 1rem; /* Add gap between images */
     margin-top: 0rem;
     width: 100%; /* Ensure it takes full width */
+    max-width: 500px;
     height: auto; /* Adjust height to fit content */
     background-color: #343a40; /* Add background color */
     padding: 1rem; /* Add padding */
     border-radius: 1rem; /* Add border radius */
-    flex-wrap: nowrap; /* Prevent wrapping */
+    flex-wrap: wrap; /* Prevent wrapping */
 }
 
 .partner-logos img {
     flex: 0 1 auto; /* Allow images to grow and take available space */
-    max-width: 160px; /* Reduce the maximum width */
+    max-width: 120px; /* Reduce the maximum width */
     height: auto;
     object-fit: contain; /* Ensure images fit well within their container */
     border-radius: 1rem; /* Add rounded corners */
