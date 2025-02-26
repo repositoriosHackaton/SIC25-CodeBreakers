@@ -96,7 +96,7 @@ a {
     height: auto;
     width: 100%;
     max-width: 700px;
-    margin-bottom: -0.5rem; /* Remove margin to ensure no distance with the next section */
+    margin-bottom: 0; /* Remove margin to ensure no distance with the next section */
     grid-column: 2 / 3; /* Ensure image is in the right column */
 }
 
@@ -346,7 +346,6 @@ a {
     line-height: 1.5;
 }
 
-
 /* ----- SECCIÓN CREADORES----- */
 .creators-page {
     display: flex;
@@ -360,76 +359,78 @@ a {
     position: relative;
     margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 2rem; /* Reduce padding to ensure space between sections */
+    padding: 2rem 1rem; /* Adjust padding to ensure space between sections */
     border-bottom: 0.25rem solid var(--color-base-dark);
     z-index: 1; /* Ensure front-page is above other sections */
     opacity: 0.9; /* Make background slightly transparent */
-}
-
-.creators-title {
-    width: auto;
-    text-align: center;
-    font-size: 3.5rem;
-    padding-top: 0;
-    margin-top: 5rem;
-    margin-bottom: 2rem;
-    display: flex;
-}
-
-.creators-description {
-    width: auto;
-    text-align: center;
-    font-size: 2.1rem;
-    margin-bottom: 3rem;
-    display: flex;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    overflow: hidden;
 }
 
 .creators-grid {
     display: flex;
-    margin-top: 5rem;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
+    gap: 20px;
+    padding: 0;
+    max-width: 90%; /* Ensure the grid does not exceed the page width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .creator-card {
-    background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    width: 250px;
+    width: 400px;
     text-align: center;
-    transition: transform 0.3s ease; 
-} 
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0; /* Remove margin to eliminate white spaces */
+    flex: 1 1 calc(25% - 20px); /* Adjust the width as needed */
+    box-sizing: border-box;
+    max-width: 300px; /* Optional: set a max-width to prevent cards from getting too large */
+    padding: 1rem; /* Add padding for better spacing */
+}
 
 .creator-card:hover {
     transform: translateY(-10px);
 }
 
-.creator-image {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1rem;
+.creator-card .linkedin-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.creator-name {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.creator-role {
-    font-size: 1rem;
-    color: #666;
+.creator-card p, .creator-card a {
+    text-align: center;
 }
 
 /* Estilos responsive para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .creator-card {
-        width: 100%;
-        max-width: 300px;
+        flex: 1 1 calc(33.33% - 20px);
+    }
+}
+
+@media (max-width: 800px) {
+    .creator-card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 500px) {
+    .creator-card {
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .creators-grid {
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -460,7 +461,7 @@ a {
     display: inline-block;
     padding: 1rem 2rem;
     background-color: #28a745; /* Color de fondo del botón */
-    color: white; /* Color del texto */
+    color: rgb(255, 255, 255); /* Color del texto */
     text-decoration: none;
     border-radius: 5px;
     font-size: 1.2rem;
@@ -521,7 +522,7 @@ a {
 /* Estilos para las imágenes dentro de los enlaces */
 .footer .left-column a img {
     margin-right: 0.5rem; /* Margen a la derecha de la imagen */
-    width: 35%; /* Tamaño de la imagen */
+    width: 25%; /* Tamaño de la imagen */
 }
 
 /* Estilos para el botón de contacto */
@@ -553,12 +554,12 @@ a {
     gap: 1rem; /* Add gap between images */
     margin-top: 0rem;
     width: 100%; /* Ensure it takes full width */
-    max-width: 500px;
     height: auto; /* Adjust height to fit content */
     background-color: #343a40; /* Add background color */
     padding: 1rem; /* Add padding */
     border-radius: 1rem; /* Add border radius */
-    flex-wrap: wrap; /* Prevent wrapping */
+    flex-wrap: wrap; /* Allow wrapping */
+    overflow: hidden; /* Prevent overflow */
 }
 
 .partner-logos img {
@@ -567,6 +568,18 @@ a {
     height: auto;
     object-fit: contain; /* Ensure images fit well within their container */
     border-radius: 1rem; /* Add rounded corners */
+}
+
+.footer .left-column .github-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.footer .left-column .github-link img {
+    width: 50%; /* Reduce the size to half */
+    margin-bottom: 0.5rem;
 }
 
 @media (min-width: 1024px) {

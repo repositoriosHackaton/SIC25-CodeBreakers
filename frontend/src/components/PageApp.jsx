@@ -1,9 +1,5 @@
 import React from "react";
 import "./PageApp.css";
-import creator1 from "../assets/page/creators/creator1.png"; // Ajusta las rutas según tu proyecto
-import creator2 from "../assets/page/creators/creator2.png"; // Ajusta las rutas según tu proyecto
-import creator3 from "../assets/page/creators/creator3.png"; // Ajusta las rutas según tu proyecto
-import creator4 from "../assets/page/creators/creator4.png"; // Ajusta las rutas según tu proyecto
 import backgroundSvg from "../assets/page/bg/bg_front_page.svg";
 import backgroundTwoSvg from "../assets/page/bg/bg_neural.svg";
 import portadaImage from "../assets/page/hand_phone_front_page.png";
@@ -20,6 +16,7 @@ import InstallButton from "./InstallButton";
 import TensorIcon from "../assets/page/tensor.png";
 import FastIcon from "../assets/page/fastapi.png"
 import ReactIcon from "../assets/page/react.png"
+import LinkedInBadge from "./LinkedInBadge";
 
 const PageApp = () => {
     return (
@@ -98,31 +95,25 @@ const PageApp = () => {
                 <div className="creators-grid">
                     {/* Creador 1 */}
                     <div className="creator-card">
-                        <img src={creator1} alt="Creador 1" className="creator-image" />
-                        <h3 className="creator-name">Jesus Cabello</h3>
-                        <p className="creator-role">Desarrollador</p>
-                        
-                        <div class="badge-base LI-profile-badge" data-locale="es_ES" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="jesus-cabello-8b15862aa" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://ve.linkedin.com/in/jesus-cabello-8b15862aa?trk=profile-badge">Jesus Cabello</a></div>
-                        <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+                        <LinkedInBadge profileVanity="joel-escobar" />
                     </div>
                     {/* Creador 2 */}
                     <div className="creator-card">
-                        <img src={creator2} alt="Creador 2" className="creator-image" />
-                        <h3 className="creator-name">Nombre del Creador 2</h3>
-                        <p className="creator-role">Rol del Creador 2</p>
+                        <LinkedInBadge profileVanity="francisco-ramos-santos-dev" />
                     </div>
                     {/* Creador 3 */}
                     <div className="creator-card">
-                        <img src={creator3} alt="Creador 3" className="creator-image" />
-                        <h3 className="creator-name">Nombre del Creador 3</h3>
-                        <p className="creator-role">Rol del Creador 3</p>
+                        <LinkedInBadge profileVanity="joshua-carrera-r" />
                     </div>
                     {/* Creador 4 */}
                     <div className="creator-card">
-                        <img src={creator4} alt="Creador 4" className="creator-image" />
-                        <h3 className="creator-name">Nombre del Creador 4</h3>
-                        <p className="creator-role">Rol del Creador 4</p>
+                        <LinkedInBadge profileVanity="jesús-ramírez-05347b246" />
                     </div>
+                    {/* Creador 5 */}
+                    <div className="creator-card">
+                        <LinkedInBadge profileVanity="jesus-cabello-8b15862aa" />
+                    </div>
+                    {/* Add more creator cards as needed */}
                 </div>
             </section>
 
@@ -131,15 +122,17 @@ const PageApp = () => {
                 <p className="donations-description">
                     Tu contribución nos ayuda a seguir mejorando y manteniendo esta aplicación gratuita para todos.
                 </p>
-                <a href="https://tudominio.com/donar" target="_blank" rel="noopener noreferrer" className="donate-button"> Hacer una Donación</a>
+                <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer" className="donate-button"> Hacer una Donación</a>
             </section>
 
             <footer className="footer">
                 <div className="left-column">
-                    <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer">
+                    <div className="github-link">
                         <img src={iconGithub} alt="Github" />
-                        Visita Nuestro Repositorio
-                    </a>
+                        <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer">
+                            Visita Nuestro Repositorio
+                        </a>
+                    </div>
                     <p>Desarrollado por CodeBreakers Team’s</p>
                     <a href="mailto:cashreader.info@gmail.com" className="contact-button">
                         Contacto: cashreader.info@gmail.com
