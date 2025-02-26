@@ -46,8 +46,8 @@ const PageApp = () => {
             {/* Sección 2: Sobre nosotros (about-us)*/}
             <section className="about-us" style={{ backgroundImage: `url(${backgroundTwoSvg})` }}>
                 <div className="title-about">
-                    <h2>Sobre Nosotros</h2>
                     <img src={iconInfo} alt="info" />
+                    <h2>Sobre Nosotros</h2>
                 </div>
                 <div className="container-mission">
                     <h3>Misión</h3>

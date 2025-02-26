@@ -96,7 +96,7 @@ a {
     height: auto;
     width: 100%;
     max-width: 700px;
-    margin-bottom: -0.5rem; /* Reduce margin to ensure space between sections */
+    margin-bottom: 0; /* Remove margin to ensure no distance with the next section */
     grid-column: 2 / 3; /* Ensure image is in the right column */
 }
 
@@ -111,6 +111,7 @@ a {
     width: 100%;
     max-width: 650px;
     z-index: 2;
+    margin-bottom: 0; /* Remove margin to ensure no distance with the next section */
 }
 
 /* ----- MEDIA QUERIES PARA RESPONSIVE ----- */
