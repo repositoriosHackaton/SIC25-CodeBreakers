@@ -7,8 +7,8 @@
 }
 
 .camera-container {
-    width: 80%;
-    height: 0; /* Esto asegura que la altura sea igual al ancho (proporción cuadrada) */
+    width: 95%;
+    height: 95%; /* Esto asegura que la altura sea igual al ancho (proporción cuadrada) */
     padding-bottom: 80%;
     position: relative;
     border: 0.5rem solid var(--color-accent);
@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
 }
 
 .camera-video {
@@ -48,7 +48,8 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-base-dark);
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     /* Aplica la animación cada vez que el elemento se renderiza */
     animation: fadeInUp 1s ease-out;
 }
