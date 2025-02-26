@@ -20,7 +20,8 @@ def train_model():
         cls=0.7,
         patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
         optimizer = "SGD",
-        freeze = [0,1,2,3,4,5,6,7,8,9], #indice de las cpas que se congelarán
+        freeze = [0,1], #indice de las cpas que se congelarán
+        task = "detect",
     )
     print(results)
 

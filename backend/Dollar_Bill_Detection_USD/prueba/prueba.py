@@ -2,7 +2,7 @@ import cv2
 from ultralytics import YOLO
 
 # Cargar el modelo YOLO
-model = YOLO(r'C:\Users\jesus\Documents\Proyectos\Cashreader\backend\Dollar_Bill_Detection_USD\prueba\Dollar_Model_10.pt')
+model = YOLO(r'C:\Users\jesus\Documents\Proyectos\Cashreader\backend\Dollar_Bill_Detection_USD\prueba\Dollar_Model_11.pt')
 
 # Inicializar la cámara
 cap = cv2.VideoCapture(0)
