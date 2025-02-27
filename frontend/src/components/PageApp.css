@@ -417,6 +417,14 @@ a {
 .creator-card p, .creator-card a {
     text-align: center;
 }
+.technologies-title {
+    text-align: center;
+    font-size: 30x;
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px; /* Separación entre los creadores y el título */
+    padding-top: 10px;
+}
 
 /* Estilos responsive para pantallas pequeñas */
 @media (max-width: 1200px) {
@@ -452,6 +460,52 @@ a {
     }
 }
 
+/* ----- SECCIÓN SLIDER----- */
+
+.infinite-slider {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    padding: 20px 0;
+    background-color: #f8f9fa; /* Ajusta según tu diseño */
+    border-bottom: 0.25rem solid var(--color-base-dark);
+}
+
+.slider-track {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que los elementos pasen a una nueva línea */
+    gap: 40px;
+    min-width: 100%;
+    width: max-content; /* Hace que el track se expanda tanto como necesite */
+    animation: slide 12s linear infinite;
+}
+
+.slider-container {
+    text-align: center;
+    margin-bottom: 20px; /* Espacio entre el título y el slider */
+}
+
+.slide {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide img {
+    width: 100%;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-33.33%); /* Desplaza solo 1/3 del track para que nunca haya huecos */
+    }
+}
 /* ----- SECCIÓN DONACIONES----- */
 
 .donations-page {
@@ -489,6 +543,7 @@ a {
 
 .donate-button:hover {
     background-color: #218838; /* Cambia el color al hacer hover */
+    color: rgb(255, 255, 255); /* Color del texto */
 }
 
 /* ------ FOOTER ------- */

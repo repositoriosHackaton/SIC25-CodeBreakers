@@ -17,6 +17,7 @@ import TensorIcon from "../assets/page/tensor.png";
 import FastIcon from "../assets/page/fastapi.png"
 import ReactIcon from "../assets/page/react.png"
 import LinkedInBadge from "./LinkedInBadge";
+import InfiniteSlider from "./slider";
 
 const PageApp = () => {
     return (
@@ -113,9 +114,13 @@ const PageApp = () => {
                     <div className="creator-card">
                         <LinkedInBadge profileVanity="jesus-cabello-8b15862aa" />
                     </div>
+                    
                 </div>
             </section>
+            
+            <InfiniteSlider />
 
+           
             <section className="donations-page" style={{ backgroundImage: `url(${backgroundTwoSvg})` }}>
                 <h2 className="donations-title">Apoya Nuestro Proyecto</h2>
                 <p className="donations-description">
@@ -123,6 +128,7 @@ const PageApp = () => {
                 </p>
                 <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer" className="donate-button"> Hacer una Donación</a>
             </section>
+
 
             <footer className="footer">
                 <div className="left-column">
@@ -142,9 +148,6 @@ const PageApp = () => {
                         <img src={iconUmc} alt="UMC" />
                         <img src={iconSteam} alt="Steam" />
                         <img src={iconSamsung} alt="Samsung" />
-                        <img src={TensorIcon} alt="TensorFlow"/>
-                        <img src={FastIcon} alt="FastApi"/>
-                        <img src={ReactIcon} alt="React"/>
                     </div>
                 </div>
             </footer>
