@@ -21,7 +21,7 @@ def resize_group(base_path: str, input_dir: str, output_dir: str, target_size: t
         resize(input_img_path, output_img_path, target_size)
 
 resize_group(
-            base_path  = "backend/src/data/img-data-vef/",
+            base_path  = "backend/src/data/img-data-usd/",
             input_dir  = "unprocessed",
             output_dir = "processed",
             target_size= (416, 416),
