@@ -18,6 +18,7 @@ const Camera = () => {
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
     const [narration, setNarration] = useState("");
     const [toggleModel, setToggleModel] = useState(true);
+    const [apiPrediction, setApiPrediction] = useState("");
 
     // Función para limpiar la narración cuando finaliza
     const handleNarrationComplete = () => {
@@ -30,8 +31,11 @@ const Camera = () => {
 
     // Hooks personalizados para la narración y el procesamiento de respuesta de la API
     useNarrator(narration, handleNarrationComplete);
-    const { processResponse } = useApiResponseProcessor((message) => {
+    const { processResponse } = useApiResponseProcessor((message, visualMessage) => {
         setNarration(message);
+        setApiPrediction(message);
+        console.log(message);
+        console.log(visualMessage);
     });
 
     /**
@@ -106,9 +110,6 @@ const Camera = () => {
         const handleStateModel = () => {
             if (document.visibilityState === "visible") {
                 setNarration(`Modo actual: ${toggleModelRef.current ? "Bolívares" : "Dólares"}`);
-                console.log("si");
-                console.log(toggleModelRef.current);
-                console.log(toggleModel);
             }
         };
 
@@ -212,6 +213,7 @@ const Camera = () => {
 
     // Agregamos handlers de gestos a la sección:
     // Al presionar (onTouchStart) se activa el micrófono; al soltar (onTouchEnd) se detiene.
+
     return (
         <section className="camera-section">
             <div
@@ -225,6 +227,8 @@ const Camera = () => {
                 onMouseLeave={stop}
             >
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
+                {/* Overlay visual para la respuesta de la API */}
+                {apiPrediction && <div className="api-response-overlay">{apiPrediction}</div>}
                 {/*photo && (
                     <div className="download-container">
                         <a href={photo} download="captura.jpg">

@@ -32,6 +32,20 @@
     position: relative;
 }
 
+.api-response-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--color-accent);
+    text-shadow: 0 0 10px var(--color-base-dark);
+    z-index: 2;
+    animation: fadeInUp 0.5s ease-out;
+    pointer-events: none;
+}
+
 @keyframes fadeInUp {
     0% {
         opacity: 0;
