@@ -45,10 +45,22 @@
     /*text-shadow: 0 0 15px var(--color-base-dark);*/
     -webkit-text-stroke: 0.25rem var(--color-base-dark);
     z-index: 2;
+    animation: fadeInUp 0.5s ease-out;
     pointer-events: none;
     text-align: center;
 }
 
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 10px));
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+/*
 @keyframes fadeInUp {
     0% {
         opacity: 0;
@@ -59,7 +71,7 @@
         transform: translateY(0);
     }
 }
-
+*/
 .scan-indicator {
     text-align: center;
     font-size: 1.5rem;

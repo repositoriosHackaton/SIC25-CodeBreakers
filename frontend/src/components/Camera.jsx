@@ -121,6 +121,15 @@ const Camera = () => {
         setNarration(`Modo cambiado a ${!toggleModel ? "Bolívares" : "Dólares"}`);
     };
 
+    useEffect(() => {
+        if (apiPrediction) {
+            const timer = setTimeout(() => {
+                setApiPrediction("");
+            }, 10000); // 10 segundos
+            return () => clearTimeout(timer);
+        }
+    }, [apiPrediction]);
+
     /**
      * Función para enviar la imagen capturada a la API.
      */
