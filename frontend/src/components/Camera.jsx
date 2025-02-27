@@ -58,6 +58,7 @@ const Camera = () => {
 
     // Obtener el stream de la cámara y gestionar el flash según la visibilidad
     useEffect(() => {
+        // Función para obtener el stream de la cámara
         const getCameraStream = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
@@ -78,13 +79,23 @@ const Camera = () => {
             }
         };
 
+        // Al montar, se obtiene el stream
         getCameraStream();
 
         const handleVisibilityChange = () => {
             if (document.visibilityState === "visible") {
                 handleNarrationComplete();
-                setFlash(true);
+                // Si no hay stream activo, reinicializamos la cámara
+                if (!videoRef.current.srcObject) {
+                    getCameraStream();
+                }
             } else {
+                // Al ir a segundo plano, detener el stream y limpiar la referencia
+                if (videoRef.current && videoRef.current.srcObject) {
+                    const stream = videoRef.current.srcObject;
+                    stream.getTracks().forEach((track) => track.stop());
+                    videoRef.current.srcObject = null;
+                }
                 setFlash(false);
             }
         };
@@ -92,12 +103,12 @@ const Camera = () => {
         document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
             if (videoRef.current && videoRef.current.srcObject) {
                 const stream = videoRef.current.srcObject;
                 stream.getTracks().forEach((track) => track.stop());
             }
             clearInterval(autoCaptureRef.current);
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
     }, []);
 
