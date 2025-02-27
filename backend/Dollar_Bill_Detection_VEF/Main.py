@@ -11,12 +11,15 @@ def train_model():
     
     # Entrenar el modelo
     results = model.train(
-        data=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\data.yaml', 
-        epochs = 150,
+        data=r'C:\Users\jesus\Documents\Proyectos\Cashreader\backend\Dollar_Bill_Detection_VEF\data.yaml', 
+        epochs = 350,
         batch = 16,
         imgsz = 416,
+        cls=0.7,   #Confianza mínima para considerar una detección válida
         patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
         optimizer = "SGD",
+        freeze = [1,5], #indice de las cpas que se congelarán
+        task = "detect"
     )
     print(results)
 
