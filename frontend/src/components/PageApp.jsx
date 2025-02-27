@@ -13,9 +13,6 @@ import iconSamsung from "../assets/page/samsung.jpg";
 import iconUmc from "../assets/page/umc.png";
 import iconSteam from "../assets/page/steam.svg";
 import InstallButton from "./InstallButton";
-import TensorIcon from "../assets/page/tensor.png";
-import FastIcon from "../assets/page/fastapi.png"
-import ReactIcon from "../assets/page/react.png"
 import LinkedInBadge from "./LinkedInBadge";
 
 const PageApp = () => {
@@ -142,9 +139,6 @@ const PageApp = () => {
                         <img src={iconUmc} alt="UMC" />
                         <img src={iconSteam} alt="Steam" />
                         <img src={iconSamsung} alt="Samsung" />
-                        <img src={TensorIcon} alt="TensorFlow"/>
-                        <img src={FastIcon} alt="FastApi"/>
-                        <img src={ReactIcon} alt="React"/>
                     </div>
                 </div>
             </footer>

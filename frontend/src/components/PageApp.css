@@ -21,15 +21,17 @@ a {
 .front-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
+    height: 100vh; /* Ensure it takes the full height of the viewport */
     background: no-repeat center center;
     background-size: cover;
     position: relative;
     margin: 0;
-    padding-bottom: 0rem; /* Reduce padding to ensure space between sections */
+    padding: 0; /* Remove padding to ensure no extra space */
     border-bottom: 0.25rem solid var(--color-base-dark);
     z-index: 1; /* Ensure front-page is above other sections */
     opacity: 0.9; /* Make background slightly transparent */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    overflow: hidden; /* Prevent overflow */
 }
 
 /* ----- CONTENEDOR DEL TEXTO ----- */
@@ -38,9 +40,11 @@ a {
     flex-direction: column;
     justify-content: space-evenly;
     max-width: 600px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0 auto; /* Center the content horizontally */
     grid-column: 1 / 2; /* Ensure content is in the left column */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    padding: 1rem; /* Add padding for better spacing */
+    text-align: left; /* Center align text */
 }
 
 .head-container {
@@ -60,6 +64,7 @@ a {
     color: black;
     font-weight: 700;
     max-width: 550px;
+    margin: 0 auto; /* Center align paragraphs */
 }
 
 .front-content p em {
@@ -96,8 +101,10 @@ a {
     height: auto;
     width: 100%;
     max-width: 700px;
-    margin-bottom: 0; /* Remove margin to ensure no distance with the next section */
+    margin: 0 auto; /* Center the image horizontally */
     grid-column: 2 / 3; /* Ensure image is in the right column */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    padding: 1rem; /* Add padding for better spacing */
 }
 
 .image-container img {
@@ -122,6 +129,36 @@ a {
     }
 }
 
+@media (min-width: 1920px) {
+    .front-content h1 {
+        font-size: clamp(4rem, 6vw, 5rem);
+    }
+
+    .front-content p {
+        font-size: clamp(2rem, 3vw, 2.5rem);
+    }
+
+    .front-content .cta-button {
+        font-size: clamp(2rem, 3vw, 2.5rem);
+    }
+
+    .feature h3, .feature p {
+        font-size: 2rem;
+    }
+
+    .creator-card {
+        width: 350px;
+    }
+
+    .donations-title, .donations-description {
+        font-size: 2.5rem;
+    }
+
+    .donate-button {
+        font-size: 1.5rem;
+    }
+}
+
 @media (max-width: 1024px) {
     .front-page {
         grid-template-columns: 1fr;
@@ -134,6 +171,32 @@ a {
     .front-content {
         max-width: 100%;
         align-items: center;
+        text-align: center;
+    }
+
+    .image-container {
+        max-width: 100%;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .creator-card {
+        flex: 1 1 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer .right-column, .footer .left-column {
+        width: 100%;
+    }
+
+    .partner-logos img {
+        width: 25%;
     }
 }
 
@@ -179,6 +242,46 @@ a {
 
     .front-content .text-front {
         display: block;
+    }
+
+    .container-mission,
+    .container-vision {
+        text-align: center;
+        flex: 1 1 100%;
+        margin-bottom: 2rem; /* Add space for horizontal separator */
+    }
+    .title-about img {
+        width: 25%;
+    }
+    .container-mission::after {
+        display: none; /* Hide separator in mobile version */
+    }
+
+    .title-about h2 {
+        text-align: center; /* Center h2 in mobile version */
+    }
+
+    .footer {
+        flex-direction: column; /* Stack columns vertically */
+        align-items: center; /* Center align columns */
+    }
+
+    .footer .right-column {
+        width: 100%; /* Full width */
+        margin-top: 1rem; /* Add margin for spacing */
+    }
+
+    .footer .left-column {
+        width: 100%; /* Full width */
+    }
+
+    .partner-logos {
+        flex-wrap: wrap; /* Allow wrapping */
+        width: auto; /* Do not take full width */
+    }
+
+    .partner-logos img {
+        width: 25%; /* Increase size for smaller screens */
     }
 }
 

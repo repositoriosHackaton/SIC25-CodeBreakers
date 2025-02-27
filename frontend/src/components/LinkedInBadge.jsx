@@ -20,7 +20,7 @@ const LinkedInBadge = ({ profileVanity, name }) => {
     <div
       className="badge-base LI-profile-badge"
       data-locale="es_ES"
-      data-size="medium"
+      data-size="large"
       data-theme="light"
       data-type="VERTICAL"
       data-vanity={profileVanity}
