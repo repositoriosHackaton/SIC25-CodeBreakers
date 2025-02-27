@@ -289,6 +289,7 @@ a {
 .container-vision p {
     font-size: 1.6rem;
     line-height: 1.5;
+    text-align: center; 
 }
 
 /* Center align text in about-us section on mobile */
@@ -351,6 +352,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center; 
+    justify-content: center; /* Center the contents vertically */
     background-repeat: no-repeat;
     text-align: center;
     min-height: 100vh;
@@ -367,10 +369,25 @@ a {
     overflow: hidden;
 }
 
+.creators-title {
+    font-size: 2.5rem;
+    color: var(--color-base-dark);
+    margin-bottom: 1rem;
+}
+
+.creators-description {
+    font-size: 1.5rem;
+    color: var(--color-base-dark);
+    margin-bottom: 2rem;
+    max-width: 800px;
+    text-align: center;
+}
+
 .creators-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* Center the grid horizontally */
+    align-items: center; /* Center the grid vertically */
     gap: 20px;
     padding: 0;
     max-width: 90%; /* Ensure the grid does not exceed the page width */
@@ -378,7 +395,7 @@ a {
 }
 
 .creator-card {
-    width: 400px;
+    width: 300px; /* Increase width by 25% */
     text-align: center;
     transition: transform 0.3s ease;
     display: flex;
@@ -396,13 +413,6 @@ a {
     transform: translateY(-10px);
 }
 
-.creator-card .linkedin-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
 .creator-card p, .creator-card a {
     text-align: center;
@@ -431,6 +441,14 @@ a {
     .creators-grid {
         flex-direction: column;
         align-items: center;
+    }
+
+    .creators-title {
+        font-size: 2rem;
+    }
+
+    .creators-description {
+        font-size: 1.2rem;
     }
 }
 

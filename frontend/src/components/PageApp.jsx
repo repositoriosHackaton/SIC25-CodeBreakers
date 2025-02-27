@@ -113,7 +113,6 @@ const PageApp = () => {
                     <div className="creator-card">
                         <LinkedInBadge profileVanity="jesus-cabello-8b15862aa" />
                     </div>
-                    {/* Add more creator cards as needed */}
                 </div>
             </section>
 
