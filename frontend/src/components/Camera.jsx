@@ -18,6 +18,7 @@ const Camera = () => {
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
     const [narration, setNarration] = useState("");
     const [toggleModel, setToggleModel] = useState(true);
+    // Nuevo estado para la respuesta visual de la API
     const [apiPrediction, setApiPrediction] = useState("");
 
     // Función para limpiar la narración cuando finaliza
@@ -29,18 +30,13 @@ const Camera = () => {
         toggleModelRef.current = toggleModel;
     }, [toggleModel]);
 
-    // Hooks personalizados para la narración y el procesamiento de respuesta de la API
+    // Hooks para narración y procesamiento de respuesta
+    // Se pasa setApiPrediction para actualizar la referencia visual
     useNarrator(narration, handleNarrationComplete);
-    const { processResponse } = useApiResponseProcessor((message, visualMessage) => {
-        setNarration(message);
-        setApiPrediction(message);
-        console.log(message);
-        console.log(visualMessage);
-    });
+    const { processResponse } = useApiResponseProcessor((message) => setNarration(message), setApiPrediction);
 
     /**
      * Función unificada para controlar el flash.
-     * Recibe un booleano enabled para activar (true) o desactivar (false) el flash.
      */
     const setFlash = async (enabled) => {
         if (videoTrackRef.current) {
@@ -75,7 +71,6 @@ const Camera = () => {
                     videoRef.current.srcObject = stream;
                     const [videoTrack] = stream.getVideoTracks();
                     videoTrackRef.current = videoTrack;
-                    // Activar el flash inicialmente
                     setFlash(true);
                 }
             } catch (error) {
@@ -117,18 +112,17 @@ const Camera = () => {
         if (document.visibilityState === "visible") {
             handleStateModel();
         }
+        return () => document.removeEventListener("visibilitychange", handleStateModel);
     }, []);
 
     // Función para cambiar el modelo
     const toggleModelHandler = () => {
-        setToggleModel((prev) => !prev); // Invierte el valor actual
-        // Opcional: Podrías añadir un mensaje de narración al cambiar
+        setToggleModel((prev) => !prev);
         setNarration(`Modo cambiado a ${!toggleModel ? "Bolívares" : "Dólares"}`);
     };
 
     /**
      * Función para enviar la imagen capturada a la API.
-     * Se utiliza useCallback para que su referencia sea estable.
      */
     const sendPhotoToAPI = useCallback(
         async (imageData) => {
@@ -137,7 +131,6 @@ const Camera = () => {
                 const formData = new FormData();
                 formData.append("image", blob, "captura.jpg");
 
-                // Determinamos el endpoint basado en toggleModel
                 const endpoint = toggleModel ? "vef" : "usd";
                 const url = `https://cashreader.share.zrok.io/detection/${endpoint}`;
 
@@ -152,12 +145,11 @@ const Camera = () => {
                 setNarration("No se ha podido comunicar con el servidor, intentelo mas tarde");
             }
         },
-        [processResponse, toggleModel] // Añadimos toggleModel a las dependencias
+        [processResponse, toggleModel]
     );
 
     /**
      * Función para tomar la foto en resolución nativa y enviar la imagen.
-     * Se utiliza useCallback para estabilizar su referencia y evitar recreaciones innecesarias.
      */
     const takePhoto = useCallback(() => {
         const video = videoRef.current;
@@ -165,19 +157,15 @@ const Camera = () => {
             console.error("Video no disponible.");
             return;
         }
-
         const nativeWidth = video.videoWidth;
         const nativeHeight = video.videoHeight;
 
-        // Canvas para capturar la imagen en tamaño nativo
         const canvas = document.createElement("canvas");
         canvas.width = nativeWidth;
         canvas.height = nativeHeight;
         const context = canvas.getContext("2d");
         context.drawImage(video, 0, 0, nativeWidth, nativeHeight);
 
-        // Obtenemos la imagen en la máxima calidad posible.
-        // Se puede especificar la calidad (de 0 a 1) en el toDataURL; usamos 1 para máxima calidad.
         const imageUrl = canvas.toDataURL("image/jpeg", 1.0);
         setPhoto(imageUrl);
         console.log("Foto tomada");
@@ -211,17 +199,13 @@ const Camera = () => {
         debug: true,
     });
 
-    // Agregamos handlers de gestos a la sección:
-    // Al presionar (onTouchStart) se activa el micrófono; al soltar (onTouchEnd) se detiene.
-
+    // Eventos de gesto para activar/desactivar el reconocimiento (touch y mouse)
     return (
         <section className="camera-section">
             <div
                 className="camera-container"
-                //eventos para tlg
                 onTouchStart={start}
                 onTouchEnd={stop}
-                //eventos para pc
                 onMouseDown={start}
                 onMouseUp={stop}
                 onMouseLeave={stop}
@@ -229,13 +213,6 @@ const Camera = () => {
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
                 {/* Overlay visual para la respuesta de la API */}
                 {apiPrediction && <div className="api-response-overlay">{apiPrediction}</div>}
-                {/*photo && (
-                    <div className="download-container">
-                        <a href={photo} download="captura.jpg">
-                            <button className="download-button">Descargar Foto</button>
-                        </a>
-                    </div>
-                )*/}
             </div>
             <div className="scan-indicator" key={toggleModel ? "VEF" : "USD"}>
                 Scan: {toggleModel ? "VEF" : "USD"}
