@@ -7,7 +7,7 @@ settings.update(datasets_dir = '.')
 
 def train_model():
     # Cargar el modelo YOLO preentrenado
-    model = YOLO("yolov8n.yaml") 
+    model = YOLO(r"C:\Users\jesus\Documents\Proyectos\Cashreader\yolov8s.pt") 
     
     # Entrenar el modelo
     results = model.train(
@@ -18,7 +18,7 @@ def train_model():
         cls=0.7,   #Confianza mínima para considerar una detección válida
         patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
         optimizer = "SGD",
-        freeze = [1,5], #indice de las cpas que se congelarán
+        freeze = [0,1], #indice de las capas que se congelarán
         task = "detect"
     )
     print(results)
