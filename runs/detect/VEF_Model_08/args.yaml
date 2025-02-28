@@ -1,6 +1,6 @@
 task: detect
 mode: train
-model: yolov8n.yaml
+model: C:\Users\jesus\Documents\Proyectos\Cashreader\yolov8s.pt
 data: C:\Users\jesus\Documents\Proyectos\Cashreader\backend\Dollar_Bill_Detection_VEF\data.yaml
 epochs: 350
 time: null
@@ -13,7 +13,7 @@ cache: false
 device: null
 workers: 8
 project: null
-name: train9
+name: train12
 exist_ok: false
 pretrained: true
 optimizer: SGD
@@ -29,8 +29,8 @@ amp: true
 fraction: 1.0
 profile: false
 freeze:
+- 0
 - 1
-- 5
 multi_scale: false
 overlap_mask: true
 mask_ratio: 4
@@ -105,4 +105,4 @@ erasing: 0.4
 crop_fraction: 1.0
 cfg: null
 tracker: botsort.yaml
-save_dir: runs\detect\train9
+save_dir: runs\detect\train12
