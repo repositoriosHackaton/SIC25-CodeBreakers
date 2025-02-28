@@ -8,36 +8,53 @@ import { HELP_MESSAGE } from "../constants/HELP_MESSAGE";
 import "./Camera.css";
 
 const Camera = () => {
-    // Refs para el video, el intervalo automático y el track de video
+    /* ================================
+     REFS
+     ================================ */
+    // Referencia al elemento de video
     const videoRef = useRef(null);
+    // Referencia para el intervalo automático de captura
     const autoCaptureRef = useRef(null);
+    // Referencia para el primer track del stream de video
     const videoTrackRef = useRef(null);
+    // Referencia mutable para mantener el valor actual del modelo
     const toggleModelRef = useRef(true);
-    // Estados locales
+
+    /* ================================
+     ESTADOS LOCALES
+     ================================ */
     const [photo, setPhoto] = useState(null);
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
     const [narration, setNarration] = useState("");
     const [toggleModel, setToggleModel] = useState(true);
-    // Nuevo estado para la respuesta visual de la API
+    // Estado para mostrar la respuesta visual de la API sobre el stream
     const [apiPrediction, setApiPrediction] = useState("");
 
-    // Función para limpiar la narración cuando finaliza
+    /* ================================
+     FUNCIONES AUXILIARES
+     ================================ */
+    // Limpia el estado de narración (usado tras finalizar la narración)
     const handleNarrationComplete = () => {
         setNarration("");
     };
 
+    // Mantener sincronizado toggleModelRef con el estado toggleModel
     useEffect(() => {
         toggleModelRef.current = toggleModel;
     }, [toggleModel]);
 
-    // Hooks para narración y procesamiento de respuesta
-    // Se pasa setApiPrediction para actualizar la referencia visual
+    /* ================================
+     HOOKS DE NARRACIÓN Y RESPUESTA DE LA API
+     ================================ */
+    // Configura el narrador
     useNarrator(narration, handleNarrationComplete);
+    // Configura el procesamiento de la respuesta de la API.
+    // Se pasa setApiPrediction para actualizar la referencia visual (overlay).
     const { processResponse } = useApiResponseProcessor((message) => setNarration(message), setApiPrediction);
 
-    /**
-     * Función unificada para controlar el flash.
-     */
+    /* ================================
+     CONTROL DEL FLASH
+     ================================ */
     const setFlash = async (enabled) => {
         if (videoTrackRef.current) {
             const capabilities = videoTrackRef.current.getCapabilities();
@@ -56,9 +73,11 @@ const Camera = () => {
         }
     };
 
-    // Obtener el stream de la cámara y gestionar el flash según la visibilidad
+    /* ================================
+     CONFIGURACIÓN DEL STREAM DE VIDEO Y GESTIÓN DE VISIBILIDAD
+     ================================ */
     useEffect(() => {
-        // Función para obtener el stream de la cámara
+        // Función asíncrona para obtener el stream de la cámara
         const getCameraStream = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
@@ -72,6 +91,7 @@ const Camera = () => {
                     videoRef.current.srcObject = stream;
                     const [videoTrack] = stream.getVideoTracks();
                     videoTrackRef.current = videoTrack;
+                    // Activar el flash cuando se inicia el stream
                     setFlash(true);
                 }
             } catch (error) {
@@ -79,18 +99,19 @@ const Camera = () => {
             }
         };
 
-        // Al montar, se obtiene el stream
+        // Obtener el stream al montar el componente
         getCameraStream();
 
+        // Handler para gestionar cambios en la visibilidad (primer plano/segundo plano)
         const handleVisibilityChange = () => {
             if (document.visibilityState === "visible") {
+                // Al volver al primer plano, limpiar la narración y reiniciar la cámara si es necesario
                 handleNarrationComplete();
-                // Si no hay stream activo, reinicializamos la cámara
                 if (!videoRef.current.srcObject) {
                     getCameraStream();
                 }
             } else {
-                // Al ir a segundo plano, detener el stream y limpiar la referencia
+                // Al ir a segundo plano, detener todos los tracks del stream y limpiar la referencia
                 if (videoRef.current && videoRef.current.srcObject) {
                     const stream = videoRef.current.srcObject;
                     stream.getTracks().forEach((track) => track.stop());
@@ -112,6 +133,7 @@ const Camera = () => {
         };
     }, []);
 
+    // Efecto adicional para notificar el estado del modelo al volver al primer plano
     useEffect(() => {
         const handleStateModel = () => {
             if (document.visibilityState === "visible") {
@@ -126,24 +148,30 @@ const Camera = () => {
         return () => document.removeEventListener("visibilitychange", handleStateModel);
     }, []);
 
-    // Función para cambiar el modelo
+    /* ================================
+     CAMBIAR MODELO
+     ================================ */
     const toggleModelHandler = () => {
         setToggleModel((prev) => !prev);
         setNarration(`Modo cambiado a ${!toggleModel ? "Bolívares" : "Dólares"}`);
     };
 
+    /* ================================
+     LIMPIEZA DEL OVERLAY DE LA RESPUESTA DE LA API
+     ================================ */
     useEffect(() => {
         if (apiPrediction) {
             const timer = setTimeout(() => {
                 setApiPrediction("");
-            }, 10000); // 10 segundos
+            }, 10000); // El overlay se limpia a los 10 segundos
             return () => clearTimeout(timer);
         }
     }, [apiPrediction]);
 
-    /**
-     * Función para enviar la imagen capturada a la API.
-     */
+    /* ================================
+     CAPTURA Y ENVÍO DE FOTO A LA API
+     ================================ */
+    // Función para enviar la imagen a la API
     const sendPhotoToAPI = useCallback(
         async (imageData) => {
             try {
@@ -151,6 +179,7 @@ const Camera = () => {
                 const formData = new FormData();
                 formData.append("image", blob, "captura.jpg");
 
+                // Seleccionar el endpoint según el modelo actual
                 const endpoint = toggleModel ? "vef" : "usd";
                 const url = `https://cashreader.share.zrok.io/detection/${endpoint}`;
 
@@ -168,9 +197,7 @@ const Camera = () => {
         [processResponse, toggleModel]
     );
 
-    /**
-     * Función para tomar la foto en resolución nativa y enviar la imagen.
-     */
+    // Función para capturar la imagen en resolución nativa y enviarla a la API
     const takePhoto = useCallback(() => {
         const video = videoRef.current;
         if (!video) {
@@ -192,7 +219,9 @@ const Camera = () => {
         sendPhotoToAPI(imageUrl);
     }, [sendPhotoToAPI]);
 
-    // Manejar el intervalo automático de captura según autoCaptureInterval
+    /* ================================
+     CAPTURA AUTOMÁTICA (SI SE CONFIGURA)
+     ================================ */
     useEffect(() => {
         if (autoCaptureInterval > 0) {
             clearInterval(autoCaptureRef.current);
@@ -205,9 +234,15 @@ const Camera = () => {
         return () => clearInterval(autoCaptureRef.current);
     }, [autoCaptureInterval, takePhoto]);
 
+    /* ================================
+     MENSAJE DE AYUDA
+     ================================ */
     const HelpMessage = () => setNarration(HELP_MESSAGE);
 
-    // Usamos el hook de voz, el cual devuelve start y stop
+    /* ================================
+     CONFIGURACIÓN DE LA INTERFAZ DE VOZ
+     ================================ */
+    // El hook de voz devuelve start y stop para gestionar la activación mediante gestos.
     const {
         error: voiceError,
         start,
@@ -219,7 +254,9 @@ const Camera = () => {
         debug: true,
     });
 
-    // Eventos de gesto para activar/desactivar el reconocimiento (touch y mouse)
+    /* ================================
+     RENDERIZADO DEL COMPONENTE
+     ================================ */
     return (
         <section className="camera-section">
             <div
@@ -230,13 +267,16 @@ const Camera = () => {
                 onMouseUp={stop}
                 onMouseLeave={stop}
             >
+                {/* Video en vivo */}
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
                 {/* Overlay visual para la respuesta de la API */}
                 {apiPrediction && <div className="api-response-overlay">{apiPrediction}</div>}
             </div>
+            {/* Indicador visual del modo actual */}
             <div className="scan-indicator" key={toggleModel ? "VEF" : "USD"}>
                 Scan: {toggleModel ? "VEF" : "USD"}
             </div>
+            {/* Botones de acción */}
             <ActionButtons onCameraButton={takePhoto} onToggleModel={toggleModelHandler} />
         </section>
     );

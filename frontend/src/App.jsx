@@ -8,7 +8,6 @@ const App = () => {
     const [isStandalone, setIsStandalone] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
 
-    // Esto se puede colocar en un useEffect en App.jsx o en el entry point de tu app
     const setVhProperty = () => {
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -21,14 +20,14 @@ const App = () => {
     window.addEventListener("resize", setVhProperty);
 
     useEffect(() => {
-        // Registra el Service Worker y escucha actualizaciones
+        // Registrar el Service Worker y escucha actualizaciones
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("/sw.js").then((registration) => {
                 registration.addEventListener("updatefound", () => {
                     const newWorker = registration.installing;
                     newWorker.addEventListener("statechange", () => {
                         if (newWorker.state === "activated") {
-                            setUpdateAvailable(true); // Notifica al usuario
+                            setUpdateAvailable(true); // Notificar al usuario
                         }
                     });
                 });

@@ -5,7 +5,7 @@ import "./Header.css";
 
 const Header = () => {
     const [narration, setNarration] = useState("");
-    const [isFirstVisit, setIsFirstVisit] = useState(true); // Nuevo estado
+    const [isFirstVisit, setIsFirstVisit] = useState(true);
 
     // Verificar si es la primera visita al montar el componente
     useEffect(() => {
@@ -17,11 +17,11 @@ const Header = () => {
         setIsFirstVisit(!hasVisited);
     }, []);
 
-    // Hook del narrador (existente)
+    // Hook del narrador
     const handleNarrationComplete = () => setNarration("");
     useNarrator(narration, handleNarrationComplete);
 
-    // Handler del botón (existente)
+    // Handler del botón
     const handleClick = () => setNarration(HELP_MESSAGE);
 
     return (

@@ -1,4 +1,3 @@
-// useVoiceInterface.js
 import { useMemo, useCallback, useState } from "react";
 import { useSpeechRecognition } from "./useSpeechRecognition";
 
@@ -18,7 +17,6 @@ export const useVoiceInterface = ({
     additionalCommands = [],
     debug = false,
 }) => {
-    // Mezcla de comandos
     const mergedCommands = useMemo(() => {
         const defaults = [
             {
@@ -62,7 +60,7 @@ export const useVoiceInterface = ({
         [mergedCommands, debug]
     );
 
-    // Usamos nuestro hook de reconocimiento, el cual ahora NO se inicia automáticamente.
+    // Uso del hook de reconocimiento, el cual no se inicia automáticamente
     const { start, stop } = useSpeechRecognition(handleVoiceCommand);
 
     return { error, start, stop, commands: mergedCommands };

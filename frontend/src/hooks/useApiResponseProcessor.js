@@ -44,7 +44,7 @@ const useApiResponseProcessor = (narrate, setVisualRef) => {
                 }
                 setTimeout(() => {
                     isNarratingRef.current = false;
-                }, 1000); // Ajusta según la duración del mensaje
+                }, 1000); // Ajustar según la duración del mensaje
             };
 
             if (!apiResponse || apiResponse.message === "No objects detected") {

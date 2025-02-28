@@ -7,7 +7,7 @@ const ActionButtons = ({ onCameraButton, onToggleModel }) => {
     return (
         <div className="action-buttons-container">
             <button className="action-button green-button" onClick={onToggleModel}>
-                <img src={changeButtonIcon} alt="Vuelto" />
+                <img src={changeButtonIcon} alt="Cambiar moneda" />
             </button>
             <button className="action-button camera-button" onClick={onCameraButton}>
                 <img src={cameraButtonIcon} alt="Tomar foto" />

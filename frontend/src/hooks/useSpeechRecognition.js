@@ -1,4 +1,3 @@
-// useSpeechRecognition.js
 import { useEffect, useRef, useCallback } from "react";
 
 // Tiempos configurables
@@ -48,7 +47,7 @@ export const useSpeechRecognition = (onCommand) => {
         const recognition = new SpeechRecognition();
         recognition.lang = "es-ES";
         recognition.interimResults = false;
-        // Usamos continuous=false para que se active solo durante la pulsación
+        // Uso continuous=false para que se active solo durante la pulsación, para evitar sobrecarga
         recognition.continuous = false;
 
         recognition.onresult = (event) => {
