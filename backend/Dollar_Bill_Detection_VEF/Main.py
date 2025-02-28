@@ -18,7 +18,7 @@ def train_model():
         cls=0.7,   #Confianza mínima para considerar una detección válida
         patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
         optimizer = "SGD",
-        freeze = [0,1], #indice de las capas que se congelarán
+        #freeze = [0,1], #indice de las capas que se congelarán
         task = "detect"
     )
     print(results)
