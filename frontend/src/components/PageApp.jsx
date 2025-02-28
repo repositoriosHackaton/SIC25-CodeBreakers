@@ -14,6 +14,7 @@ import iconUmc from "../assets/page/umc.png";
 import iconSteam from "../assets/page/steam.svg";
 import InstallButton from "./InstallButton";
 import LinkedInBadge from "./LinkedInBadge";
+import InfiniteSlider from "./slider";
 
 const PageApp = () => {
     return (
@@ -110,9 +111,13 @@ const PageApp = () => {
                     <div className="creator-card">
                         <LinkedInBadge profileVanity="jesus-cabello-8b15862aa" />
                     </div>
+                    
                 </div>
             </section>
+            
+            <InfiniteSlider />
 
+           
             <section className="donations-page" style={{ backgroundImage: `url(${backgroundTwoSvg})` }}>
                 <h2 className="donations-title">Apoya Nuestro Proyecto</h2>
                 <p className="donations-description">
@@ -120,6 +125,7 @@ const PageApp = () => {
                 </p>
                 <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer" className="donate-button"> Hacer una Donación</a>
             </section>
+
 
             <footer className="footer">
                 <div className="left-column">
