@@ -9,7 +9,7 @@ settings.update(datasets_dir = '.')
 
 def train_model():
     # Cargar el modelo YOLO preentrenado
-    model = YOLO(r'C:\Users\jesus\Documents\Proyectos\Cashreader\yolov8m.pt') 
+    model = YOLO(r'C:\Users\jesus\Documents\Proyectos\Cashreader\yolov8s.pt') 
 
     # Entrenar el modelo
     results = model.train(
@@ -20,7 +20,7 @@ def train_model():
         cls=0.7,
         patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
         optimizer = "SGD",
-        freeze = [0,1], #indice de las cpas que se congelarán
+        #freeze = [0,1], #indice de las cpas que se congelarán
         task = "detect",
     )
     print(results)
@@ -28,4 +28,4 @@ def train_model():
 if __name__ == "__main__":
     mp.freeze_support()  #Evitar un error con Windows
     train_model()  #Llamar a la función que entrena el modelo
-
+ 
