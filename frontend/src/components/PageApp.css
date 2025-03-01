@@ -739,7 +739,7 @@ a {
     width: auto; /* Ensure it takes full width */
     height: auto; /* Adjust height to fit content */
     background-color: #343a40; /* Add background color */
-    padding: 0; /* Add padding */
+    padding: 1rem; /* Add padding */
     border-radius: 1rem; /* Add border radius */
     flex-wrap: wrap; /* Allow wrapping */
     overflow: hidden; /* Prevent overflow */
