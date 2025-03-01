@@ -4,11 +4,11 @@
     <style>
       .cls-1 {
         mix-blend-mode: overlay;
-        opacity: .35;
+        opacity: 0.15; /* Increase transparency */
       }
 
       .cls-2 {
-        opacity: .2;
+        opacity: 0.1; /* Increase transparency */
       }
 
       .cls-3 {
@@ -17,6 +17,7 @@
 
       .cls-4 {
         fill: #28a745;
+        opacity: 0.5; /* Increase transparency */
       }
 
       .cls-5 {

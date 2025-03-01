@@ -21,15 +21,17 @@ a {
 .front-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
+    height: 100vh; /* Ensure it takes the full height of the viewport */
     background: no-repeat center center;
     background-size: cover;
     position: relative;
     margin: 0;
-    padding-bottom: 0.5rem; /* Reduce padding to ensure space between sections */
+    padding: 0; /* Remove padding to ensure no extra space */
     border-bottom: 0.25rem solid var(--color-base-dark);
     z-index: 1; /* Ensure front-page is above other sections */
     opacity: 0.9; /* Make background slightly transparent */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    overflow: hidden; /* Prevent overflow */
 }
 
 /* ----- CONTENEDOR DEL TEXTO ----- */
@@ -38,9 +40,11 @@ a {
     flex-direction: column;
     justify-content: space-evenly;
     max-width: 600px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0 auto; /* Center the content horizontally */
     grid-column: 1 / 2; /* Ensure content is in the left column */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    padding: 1rem; /* Add padding for better spacing */
+    text-align: left; /* Center align text */
 }
 
 .head-container {
@@ -60,6 +64,7 @@ a {
     color: black;
     font-weight: 700;
     max-width: 550px;
+    margin: 0 auto; /* Center align paragraphs */
 }
 
 .front-content p em {
@@ -89,15 +94,22 @@ a {
 }
 
 /* ----- IMAGEN DEL TELÉFONO ----- */
-.image-container {
+.image-container { /* imagen del telefono corregida*/
     display: flex;
     justify-content: center;
     align-items: center;
     height: auto;
     width: 100%;
-    max-width: 650px;
-    margin-bottom: -0.5rem; /* Reduce margin to ensure space between sections */
+    max-width: 700px;
+    margin: 0 auto; /* Center the image horizontally */
     grid-column: 2 / 3; /* Ensure image is in the right column */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    padding: 0; /* Add padding for better spacing */
+}
+
+.image-container img {
+    max-width: 100%; /* La imagen no superará el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
 }
 
 .front-image {
@@ -105,10 +117,47 @@ a {
     height: auto;
     width: 100%;
     max-width: 650px;
-    z-index: 2; /* Ensure front-image is above other sections */
+    z-index: 2;
+    margin-bottom: 0; /* Remove margin to ensure no distance with the next section */
 }
 
 /* ----- MEDIA QUERIES PARA RESPONSIVE ----- */
+
+@media (min-width: 768px) {
+    .image-container {
+        max-width: 1000px; /* Aumenta el ancho máximo en pantallas grandes */
+    }
+}
+
+@media (min-width: 1920px) {
+    .front-content h1 {
+        font-size: clamp(4rem, 6vw, 5rem);
+    }
+
+    .front-content p {
+        font-size: clamp(2rem, 3vw, 2.5rem);
+    }
+
+    .front-content .cta-button {
+        font-size: clamp(2rem, 3vw, 2.5rem);
+    }
+
+    .feature h3, .feature p {
+        font-size: 2rem;
+    }
+
+    .creator-card {
+        width: 350px;
+    }
+
+    .donations-title, .donations-description {
+        font-size: 2.5rem;
+    }
+
+    .donate-button {
+        font-size: 1.5rem;
+    }
+}
 
 @media (max-width: 1024px) {
     .front-page {
@@ -122,6 +171,32 @@ a {
     .front-content {
         max-width: 100%;
         align-items: center;
+        text-align: center;
+    }
+
+    .image-container {
+        max-width: 100%;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .creator-card {
+        flex: 1 1 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer .right-column, .footer .left-column {
+        width: 100%;
+    }
+
+    .partner-logos img {
+        width: 25%;
     }
 }
 
@@ -167,6 +242,46 @@ a {
 
     .front-content .text-front {
         display: block;
+    }
+
+    .container-mission,
+    .container-vision {
+        text-align: center;
+        flex: 1 1 100%;
+        margin-bottom: 2rem; /* Add space for horizontal separator */
+    }
+    .title-about img {
+        width: 25%;
+    }
+    .container-mission::after {
+        display: none; /* Hide separator in mobile version */
+    }
+
+    .title-about h2 {
+        text-align: center; /* Center h2 in mobile version */
+    }
+
+    .footer {
+        flex-direction: column; /* Stack columns vertically */
+        align-items: center; /* Center align columns */
+    }
+
+    .footer .right-column {
+        width: 100%; /* Full width */
+        margin-top: 1rem; /* Add margin for spacing */
+    }
+
+    .footer .left-column {
+        width: 100%; /* Full width */
+    }
+
+    .partner-logos {
+        flex-wrap: wrap; /* Allow wrapping */
+        width: auto; /* Do not take full width */
+    }
+
+    .partner-logos img {
+        width: 25%; /* Increase size for smaller screens */
     }
 }
 
@@ -277,6 +392,7 @@ a {
 .container-vision p {
     font-size: 1.6rem;
     line-height: 1.5;
+    text-align: center; 
 }
 
 /* Center align text in about-us section on mobile */
@@ -305,6 +421,8 @@ a {
     grid-template-columns: 1fr 1fr; /* Two columns */
     gap: 2rem; /* Add gap between columns */
     margin-bottom: 2rem;
+    margin: 0 auto; /* Centra el contenedor en pantallas grandes */
+    padding: 0 1rem; /* Añade un poco de padding en los lados */
 }
 
 .feature {
@@ -332,39 +450,249 @@ a {
     line-height: 1.5;
 }
 
-/* ------ FOOTER ------- */
-.footer {
-    background-color: #28a745; /* Change background color */
-    color: white;
+/* ----- SECCIÓN CREADORES----- */
+.creators-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; /* Center the contents vertically */
+    background-repeat: no-repeat;
     text-align: center;
-    padding: 1%; /* Reduce padding to decrease height */
+    min-height: 100vh;
+    background: no-repeat center center;
+    background-size: cover;
     position: relative;
-    bottom: 0;
-    max-width: 100vw;
-    display: flex; /* Use flex layout */
-    flex-wrap: wrap; /* Allow wrapping */
-    justify-content: space-between; /* Space between columns */
-    gap: 1rem; /* Add gap between columns */
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 2rem 1rem; /* Adjust padding to ensure space between sections */
+    border-bottom: 0.25rem solid var(--color-base-dark);
+    z-index: 1; /* Ensure front-page is above other sections */
+    opacity: 0.9; /* Make background slightly transparent */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    overflow: hidden;
 }
 
+.creators-title {
+    font-size: 2.5rem;
+    color: var(--color-base-dark);
+    margin-bottom: 1rem;
+}
+
+.creators-description {
+    font-size: 1.5rem;
+    color: var(--color-base-dark);
+    margin-bottom: 2rem;
+    max-width: 800px;
+    text-align: center;
+}
+
+.creators-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the grid horizontally */
+    align-items: center; /* Center the grid vertically */
+    gap: 20px;
+    padding: 0;
+    max-width: 90%; /* Ensure the grid does not exceed the page width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.creator-card {
+    width: 300px; /* Increase width by 25% */
+    text-align: center;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0; /* Remove margin to eliminate white spaces */
+    flex: 1 1 calc(25% - 20px); /* Adjust the width as needed */
+    box-sizing: border-box;
+    max-width: 300px; /* Optional: set a max-width to prevent cards from getting too large */
+    padding: 1rem; /* Add padding for better spacing */
+}
+
+.linkedin-badge-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+}
+
+.creator-card:hover {
+    transform: translateY(-10px);
+}
+
+
+.creator-card p, .creator-card a {
+    text-align: center;
+}
+.technologies-title {
+    text-align: center;
+    font-size: 30x;
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px; /* Separación entre los creadores y el título */
+    padding-top: 10px;
+}
+
+/* Estilos responsive para pantallas pequeñas */
+@media (max-width: 1200px) {
+    .creator-card {
+        flex: 1 1 calc(33.33% - 20px);
+    }
+}
+
+@media (max-width: 800px) {
+    .creator-card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 500px) {
+    .creator-card {
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .creators-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .creators-title {
+        font-size: 2rem;
+    }
+
+    .creators-description {
+        font-size: 1.2rem;
+    }
+}
+
+/* ----- SECCIÓN SLIDER----- */
+
+.infinite-slider {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    padding: 20px 0;
+    background-color: #f8f9fa; /* Ajusta según tu diseño */
+    border-bottom: 0.25rem solid var(--color-base-dark);
+}
+
+.slider-track {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que los elementos pasen a una nueva línea */
+    gap: 40px;
+    min-width: 100%;
+    width: max-content; /* Hace que el track se expanda tanto como necesite */
+    animation: slide 12s linear infinite;
+}
+
+.slider-container {
+    text-align: center;
+    margin-bottom: 20px; /* Espacio entre el título y el slider */
+}
+
+.slide {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide img {
+    width: 100%;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-33.33%); /* Desplaza solo 1/3 del track para que nunca haya huecos */
+    }
+}
+/* ----- SECCIÓN DONACIONES----- */
+
+.donations-page {
+    padding: 7rem 2rem;
+    background-color: #f8f9fa; /* Color de fondo */
+    text-align: center;
+    background: no-repeat center center;
+    background-size: cover;
+}
+
+.donations-title {
+    font-size: 2.5rem;
+    color: #333; /* Color del título */
+    margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.donations-description {
+    font-size: 2rem;
+    color: #666; /* Color de la descripción */
+    margin-bottom: 2rem; /* Espaciado inferior */
+}
+
+/* Estilos para el botón de donación */
+.donate-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #28a745; /* Color de fondo del botón */
+    color: rgb(255, 255, 255); /* Color del texto */
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.donate-button:hover {
+    background-color: #218838; /* Cambia el color al hacer hover */
+    color: rgb(255, 255, 255); /* Color del texto */
+}
+
+/* ------ FOOTER ------- */
+.footer {
+    background-color: #28a745; /* Color de fondo */
+    color: white;
+    text-align: center;
+    padding: 1%; /* Padding reducido */
+    position: relative;
+    bottom: 0;
+    width: 100%; /* Ocupa el ancho completo */
+    display: flex;
+    flex-wrap: wrap; /* Permite que el contenido se ajuste */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    gap: 2rem; /* Espacio entre columnas */
+    box-sizing: border-box; /* Incluye padding en el ancho total */
+}
+
+/* Estilos para los párrafos dentro del footer */
 .footer p {
     margin: 0.5rem 0;
 }
 
+/* Estilos para la columna izquierda */
 .footer .left-column {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    flex: 1; /* Ensure columns take equal space */
-    min-width: 200px; /* Minimum width for columns */
-    font-size: 1.2rem; /* Increase font size */
+    align-items: center; /* Centra el contenido horizontalmente */
+    flex: 1; /* Ocupa el espacio disponible */
+    min-width: 200px; /* Ancho mínimo */
+    font-size: 1.2rem; /* Tamaño de fuente */
 }
 
+/* Estilos para los enlaces en la columna izquierda */
 .footer .left-column a {
     display: flex;
-    flex-direction: row; /* Align image and text horizontally */
+    flex-direction: row; /* Alinea imagen y texto horizontalmente */
     align-items: center;
-    justify-content: flex-start; /* Justify content to the left */
+    justify-content: flex-start; /* Alinea el contenido a la izquierda */
     padding: 0.5rem 1rem;
     background-color: var(--color-accent);
     color: white;
@@ -374,11 +702,13 @@ a {
     margin-bottom: 0.5rem;
 }
 
+/* Estilos para las imágenes dentro de los enlaces */
 .footer .left-column a img {
-    margin-right: 0.5rem; /* Add margin to the right of the image */
-    width: 35%; /* Increase the size of the image */
+    margin-right: 0.5rem; /* Margen a la derecha de la imagen */
+    width: 25%; /* Tamaño de la imagen */
 }
 
+/* Estilos para el botón de contacto */
 .footer .left-column .contact-button {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -390,13 +720,14 @@ a {
     margin-top: 0.5rem;
 }
 
+/* Estilos para la columna derecha */
 .footer .right-column {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center align content horizontally */
-    justify-content: center; /* Center align content vertically */
-    flex: 1; /* Ensure columns take equal space */
-    min-width: 200px; /* Minimum width for columns */
+    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
+    flex: 1; /* Ocupa el espacio disponible */
+    min-width: 200px; /* Ancho mínimo */
 }
 
 .partner-logos {
@@ -404,21 +735,34 @@ a {
     justify-content: center; /* Center justify the logos horizontally */
     align-items: center; /* Center align the logos vertically */
     gap: 1rem; /* Add gap between images */
-    margin-top: 0rem;
-    width: 100%; /* Ensure it takes full width */
+    margin-top: 1rem;
+    width: auto; /* Ensure it takes full width */
     height: auto; /* Adjust height to fit content */
     background-color: #343a40; /* Add background color */
     padding: 1rem; /* Add padding */
     border-radius: 1rem; /* Add border radius */
-    flex-wrap: nowrap; /* Prevent wrapping */
+    flex-wrap: wrap; /* Allow wrapping */
+    overflow: hidden; /* Prevent overflow */
 }
 
 .partner-logos img {
     flex: 0 1 auto; /* Allow images to grow and take available space */
-    max-width: 160px; /* Reduce the maximum width */
+    max-width: 120px; /* Reduce the maximum width */
     height: auto;
     object-fit: contain; /* Ensure images fit well within their container */
     border-radius: 1rem; /* Add rounded corners */
+}
+
+.footer .left-column .github-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.footer .left-column .github-link img {
+    width: 50%; /* Reduce the size to half */
+    margin-bottom: 0.5rem;
 }
 
 @media (min-width: 1024px) {

@@ -3,19 +3,23 @@
   <defs>
     <style>
       .cls-1, .cls-2 {
-        opacity: .3;
+        opacity: 0.3;
       }
 
       .cls-3 {
         fill: none;
+        opacity: 0.3;
+
       }
 
       .cls-4 {
         fill: #28a745;
+
       }
 
       .cls-5 {
         isolation: isolate;
+        opacity: 0.3;
       }
 
       .cls-6 {
