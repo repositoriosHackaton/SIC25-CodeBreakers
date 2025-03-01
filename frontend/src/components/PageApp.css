@@ -735,7 +735,7 @@ a {
     justify-content: center; /* Center justify the logos horizontally */
     align-items: center; /* Center align the logos vertically */
     gap: 1rem; /* Add gap between images */
-    margin-top: 0rem;
+    margin-top: 1rem;
     width: auto; /* Ensure it takes full width */
     height: auto; /* Adjust height to fit content */
     background-color: #343a40; /* Add background color */
