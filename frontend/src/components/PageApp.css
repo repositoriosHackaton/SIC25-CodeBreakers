@@ -512,6 +512,13 @@ a {
     padding: 1rem; /* Add padding for better spacing */
 }
 
+.linkedin-badge-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+}
+
 .creator-card:hover {
     transform: translateY(-10px);
 }
@@ -729,10 +736,10 @@ a {
     align-items: center; /* Center align the logos vertically */
     gap: 1rem; /* Add gap between images */
     margin-top: 0rem;
-    width: 100%; /* Ensure it takes full width */
+    width: auto; /* Ensure it takes full width */
     height: auto; /* Adjust height to fit content */
     background-color: #343a40; /* Add background color */
-    padding: 1rem; /* Add padding */
+    padding: 0; /* Add padding */
     border-radius: 1rem; /* Add border radius */
     flex-wrap: wrap; /* Allow wrapping */
     overflow: hidden; /* Prevent overflow */

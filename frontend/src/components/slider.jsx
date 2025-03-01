@@ -1,13 +1,14 @@
 import React from "react";
 import pytorchicon from "../assets/page/pytorch.png";
-import FastIcon from "../assets/page/fastapi.png"
+import FastIcon from "../assets/page/fastapi.svg"
 import ReactIcon from "../assets/page/react.png"
 import PytIcon from "../assets/page/python.png"
 import CssIcon from "../assets/page/css.png"
 import HtmlIcon from "../assets/page/html.png"
 import JavaIcon from "../assets/page/javascript.png"
+import YoloIcon from "../assets/page/yolo.png"
 const InfiniteSlider = () => {
-    const logos = [pytorchicon, FastIcon, ReactIcon, PytIcon,CssIcon,HtmlIcon,JavaIcon];
+    const logos = [pytorchicon, FastIcon, ReactIcon, PytIcon,CssIcon,HtmlIcon,JavaIcon,YoloIcon];
 
     return (
         <div className="infinite-slider">
