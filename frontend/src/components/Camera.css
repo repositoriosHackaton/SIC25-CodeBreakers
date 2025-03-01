@@ -50,6 +50,17 @@
     text-align: center;
 }
 
+.scan-indicator {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-base-dark);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    /* Aplica la animación cada vez que el elemento se renderiza */
+    animation: fadeInUp2 1s ease-out;
+}
+
 @keyframes fadeInUp {
     0% {
         opacity: 0;
@@ -60,8 +71,8 @@
         transform: translate(-50%, -50%);
     }
 }
-/*
-@keyframes fadeInUp {
+
+@keyframes fadeInUp2 {
     0% {
         opacity: 0;
         transform: translateY(10px);
@@ -70,15 +81,4 @@
         opacity: 1;
         transform: translateY(0);
     }
-}
-*/
-.scan-indicator {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--color-base-dark);
-    margin-top: 15px;
-    margin-bottom: 15px;
-    /* Aplica la animación cada vez que el elemento se renderiza */
-    animation: fadeInUp 1s ease-out;
 }
