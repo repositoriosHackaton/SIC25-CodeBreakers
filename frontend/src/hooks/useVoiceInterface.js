@@ -1,4 +1,3 @@
-// useVoiceInterface.js
 import { useMemo, useCallback, useState } from "react";
 import { useSpeechRecognition } from "./useSpeechRecognition";
 
@@ -11,8 +10,13 @@ import { useSpeechRecognition } from "./useSpeechRecognition";
  * @param {boolean} [config.debug=false] - Modo debug.
  * @returns {Object} { error, isListening, start, stop, commands }
  */
-export const useVoiceInterface = ({ callTakePhoto, callToggleModel, additionalCommands = [], debug = false }) => {
-    // Mezcla de comandos
+export const useVoiceInterface = ({
+    callTakePhoto,
+    callToggleModel,
+    callHelpMessage,
+    additionalCommands = [],
+    debug = false,
+}) => {
     const mergedCommands = useMemo(() => {
         const defaults = [
             {
@@ -25,9 +29,14 @@ export const useVoiceInterface = ({ callTakePhoto, callToggleModel, additionalCo
                 callback: callToggleModel,
                 description: "Cambia el modelo de IA usado",
             },
+            {
+                keyword: "ayuda",
+                callback: callHelpMessage,
+                description: "Repite mensaje de instrucciones",
+            },
         ];
         return [...defaults, ...additionalCommands];
-    }, [additionalCommands, callTakePhoto, callToggleModel]);
+    }, [additionalCommands, callTakePhoto, callToggleModel, callHelpMessage]);
 
     const [error, setError] = useState(null);
 
@@ -51,7 +60,7 @@ export const useVoiceInterface = ({ callTakePhoto, callToggleModel, additionalCo
         [mergedCommands, debug]
     );
 
-    // Usamos nuestro hook de reconocimiento, el cual ahora NO se inicia automáticamente.
+    // Uso del hook de reconocimiento, el cual no se inicia automáticamente
     const { start, stop } = useSpeechRecognition(handleVoiceCommand);
 
     return { error, start, stop, commands: mergedCommands };

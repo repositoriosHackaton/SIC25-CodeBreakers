@@ -1,7 +1,35 @@
-// useApiResponseProcessor.js
 import { useCallback, useRef } from "react";
 
-const useApiResponseProcessor = (narrate) => {
+const responseMapping = {
+    "fifty-back": { visual: "50$", narrator: "cincuenta dólares" },
+    "fifty-front": { visual: "50$", narrator: "cincuenta dólares" },
+    "five-back": { visual: "5$", narrator: "cinco dólares" },
+    "five-front": { visual: "5$", narrator: "cinco dólares" },
+    "one-back": { visual: "1$", narrator: "un dólar" },
+    "one-front": { visual: "1$", narrator: "un dólar" },
+    "ten-back": { visual: "10$", narrator: "diez dólares" },
+    "ten-front": { visual: "10$", narrator: "diez dólares" },
+    "twenty-back": { visual: "20$", narrator: "veinte dólares" },
+    "twenty-front": { visual: "20$", narrator: "veinte dólares" },
+    "one_hundred-back": { visual: "100$", narrator: "cien dólares" },
+    "one_hundred-front": { visual: "100$", narrator: "cien dólares" },
+    "fifty-back-vef": { visual: "Bs.50", narrator: "cincuenta bolívares" },
+    "fifty-front-vef": { visual: "Bs.50", narrator: "cincuenta bolívares" },
+    "five-back-vef": { visual: "Bs.5", narrator: "cinco bolívares" },
+    "five-front-vef": { visual: "Bs.5", narrator: "cinco bolívares" },
+    "ten-back-vef": { visual: "Bs.10", narrator: "diez bolívares" },
+    "ten-front-vef": { visual: "Bs.10", narrator: "diez bolívares" },
+    "twenty-back-vef": { visual: "Bs.20", narrator: "veinte bolívares" },
+    "twenty-front-vef": { visual: "Bs.20", narrator: "veinte bolívares" },
+    "one_hundred-back-vef": { visual: "Bs.100", narrator: "cien bolívares" },
+    "one_hundred-front-vef": { visual: "Bs.100", narrator: "cien bolívares" },
+    "two_hundred-back-vef": { visual: "Bs.200", narrator: "dos cientos bolívares" },
+    "two_hundred-front-vef": { visual: "Bs.200", narrator: "dos cientos bolívares" },
+    "Repetir Foto": { visual: "Repetir Foto", narrator: "No se ha detectado el valor del billete correctamente." },
+    "": { visual: "", narrator: "No se ha detectado ningún billete." },
+};
+
+const useApiResponseProcessor = (narrate, setVisualRef) => {
     const isNarratingRef = useRef(false);
 
     const processResponse = useCallback(
@@ -9,62 +37,39 @@ const useApiResponseProcessor = (narrate) => {
             if (isNarratingRef.current) return; // Evitar narrar si ya está activo
             isNarratingRef.current = true;
 
-            const narrateWithUnlock = (message) => {
+            const narrateWithUnlock = (message, visualMessage) => {
                 narrate(message);
+                if (setVisualRef) {
+                    setVisualRef(visualMessage);
+                }
                 setTimeout(() => {
-                    isNarratingRef.current = false; // Desbloquear después de narrar
-                }, 1000); // Ajusta este tiempo según la duración del mensaje
+                    isNarratingRef.current = false;
+                }, 1000); // Ajustar según la duración del mensaje
             };
 
             if (!apiResponse || apiResponse.message === "No objects detected") {
-                narrateWithUnlock("No se ha detectado ningún billete.");
+                narrateWithUnlock("No se ha detectado ningún billete.", "");
                 return;
             }
 
             if (!apiResponse.detections || apiResponse.detections.length === 0) {
-                narrateWithUnlock("No se encontró un billete válido en la imagen.");
+                narrateWithUnlock("No se encontró un billete válido en la imagen.", "Repetir Foto");
                 return;
             }
 
-            const labelMap = {
-                "fifty-back": "cincuenta dólares", //USD
-                "fifty-front": "cincuenta dólares",
-                "five-back": "cinco dólares",
-                "five-front": "cinco dólares",
-                "one-back": "un dólar",
-                "one-front": "un dólar",
-                "ten-back": "diez dólares",
-                "ten-front": "diez dólares",
-                "twenty-back": "veinte dólares",
-                "twenty-front": "veinte dólares",
-                "one_hundred-back": "cien dólares",
-                "one_hundred-front": "cien dólares",
-                "fifty-back-vef": "cincuenta bolívares", //VEF
-                "fifty-front-vef": "cincuenta bolívares",
-                "five-back-vef": "cinco bolívares",
-                "five-front-vef": "cinco bolívares",
-                "ten-back-vef": "diez bolívares",
-                "ten-front-vef": "diez bolívares",
-                "twenty-back-vef": "veinte bolívares",
-                "twenty-front-vef": "veinte bolívares",
-                "one_hundred-back-vef": "cien bolívares",
-                "one_hundred-front-vef": "cien bolívares",
-                "two_hundred-back-vef": "dos cientos bolívares",
-                "two_hundred-front-vef": "dos cientos bolívares",
-            };
-
             const validDetections = apiResponse.detections.filter(
-                (detection) => detection.confidence >= 0.7 && labelMap[detection.label]
+                (detection) => detection.confidence >= 0.7 && responseMapping[detection.label]
             );
 
             if (validDetections.length > 0) {
-                const narration = labelMap[validDetections[0].label];
-                narrateWithUnlock(narration); // Forzar la narración
+                const label = validDetections[0].label;
+                const mapping = responseMapping[label];
+                narrateWithUnlock(mapping.narrator, mapping.visual);
             } else {
-                narrateWithUnlock("No se ha detectado el valor del billete correctamente.");
+                narrateWithUnlock("No se ha detectado el valor del billete correctamente.", "Repetir Foto");
             }
         },
-        [narrate]
+        [narrate, setVisualRef]
     );
 
     return { processResponse };

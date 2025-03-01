@@ -13,6 +13,8 @@ import iconSamsung from "../assets/page/samsung.jpg";
 import iconUmc from "../assets/page/umc.png";
 import iconSteam from "../assets/page/steam.svg";
 import InstallButton from "./InstallButton";
+import LinkedInBadge from "./LinkedInBadge";
+import InfiniteSlider from "./slider";
 
 const PageApp = () => {
     return (
@@ -42,8 +44,8 @@ const PageApp = () => {
             {/* Sección 2: Sobre nosotros (about-us)*/}
             <section className="about-us" style={{ backgroundImage: `url(${backgroundTwoSvg})` }}>
                 <div className="title-about">
-                    <h2>Sobre Nosotros</h2>
                     <img src={iconInfo} alt="info" />
+                    <h2>Sobre Nosotros</h2>
                 </div>
                 <div className="container-mission">
                     <h3>Misión</h3>
@@ -84,12 +86,55 @@ const PageApp = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="creators-page" style={{ backgroundImage: `url(${backgroundSvg})` }}>
+                <h2 className="creators-title">Nuestros Creadores</h2>
+                <p className="creators-description">Conoce al equipo que hizo posible este proyecto.</p>
+                <div className="creators-grid">
+                    {/* Creador 1 */}
+                    <div className="creator-card">
+                        <LinkedInBadge profileVanity="joel-escobar" />
+                    </div>
+                    {/* Creador 2 */}
+                    <div className="creator-card">
+                        <LinkedInBadge profileVanity="francisco-ramos-santos-dev" />
+                    </div>
+                    {/* Creador 3 */}
+                    <div className="creator-card">
+                        <LinkedInBadge profileVanity="joshua-carrera-r" />
+                    </div>
+                    {/* Creador 4 */}
+                    <div className="creator-card">
+                        <LinkedInBadge profileVanity="jesús-ramírez-05347b246" />
+                    </div>
+                    {/* Creador 5 */}
+                    <div className="creator-card">
+                        <LinkedInBadge profileVanity="jesus-cabello-8b15862aa" />
+                    </div>
+                    
+                </div>
+            </section>
+            
+            <InfiniteSlider />
+
+           
+            <section className="donations-page" style={{ backgroundImage: `url(${backgroundTwoSvg})` }}>
+                <h2 className="donations-title">Apoya Nuestro Proyecto</h2>
+                <p className="donations-description">
+                    Tu contribución nos ayuda a seguir mejorando y manteniendo esta aplicación gratuita para todos.
+                </p>
+                <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer" className="donate-button"> Hacer una Donación</a>
+            </section>
+
+
             <footer className="footer">
                 <div className="left-column">
-                    <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer">
+                    <div className="github-link">
                         <img src={iconGithub} alt="Github" />
-                        Visita Nuestro Repositorio
-                    </a>
+                        <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer">
+                            Visita Nuestro Repositorio
+                        </a>
+                    </div>
                     <p>Desarrollado por CodeBreakers Team’s</p>
                     <a href="mailto:cashreader.info@gmail.com" className="contact-button">
                         Contacto: cashreader.info@gmail.com

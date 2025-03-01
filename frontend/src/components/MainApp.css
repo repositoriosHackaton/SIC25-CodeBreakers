@@ -1,3 +1,6 @@
+body.no-overscroll {
+    overscroll-behavior: none;
+}
 /* Contenedor principal con flexbox */
 .container {
     display: flex;

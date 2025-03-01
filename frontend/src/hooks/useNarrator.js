@@ -3,7 +3,7 @@ import { useSpeechSynthesis } from "./useSpeechSynthesis";
 
 const useNarrator = (text, onNarrationComplete) => {
     const { speak } = useSpeechSynthesis();
-    const lastTextRef = useRef(""); // Almacena el último texto narrado
+    const lastTextRef = useRef(""); // Almacenar el último texto narrado
 
     useEffect(() => {
         if (text) {

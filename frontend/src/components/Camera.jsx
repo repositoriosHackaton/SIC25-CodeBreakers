@@ -4,35 +4,57 @@ import ActionButtons from "./ActionButtons";
 import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
 import useNarrator from "../hooks/useNarrator";
 import { useVoiceInterface } from "../hooks/useVoiceInterface";
+import { HELP_MESSAGE } from "../constants/HELP_MESSAGE";
 import "./Camera.css";
 
 const Camera = () => {
-    // Refs para el video, el intervalo automático y el track de video
+    /* ================================
+     REFS
+     ================================ */
+    // Referencia al elemento de video
     const videoRef = useRef(null);
+    // Referencia para el intervalo automático de captura
     const autoCaptureRef = useRef(null);
+    // Referencia para el primer track del stream de video
     const videoTrackRef = useRef(null);
+    // Referencia mutable para mantener el valor actual del modelo
+    const toggleModelRef = useRef(true);
 
-    // Estados locales
+    /* ================================
+     ESTADOS LOCALES
+     ================================ */
     const [photo, setPhoto] = useState(null);
     const [autoCaptureInterval, setAutoCaptureInterval] = useState(0);
     const [narration, setNarration] = useState("");
     const [toggleModel, setToggleModel] = useState(true);
+    // Estado para mostrar la respuesta visual de la API sobre el stream
+    const [apiPrediction, setApiPrediction] = useState("");
 
-    // Función para limpiar la narración cuando finaliza
+    /* ================================
+     FUNCIONES AUXILIARES
+     ================================ */
+    // Limpia el estado de narración (usado tras finalizar la narración)
     const handleNarrationComplete = () => {
         setNarration("");
     };
 
-    // Hooks personalizados para la narración y el procesamiento de respuesta de la API
-    useNarrator(narration, handleNarrationComplete);
-    const { processResponse } = useApiResponseProcessor((message) => {
-        setNarration(message);
-    });
+    // Mantener sincronizado toggleModelRef con el estado toggleModel
+    useEffect(() => {
+        toggleModelRef.current = toggleModel;
+    }, [toggleModel]);
 
-    /**
-     * Función unificada para controlar el flash.
-     * Recibe un booleano enabled para activar (true) o desactivar (false) el flash.
-     */
+    /* ================================
+     HOOKS DE NARRACIÓN Y RESPUESTA DE LA API
+     ================================ */
+    // Configura el narrador
+    useNarrator(narration, handleNarrationComplete);
+    // Configura el procesamiento de la respuesta de la API.
+    // Se pasa setApiPrediction para actualizar la referencia visual (overlay).
+    const { processResponse } = useApiResponseProcessor((message) => setNarration(message), setApiPrediction);
+
+    /* ================================
+     CONTROL DEL FLASH
+     ================================ */
     const setFlash = async (enabled) => {
         if (videoTrackRef.current) {
             const capabilities = videoTrackRef.current.getCapabilities();
@@ -51,8 +73,11 @@ const Camera = () => {
         }
     };
 
-    // Obtener el stream de la cámara y gestionar el flash según la visibilidad
+    /* ================================
+     CONFIGURACIÓN DEL STREAM DE VIDEO Y GESTIÓN DE VISIBILIDAD
+     ================================ */
     useEffect(() => {
+        // Función asíncrona para obtener el stream de la cámara
         const getCameraStream = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
@@ -66,7 +91,7 @@ const Camera = () => {
                     videoRef.current.srcObject = stream;
                     const [videoTrack] = stream.getVideoTracks();
                     videoTrackRef.current = videoTrack;
-                    // Activar el flash inicialmente
+                    // Activar el flash cuando se inicia el stream
                     setFlash(true);
                 }
             } catch (error) {
@@ -74,13 +99,24 @@ const Camera = () => {
             }
         };
 
+        // Obtener el stream al montar el componente
         getCameraStream();
 
+        // Handler para gestionar cambios en la visibilidad (primer plano/segundo plano)
         const handleVisibilityChange = () => {
             if (document.visibilityState === "visible") {
+                // Al volver al primer plano, limpiar la narración y reiniciar la cámara si es necesario
                 handleNarrationComplete();
-                setFlash(true);
+                if (!videoRef.current.srcObject) {
+                    getCameraStream();
+                }
             } else {
+                // Al ir a segundo plano, detener todos los tracks del stream y limpiar la referencia
+                if (videoRef.current && videoRef.current.srcObject) {
+                    const stream = videoRef.current.srcObject;
+                    stream.getTracks().forEach((track) => track.stop());
+                    videoRef.current.srcObject = null;
+                }
                 setFlash(false);
             }
         };
@@ -88,26 +124,54 @@ const Camera = () => {
         document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
             if (videoRef.current && videoRef.current.srcObject) {
                 const stream = videoRef.current.srcObject;
                 stream.getTracks().forEach((track) => track.stop());
             }
             clearInterval(autoCaptureRef.current);
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
     }, []);
 
-    // Función para cambiar el modelo
+    // Efecto adicional para notificar el estado del modelo al volver al primer plano
+    useEffect(() => {
+        const handleStateModel = () => {
+            if (document.visibilityState === "visible") {
+                setNarration(`Modo actual: ${toggleModelRef.current ? "Bolívares" : "Dólares"}`);
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleStateModel);
+        if (document.visibilityState === "visible") {
+            handleStateModel();
+        }
+        return () => document.removeEventListener("visibilitychange", handleStateModel);
+    }, []);
+
+    /* ================================
+     CAMBIAR MODELO
+     ================================ */
     const toggleModelHandler = () => {
-        setToggleModel((prev) => !prev); // Invierte el valor actual
-        // Opcional: Podrías añadir un mensaje de narración al cambiar
+        setToggleModel((prev) => !prev);
         setNarration(`Modo cambiado a ${!toggleModel ? "Bolívares" : "Dólares"}`);
     };
 
-    /**
-     * Función para enviar la imagen capturada a la API.
-     * Se utiliza useCallback para que su referencia sea estable.
-     */
+    /* ================================
+     LIMPIEZA DEL OVERLAY DE LA RESPUESTA DE LA API
+     ================================ */
+    useEffect(() => {
+        if (apiPrediction) {
+            const timer = setTimeout(() => {
+                setApiPrediction("");
+            }, 10000); // El overlay se limpia a los 10 segundos
+            return () => clearTimeout(timer);
+        }
+    }, [apiPrediction]);
+
+    /* ================================
+     CAPTURA Y ENVÍO DE FOTO A LA API
+     ================================ */
+    // Función para enviar la imagen a la API
     const sendPhotoToAPI = useCallback(
         async (imageData) => {
             try {
@@ -115,7 +179,7 @@ const Camera = () => {
                 const formData = new FormData();
                 formData.append("image", blob, "captura.jpg");
 
-                // Determinamos el endpoint basado en toggleModel
+                // Seleccionar el endpoint según el modelo actual
                 const endpoint = toggleModel ? "vef" : "usd";
                 const url = `https://cashreader.share.zrok.io/detection/${endpoint}`;
 
@@ -130,39 +194,34 @@ const Camera = () => {
                 setNarration("No se ha podido comunicar con el servidor, intentelo mas tarde");
             }
         },
-        [processResponse, toggleModel] // Añadimos toggleModel a las dependencias
+        [processResponse, toggleModel]
     );
 
-    /**
-     * Función para tomar la foto en resolución nativa y enviar la imagen.
-     * Se utiliza useCallback para estabilizar su referencia y evitar recreaciones innecesarias.
-     */
+    // Función para capturar la imagen en resolución nativa y enviarla a la API
     const takePhoto = useCallback(() => {
         const video = videoRef.current;
         if (!video) {
             console.error("Video no disponible.");
             return;
         }
-
         const nativeWidth = video.videoWidth;
         const nativeHeight = video.videoHeight;
 
-        // Canvas para capturar la imagen en tamaño nativo
         const canvas = document.createElement("canvas");
         canvas.width = nativeWidth;
         canvas.height = nativeHeight;
         const context = canvas.getContext("2d");
         context.drawImage(video, 0, 0, nativeWidth, nativeHeight);
 
-        // Obtenemos la imagen en la máxima calidad posible.
-        // Se puede especificar la calidad (de 0 a 1) en el toDataURL; usamos 1 para máxima calidad.
         const imageUrl = canvas.toDataURL("image/jpeg", 1.0);
         setPhoto(imageUrl);
         console.log("Foto tomada");
         sendPhotoToAPI(imageUrl);
     }, [sendPhotoToAPI]);
 
-    // Manejar el intervalo automático de captura según autoCaptureInterval
+    /* ================================
+     CAPTURA AUTOMÁTICA (SI SE CONFIGURA)
+     ================================ */
     useEffect(() => {
         if (autoCaptureInterval > 0) {
             clearInterval(autoCaptureRef.current);
@@ -175,7 +234,15 @@ const Camera = () => {
         return () => clearInterval(autoCaptureRef.current);
     }, [autoCaptureInterval, takePhoto]);
 
-    // Usamos el hook de voz, el cual devuelve start y stop
+    /* ================================
+     MENSAJE DE AYUDA
+     ================================ */
+    const HelpMessage = () => setNarration(HELP_MESSAGE);
+
+    /* ================================
+     CONFIGURACIÓN DE LA INTERFAZ DE VOZ
+     ================================ */
+    // El hook de voz devuelve start y stop para gestionar la activación mediante gestos.
     const {
         error: voiceError,
         start,
@@ -183,26 +250,33 @@ const Camera = () => {
     } = useVoiceInterface({
         callTakePhoto: takePhoto,
         callToggleModel: toggleModelHandler,
+        callHelpMessage: HelpMessage,
         debug: true,
     });
 
-    // Agregamos handlers de gestos a la sección:
-    // Al presionar (onTouchStart) se activa el micrófono; al soltar (onTouchEnd) se detiene.
+    /* ================================
+     RENDERIZADO DEL COMPONENTE
+     ================================ */
     return (
         <section className="camera-section">
-            <div className="camera-container" onTouchStart={start} onTouchEnd={stop}>
+            <div
+                className="camera-container"
+                onTouchStart={start}
+                onTouchEnd={stop}
+                onMouseDown={start}
+                onMouseUp={stop}
+                onMouseLeave={stop}
+            >
+                {/* Video en vivo */}
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
-                {/*photo && (
-                    <div className="download-container">
-                        <a href={photo} download="captura.jpg">
-                            <button className="download-button">Descargar Foto</button>
-                        </a>
-                    </div>
-                )*/}
+                {/* Overlay visual para la respuesta de la API */}
+                {apiPrediction && <div className="api-response-overlay">{apiPrediction}</div>}
             </div>
+            {/* Indicador visual del modo actual */}
             <div className="scan-indicator" key={toggleModel ? "VEF" : "USD"}>
                 Scan: {toggleModel ? "VEF" : "USD"}
             </div>
+            {/* Botones de acción */}
             <ActionButtons onCameraButton={takePhoto} onToggleModel={toggleModelHandler} />
         </section>
     );
