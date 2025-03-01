@@ -5,12 +5,12 @@ import io
 # Carga del modelo YOLO
 
 models = {
-    'USD': YOLO('backend/src/models/Dollar_Model_11.pt'),
+    'USD': YOLO('backend/src/models/Dollar_Model_12.pt'),
     'VEF': YOLO('backend/src/models/VEF_Model_09.pt'),
 }
 
 versions = {
-    'USD': 11,
+    'USD': 12,
     'VEF': 9,
 }
 
