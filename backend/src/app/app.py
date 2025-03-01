@@ -6,12 +6,12 @@ import io
 
 models = {
     'USD': YOLO('backend/src/models/Dollar_Model_11.pt'),
-    'VEF': YOLO('backend/src/models/VEF_Model_06.pt'),
+    'VEF': YOLO('backend/src/models/VEF_Model_09.pt'),
 }
 
 versions = {
     'USD': 11,
-    'VEF': 6,
+    'VEF': 9,
 }
 
 classes = {
