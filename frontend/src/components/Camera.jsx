@@ -181,7 +181,7 @@ const Camera = () => {
 
                 // Seleccionar el endpoint según el modelo actual
                 const endpoint = toggleModel ? "vef" : "usd";
-                const url = `http://192.168.1.35:5000/detection/${endpoint}`;
+                const url = `https://patient-dog-vaguely.ngrok-free.app/detection/${endpoint}`;
 
                 const response = await axios.post(url, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
