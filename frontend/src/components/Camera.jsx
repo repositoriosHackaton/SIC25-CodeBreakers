@@ -181,7 +181,7 @@ const Camera = () => {
 
                 // Seleccionar el endpoint según el modelo actual
                 const endpoint = toggleModel ? "vef" : "usd";
-                const url = `https://192.168.1.1/detection/${endpoint}`;
+                const url = `https://192.168.1.1:5000/detection/${endpoint}`;
 
                 const response = await axios.post(url, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
