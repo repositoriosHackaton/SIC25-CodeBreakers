@@ -3,3 +3,4 @@ unprocessed
 temp
 *.key
 logs
+*.pyc
