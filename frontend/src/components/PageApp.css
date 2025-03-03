@@ -97,19 +97,19 @@ a {
 .image-container { /* imagen del telefono corregida*/
     display: flex;
     justify-content: center;
-    align-items: center;
     height: auto;
     width: 100%;
     max-width: 700px;
-    margin: 0 auto; /* Center the image horizontally */
-    grid-column: 2 / 3; /* Ensure image is in the right column */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    padding: 0; /* Add padding for better spacing */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    grid-column: 2 / 3; /* Asegura que la imagen esté en la columna correcta */
+    box-sizing: border-box; /* Incluye padding y border en el ancho y alto total */
+    padding: 0; /* Elimina el padding */
 }
 
 .image-container img {
     max-width: 100%; /* La imagen no superará el ancho del contenedor */
     height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Elimina el espacio debajo de la imagen */
 }
 
 .front-image {
@@ -118,7 +118,7 @@ a {
     width: 100%;
     max-width: 650px;
     z-index: 2;
-    margin-bottom: 0; /* Remove margin to ensure no distance with the next section */
+    margin-bottom: 0; /* Elimina el margen inferior */
 }
 
 /* ----- MEDIA QUERIES PARA RESPONSIVE ----- */
@@ -685,7 +685,7 @@ a {
     width: 100%; /* Ocupa el ancho completo */
     display: flex;
     flex-wrap: wrap; /* Permite que el contenido se ajuste */
-    justify-content: center; /* Centra el contenido horizontalmente */
+    justify-content: space-between; /* Centra el contenido horizontalmente */
     gap: 2rem; /* Espacio entre columnas */
     box-sizing: border-box; /* Incluye padding en el ancho total */
 }
@@ -700,9 +700,10 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center; /* Centra el contenido horizontalmente */
-    flex: 1; /* Ocupa el espacio disponible */
-    min-width: 200px; /* Ancho mínimo */
+    flex: 0.9; /* Ocupa el espacio disponible */
+    min-width: 300px; /* Ancho mínimo */
     font-size: 1.2rem; /* Tamaño de fuente */
+    padding-right: 1rem;
 }
 
 /* Estilos para los enlaces en la columna izquierda */
@@ -711,7 +712,7 @@ a {
     flex-direction: row; /* Alinea imagen y texto horizontalmente */
     align-items: center;
     justify-content: flex-start; /* Alinea el contenido a la izquierda */
-    padding: 0.5rem 1rem;
+    padding: 0.1rem 1rem;
     background-color: var(--color-accent);
     color: white;
     text-decoration: none;
@@ -735,7 +736,7 @@ a {
     text-decoration: none;
     border-radius: 0.5rem;
     font-weight: bold;
-    margin-top: 0.5rem;
+    margin-top: 0.1rem;
 }
 
 /* Estilos para la columna derecha */
@@ -752,7 +753,7 @@ a {
     display: flex;
     justify-content: center; /* Center justify the logos horizontally */
     align-items: center; /* Center align the logos vertically */
-    gap: 1rem; /* Add gap between images */
+    gap: 2rem; /* Add gap between images */
     margin-top: 1rem;
     width: auto; /* Ensure it takes full width */
     height: auto; /* Adjust height to fit content */
@@ -786,7 +787,7 @@ a {
 @media (min-width: 1024px) {
     .partner-logos {
         width: 70%; /* Increase the width of the container */
-        padding: 0.5rem; /* Adjust padding */
+        padding: 1.5rem 0.1rem; /* Adjust padding */
     }
     .partner-logos img {
         border-radius: 1rem; /* Round the corners for desktop */
