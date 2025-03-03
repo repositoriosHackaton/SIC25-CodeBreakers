@@ -2,18 +2,20 @@ from ultralytics import YOLO
 from PIL import Image
 from log import log
 import io
-# Carga del modelo YOLO
 
+# Modelos para el server
 models = {
     'USD': YOLO('backend/src/models/train/USD_Model_13/weights/best.pt'),
     'VEF': YOLO('backend/src/models/train/VEF_Model_11/weights/best.pt'),
 }
 
+# Versiones de los modelos
 versions = {
     'USD': 13,
     'VEF': 11,
 }
 
+# Clases de los modelos
 classes = {
     'USD': [
         'fifty-back',  'fifty-front', 
@@ -33,10 +35,13 @@ classes = {
     ]
 }
 
+# Importamos FastAPI
 from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
+# Creamos la app del FastAPI
 app = FastAPI()
+# Se agrega el CORS para aceptar peticiones de un origen externo
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -48,12 +53,15 @@ app.add_middleware(
 
 @app.post("/detection/vef")
 async def detection_vef(image: UploadFile):
+    # Se carga la imagen de forma dinámica
     imageBytes = await image.read()
     imageStream = io.BytesIO(imageBytes)
     imageFile = Image.open(imageStream)
 
+    # Se pasa la imagen por el modelo
     results = models['VEF'].predict(imageFile, verbose=False)
 
+    # Se extraen las cajas de los resultados
     if len(results[0].boxes) > 0:
         boxes = []
         for box in results[0].boxes:
@@ -63,7 +71,9 @@ async def detection_vef(image: UploadFile):
                 'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
             })
         print(boxes)
+        # Guardamos los resultados en la carpeta img-API
         await log(f'backend/src/data/img-API/VEF/Model_{versions['VEF']}/', boxes, imageFile)
+        # Retornamos los resultados
         return {'detections': boxes}
     else:
         return {'message': 'No objects detected'}
