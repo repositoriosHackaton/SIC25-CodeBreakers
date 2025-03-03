@@ -27,3 +27,6 @@ Para el desarrollo de este proyecto se emplearon un conjunto de tecnologías mod
 - Joel Escobar  *(Samsung)*
 - Jesús Cabello *(Samsung)*
 - Jesús Ramírez *(Samsung y Pro III)*
+
+## Donaciones
+Si desea apoyar el proyecto, aceptamos **USDT** mediante la red de **Binance(BSC)**: 0xe826bd3f1b387eef0974d57c6b04d047cc443e75
