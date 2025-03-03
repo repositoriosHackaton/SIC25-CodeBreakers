@@ -1,17 +1,17 @@
 from ultralytics import YOLO
 from PIL import Image
-from log import log
+from backend.src.app.log import log
 import io
 # Carga del modelo YOLO
 
 models = {
     'USD': YOLO('backend/src/models/Dollar_Model_12.pt'),
-    'VEF': YOLO('backend/src/models/VEF_Model_09.pt'),
+    'VEF': YOLO('backend/src/models/VEF_Model_10.pt'),
 }
 
 versions = {
     'USD': 12,
-    'VEF': 9,
+    'VEF': 10,
 }
 
 classes = {
