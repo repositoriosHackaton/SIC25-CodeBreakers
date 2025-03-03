@@ -27,7 +27,7 @@ fl_gamma: 0.1  # Focal loss gamma
 # Hyperparameters para augmentación
 hsv_h: 0.015  # Image HSV-Hue augmentation
 hsv_s: 0.7  # Image HSV-Saturation augmentation
-hsv_v: 0.4  # Image HSV-Value augmentation
+hsv_v: 0.9  # Image HSV-Value augmentation
 degrees: 0.0  # Image rotation (+/- deg)
 translate: 0.1  # Image translation (+/- fraction)
 scale: 0.0  # Image scale (+/- gain) subir
