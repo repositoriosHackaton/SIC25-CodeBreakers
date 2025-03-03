@@ -9,11 +9,13 @@ settings.update(datasets_dir = '.')
 
 def train_model():
     # Cargar el modelo YOLO preentrenado
-    model = YOLO(r'./../../yolov8s.pt') 
+    model = YOLO(r'backend/src/models/YOLO/yolov8s.pt') 
 
     # Entrenar el modelo
     results = model.train(
         data=r'backend/Dollar_Bill_Detection_USD/data.yaml',
+        project = r'backend/src/models/train',
+        name = "USD_model_1", #Nombre de la carpeta del modelo
         epochs = 350,
         batch = 16,
         imgsz = 416,
