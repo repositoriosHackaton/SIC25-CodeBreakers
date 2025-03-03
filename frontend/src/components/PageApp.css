@@ -21,7 +21,7 @@ a {
 .front-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100vh; /* Ensure it takes the full height of the viewport */
+    min-height: 100vh; /* Ensure it takes the full height of the viewport */
     background: no-repeat center center;
     background-size: cover;
     position: relative;
@@ -685,7 +685,7 @@ a {
     width: 100%; /* Ocupa el ancho completo */
     display: flex;
     flex-wrap: wrap; /* Permite que el contenido se ajuste */
-    justify-content: space-between; /* Centra el contenido horizontalmente */
+    justify-content: space-between; /* Alinea las columnas a los extremos */
     gap: 2rem; /* Espacio entre columnas */
     box-sizing: border-box; /* Incluye padding en el ancho total */
 }
@@ -750,26 +750,25 @@ a {
 }
 
 .partner-logos {
-    display: flex;
-    justify-content: center; /* Center justify the logos horizontally */
-    align-items: center; /* Center align the logos vertically */
-    gap: 2rem; /* Add gap between images */
+    display: inline-flex; /* Cambia a inline-flex */
+    justify-content: center; /* Centra los logos horizontalmente */
+    align-items: center; /* Centra los logos verticalmente */
+    gap: 2rem; /* Espacio entre los logos */
     margin-top: 1rem;
-    width: auto; /* Ensure it takes full width */
-    height: auto; /* Adjust height to fit content */
-    background-color: #343a40; /* Add background color */
-    padding: 1rem; /* Add padding */
-    border-radius: 1rem; /* Add border radius */
-    flex-wrap: wrap; /* Allow wrapping */
-    overflow: hidden; /* Prevent overflow */
+    background-color: #343a40; /* Color de fondo */
+    padding: 1rem; /* Espaciado interno */
+    border-radius: 1rem; /* Bordes redondeados */
+    flex-wrap: wrap; /* Permite que los logos se envuelvan */
+    overflow: hidden; /* Evita desbordamiento */
+    max-width: 100%; /* Limita el ancho máximo */
 }
 
 .partner-logos img {
-    flex: 0 1 auto; /* Allow images to grow and take available space */
-    max-width: 170px; /* Reduce the maximum width */
-    height: auto;
-    object-fit: contain; /* Ensure images fit well within their container */
-    border-radius: 1rem; /* Add rounded corners */
+    flex: 0 1 auto; /* Permite que las imágenes crezcan y ocupen el espacio disponible */
+    max-width: 170px; /* Reduce el ancho máximo de los logos */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: contain; /* Asegura que las imágenes se ajusten bien */
+    border-radius: 1rem; /* Bordes redondeados para las imágenes */
 }
 
 .footer .left-column .github-link {
@@ -780,17 +779,17 @@ a {
 }
 
 .footer .left-column .github-link img {
-    width: 50%; /* Reduce the size to half */
+    width: 50%; /* Reduce el tamaño a la mitad */
     margin-bottom: 0.5rem;
 }
 
 @media (min-width: 1024px) {
     .partner-logos {
-        width: 70%; /* Increase the width of the container */
-        padding: 1.5rem 0.1rem; /* Adjust padding */
+        width: auto; /* Ajusta el ancho al contenido */
+        padding: 1.5rem 2rem; /* Ajusta el padding */
     }
     .partner-logos img {
-        border-radius: 1rem; /* Round the corners for desktop */
+        border-radius: 1rem; /* Bordes redondeados para desktop */
     }
 }
 
