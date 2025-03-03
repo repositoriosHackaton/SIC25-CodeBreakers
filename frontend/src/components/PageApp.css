@@ -21,7 +21,7 @@ a {
 .front-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 100vh; /* Ensure it takes the full height of the viewport */
+    max-height: 100vh; /* Ensure it takes the full height of the viewport */
     background: no-repeat center center;
     background-size: cover;
     position: relative;
@@ -76,6 +76,7 @@ a {
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .front-content .cta-button {
