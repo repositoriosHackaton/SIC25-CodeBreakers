@@ -1,3 +1,7 @@
+"""
+Script para augmentar todas las imagenes de una carpeta.
+"""
+
 import os
 import cv2
 import logging
@@ -57,7 +61,7 @@ def noise_group(base_path: str, input_dir: str, output_dir: str, transformations
 if __name__ == "__main__":
     logging.info("Iniciando augmentación...")
     
-    base_path = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\datasets"
+    base_path = r"backend/Dollar_Bill_Detection_VEF/datasets"
     input_dir = os.path.join(base_path, "images")
     output_dir = os.path.join(base_path, "augmented")  # Carpeta de salida para las imágenes augmentadas
     
@@ -67,9 +71,9 @@ if __name__ == "__main__":
     augment_percentage = 70  # Porcentaje de imágenes que deseas augmentar
     
     noise_group(
-        base_path=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\valid',
-        input_dir=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\valid\images',
-        output_dir=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_VEF\valid\augmented',  # Carpeta de salida
+        base_path=r'backend/Dollar_Bill_Detection_VEF/valid',
+        input_dir=r'backend/Dollar_Bill_Detection_VEF/valid/images',
+        output_dir=r'backend/Dollar_Bill_Detection_VEF/valid/augmented',  # Carpeta de salida
         transformations=A.Compose([
             #A.RGBShift(p=1),
             #A.RandomBrightnessContrast(p=1),
