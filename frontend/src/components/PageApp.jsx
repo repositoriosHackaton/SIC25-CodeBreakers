@@ -123,7 +123,7 @@ const PageApp = () => {
                 <p className="donations-description">
                     Tu contribución nos ayuda a seguir mejorando y manteniendo esta aplicación gratuita para todos.
                 </p>
-                <a href="https://github.com/Fran2310/cash_reader" target="_blank" rel="noopener noreferrer" className="donate-button"> Hacer una Donación</a>
+                <a href="https://github.com/Fran2310/cash_reader?tab=readme-ov-file#donaciones" target="_blank" rel="noopener noreferrer" className="donate-button"> Hacer una Donación</a>
             </section>
 
 

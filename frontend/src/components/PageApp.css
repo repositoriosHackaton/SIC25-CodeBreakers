@@ -704,6 +704,7 @@ a {
     min-width: 300px; /* Ancho mínimo */
     font-size: 1.2rem; /* Tamaño de fuente */
     padding-right: 1rem;
+    justify-content: center;
 }
 
 /* Estilos para los enlaces en la columna izquierda */
