@@ -12,8 +12,8 @@ def train_model():
     # Entrenar el modelo
     results = model.train(
         data=r'backend/Dollar_Bill_Detection_USD/data.yaml',
-        project = r'backend/src/models/train',
-        name = "VEF_model_1", 
+        project = r'backend/src/models/train', #Ruta donde se guardará el modelo
+        name = "VEF_model_1", #Nombre de la carpeta del modelo
         epochs = 350,
         batch = 16,
         imgsz = 416,
