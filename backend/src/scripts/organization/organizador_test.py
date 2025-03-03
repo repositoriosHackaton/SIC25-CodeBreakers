@@ -1,10 +1,14 @@
+"""
+Organiza las carpetas de test del dataset de dólar, que estaba desorganizado.
+"""
+
 #organizar las carpteas del dataset de dollar
 import os
 import shutil
 import random
 
 # Define el directorio raíz donde están las carpetas 1, 2 y 3
-root_dir = r"C:\Users\jesus\Downloads\output"
+root_dir = r'Downloads/output'
 
 # Definir las rutas de las carpetas
 folders = ["0", "1", "2", "3","4","5","6","7","8","9","10","11"]
