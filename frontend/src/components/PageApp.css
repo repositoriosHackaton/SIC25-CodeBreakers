@@ -765,7 +765,7 @@ a {
 
 .partner-logos img {
     flex: 0 1 auto; /* Permite que las imágenes crezcan y ocupen el espacio disponible */
-    max-width: 170px; /* Reduce el ancho máximo de los logos */
+    max-width: 150px; /* Reduce el ancho máximo de los logos */
     height: auto; /* Mantiene la proporción de la imagen */
     object-fit: contain; /* Asegura que las imágenes se ajusten bien */
     border-radius: 1rem; /* Bordes redondeados para las imágenes */
@@ -822,7 +822,7 @@ a {
 
     .footer .right-column {
         width: 100%; /* Full width */
-        margin-top: 1rem; /* Add margin for spacing */
+        margin-top: rem; /* Add margin for spacing */
     }
 
     .footer .left-column {
