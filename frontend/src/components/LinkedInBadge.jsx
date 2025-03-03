@@ -14,6 +14,8 @@ const LinkedInBadge = ({ profileVanity = ""}) => {
       scriptLoaded.current = true;
     }
 
+    
+
     return () => {
       // No eliminamos el script para evitar que se vuelva a cargar innecesariamente
     };
