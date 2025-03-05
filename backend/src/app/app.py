@@ -6,13 +6,13 @@ import io
 # Modelos para el server
 models = {
     'USD': YOLO('backend/src/models/train/USD_Model_13/weights/best.pt'),
-    'VEF': YOLO('backend/src/models/train/VEF_Model_11/weights/best.pt'),
+    'VEF': YOLO('backend/src/models/train/VEF_Model_09/weights/best.pt'),
 }
 
 # Versiones de los modelos
 versions = {
     'USD': 13,
-    'VEF': 11,
+    'VEF': 9,
 }
 
 # Clases de los modelos
