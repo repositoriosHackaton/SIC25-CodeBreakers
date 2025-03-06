@@ -17,13 +17,6 @@ a {
     font-family: "Lato", sans-serif;
 }
 
-h3.profile-badge__content-profile-name
-    a.profile-badge__content-profile-name-link.profile-badge__content-profile-name-link--light {
-    pointer-events: none !important;
-    text-decoration: none !important;
-    background-color: aqua !important;
-}
-
 /* ----- SECCIÓN PORTADA ----- */
 .front-page {
     display: grid;
@@ -102,8 +95,7 @@ h3.profile-badge__content-profile-name
 }
 
 /* ----- IMAGEN DEL TELÉFONO ----- */
-.image-container {
-    /* imagen del telefono corregida*/
+.image-container { /* imagen del telefono corregida*/
     display: flex;
     justify-content: center;
     height: auto;
@@ -151,8 +143,7 @@ h3.profile-badge__content-profile-name
         font-size: clamp(2rem, 3vw, 2.5rem);
     }
 
-    .feature h3,
-    .feature p {
+    .feature h3, .feature p {
         font-size: 2rem;
     }
 
@@ -160,8 +151,7 @@ h3.profile-badge__content-profile-name
         width: 350px;
     }
 
-    .donations-title,
-    .donations-description {
+    .donations-title, .donations-description {
         font-size: 2.5rem;
     }
 
@@ -202,8 +192,7 @@ h3.profile-badge__content-profile-name
         align-items: center;
     }
 
-    .footer .right-column,
-    .footer .left-column {
+    .footer .right-column, .footer .left-column {
         width: 100%;
     }
 
@@ -404,7 +393,7 @@ h3.profile-badge__content-profile-name
 .container-vision p {
     font-size: 1.6rem;
     line-height: 1.5;
-    text-align: center;
+    text-align: center; 
 }
 
 /* Center align text in about-us section on mobile */
@@ -466,7 +455,7 @@ h3.profile-badge__content-profile-name
 .creators-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
     justify-content: center; /* Center the contents vertically */
     background-repeat: no-repeat;
     text-align: center;
@@ -530,31 +519,31 @@ h3.profile-badge__content-profile-name
     flex-direction: column;
     align-items: center;
     gap: 10px; /* Espacio entre el nombre y la tarjeta */
-}
-
-.creator-name {
+  }
+  
+  .creator-name {
     font-size: 1.2rem;
     font-weight: bold;
     color: #0077b5; /* Color azul de LinkedIn */
     text-decoration: none; /* Quitar subrayado predeterminado */
     cursor: pointer; /* Cambiar cursor al pasar el mouse */
-}
-
-.creator-name:hover {
+  }
+  
+  .creator-name:hover {
     text-decoration: underline; /* Subrayar al pasar el mouse */
-}
-
-/* Ocultar el nombre generado por LinkedIn */
-.badge-base LI-profile-badge .LI-name {
+  }
+  
+  /* Ocultar el nombre generado por LinkedIn */
+  .badge-base LI-profile-badge .LI-name {
     display: none !important;
-}
+  }
 
 .creator-card:hover {
     transform: translateY(-10px);
 }
 
-.creator-card p,
-.creator-card a {
+
+.creator-card p, .creator-card a {
     text-align: center;
 }
 .technologies-title {
