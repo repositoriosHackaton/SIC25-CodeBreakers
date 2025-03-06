@@ -1,55 +1,68 @@
-import os
-import cv2
-import logging
-import random
-import albumentations as A
+"""
+Script para augmentar un grupo de imágenes en especifico.
+"""
+
+import os  
+import cv2  # Para leer y manipular imágenes
+import logging  # Para registrar mensajes de log
+import random  # Para seleccionar imágenes aleatoriamente
+import albumentations as A  # Para aplicar transformaciones de aumento de datos
 
 # Configuración del logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO)  # Establece el nivel de logging a INFO
 
 def has_target_label(label_path: str, target_label: str) -> bool:
-    if not os.path.exists(label_path):
+    """
+    Verifica si un archivo de etiqueta contiene una etiqueta específica.
+    """
+    if not os.path.exists(label_path):  # Verifica si el archivo de etiqueta existe
         return False
     
-    with open(label_path, 'r') as f:
-        lines = f.readlines()
-        for line in lines:
-            label = line.strip().split()[0]
-            if label == target_label:
+    with open(label_path, 'r') as f:  # Abre el archivo de etiqueta en modo lectura
+        lines = f.readlines()  # Lee todas las líneas del archivo
+        for line in lines:  # Recorre cada línea
+            label = line.strip().split()[0]  # Obtiene la etiqueta (primer elemento de la línea)
+            if label == target_label:  # Compara la etiqueta con la etiqueta objetivo
                 return True
     return False
 
 def noise(input_img_path: str, output_img_path: str, transformations):
-    input_img = cv2.imread(input_img_path)
-    if input_img is None:
+    """
+    Aplica transformaciones de aumento de datos a una imagen y la guarda.
+    """
+    input_img = cv2.imread(input_img_path)  # Lee la imagen de entrada
+    if input_img is None:  # Verifica si la imagen se leyó correctamente
         logging.error(f"No se pudo leer la imagen {input_img_path}")
         return
     
-    augmented = transformations(image=input_img)
-    transformed_img = augmented['image']
-    cv2.imwrite(output_img_path, transformed_img)
+    augmented = transformations(image=input_img)  # Aplica las transformaciones
+    transformed_img = augmented['image']  # Obtiene la imagen transformada
+    cv2.imwrite(output_img_path, transformed_img)  # Guarda la imagen transformada
     logging.info(f"Imagen transformada guardada en {output_img_path}")
 
 def noise_group(base_path: str, input_dir: str, labels_dir: str, output_dir: str, transformations, target_label: str, augment_percentage: float):
+    """
+    Aplica transformaciones de aumento de datos a un grupo de imágenes que contienen una etiqueta específica.
+    """
     struct = {
-        'input': [],
-        'output': []
+        'input': [],  # Lista de rutas de imágenes de entrada
+        'output': []  # Lista de rutas de imágenes de salida (no se usa en este código)
     }
     
     # Obtener todas las imágenes en el directorio de entrada
     for img_name in os.listdir(input_dir):
         img_path = os.path.join(input_dir, img_name)
-        if os.path.isfile(img_path):
+        if os.path.isfile(img_path):  # Verifica si es un archivo (no una carpeta)
             struct['input'].append(img_path)
     
     # Filtrar imágenes que contienen la etiqueta
     filtered_input = []
     
     for img_path in struct['input']:
-        img_name = os.path.splitext(os.path.basename(img_path))[0]
-        label_path = os.path.join(labels_dir, f"{img_name}.txt")
+        img_name = os.path.splitext(os.path.basename(img_path))[0]  # Obtiene el nombre de la imagen sin extensión
+        label_path = os.path.join(labels_dir, f"{img_name}.txt")  # Ruta del archivo de etiqueta correspondiente
         
-        if has_target_label(label_path, target_label):
+        if has_target_label(label_path, target_label):  # Verifica si la etiqueta está presente
             filtered_input.append(img_path)
     
     struct['input'] = filtered_input
@@ -89,18 +102,18 @@ if __name__ == "__main__":
         os.makedirs(output_dir)
     
     target_label = "11"  # Etiqueta específica que deseas augmentar
-    augment_percentage = 100  # Porcentaje de imágenes con la etiqueta específica que deseas augmentar (50%)
+    augment_percentage = 100  # Porcentaje de imágenes con la etiqueta específica que deseas augmentar (100%)
     
     noise_group(
-        base_path=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\valid',
-        input_dir=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\valid\images',
-        labels_dir=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\valid\labels',  # Carpeta de labels
-        output_dir=r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\Dollar_Bill_Detection_USD\valid\augmentation',  # Carpeta de salida
+        base_path=r'backend/Dollar_Bill_Detection_USD/valid',
+        input_dir=r'backend/Dollar_Bill_Detection_USD/valid/images',
+        labels_dir=r'backend/Dollar_Bill_Detection_USD/valid/labels',  # Carpeta de labels
+        output_dir=r'backend/Dollar_Bill_Detection_USD/valid/augmentation',  # Carpeta de salida
         transformations=A.Compose([
             #A.RGBShift(p=1),
             #A.RandomBrightnessContrast(p=1),
-            A.Blur(p=0.1),
-            A.SaltAndPepper(p=1)
+            A.Blur(p=0.1),  # Aplica un efecto de desenfoque con una probabilidad del 10%
+            A.SaltAndPepper(p=1)  # Aplica ruido sal y pimienta con una probabilidad del 100%
         ]),
         target_label=target_label,
         augment_percentage=augment_percentage
