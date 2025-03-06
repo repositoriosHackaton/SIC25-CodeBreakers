@@ -21,7 +21,7 @@ a {
 .front-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100vh; /* Ensure it takes the full height of the viewport */
+    max-height: 100vh; /* Ensure it takes the full height of the viewport */
     background: no-repeat center center;
     background-size: cover;
     position: relative;
@@ -76,6 +76,7 @@ a {
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .front-content .cta-button {
@@ -97,19 +98,19 @@ a {
 .image-container { /* imagen del telefono corregida*/
     display: flex;
     justify-content: center;
-    align-items: center;
     height: auto;
     width: 100%;
     max-width: 700px;
-    margin: 0 auto; /* Center the image horizontally */
-    grid-column: 2 / 3; /* Ensure image is in the right column */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    padding: 0; /* Add padding for better spacing */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    grid-column: 2 / 3; /* Asegura que la imagen esté en la columna correcta */
+    box-sizing: border-box; /* Incluye padding y border en el ancho y alto total */
+    padding: 0; /* Elimina el padding */
 }
 
 .image-container img {
     max-width: 100%; /* La imagen no superará el ancho del contenedor */
     height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Elimina el espacio debajo de la imagen */
 }
 
 .front-image {
@@ -118,7 +119,7 @@ a {
     width: 100%;
     max-width: 650px;
     z-index: 2;
-    margin-bottom: 0; /* Remove margin to ensure no distance with the next section */
+    margin-bottom: 0; /* Elimina el margen inferior */
 }
 
 /* ----- MEDIA QUERIES PARA RESPONSIVE ----- */
@@ -512,12 +513,30 @@ a {
     padding: 1rem; /* Add padding for better spacing */
 }
 
+/* PageApp.css */
 .linkedin-badge-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin-top: 0;
-}
+    gap: 10px; /* Espacio entre el nombre y la tarjeta */
+  }
+  
+  .creator-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0077b5; /* Color azul de LinkedIn */
+    text-decoration: none; /* Quitar subrayado predeterminado */
+    cursor: pointer; /* Cambiar cursor al pasar el mouse */
+  }
+  
+  .creator-name:hover {
+    text-decoration: underline; /* Subrayar al pasar el mouse */
+  }
+  
+  /* Ocultar el nombre generado por LinkedIn */
+  .badge-base LI-profile-badge .LI-name {
+    display: none !important;
+  }
 
 .creator-card:hover {
     transform: translateY(-10px);
@@ -667,7 +686,7 @@ a {
     width: 100%; /* Ocupa el ancho completo */
     display: flex;
     flex-wrap: wrap; /* Permite que el contenido se ajuste */
-    justify-content: center; /* Centra el contenido horizontalmente */
+    justify-content: space-between; /* Alinea las columnas a los extremos */
     gap: 2rem; /* Espacio entre columnas */
     box-sizing: border-box; /* Incluye padding en el ancho total */
 }
@@ -682,9 +701,11 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center; /* Centra el contenido horizontalmente */
-    flex: 1; /* Ocupa el espacio disponible */
-    min-width: 200px; /* Ancho mínimo */
+    flex: 0.9; /* Ocupa el espacio disponible */
+    min-width: 300px; /* Ancho mínimo */
     font-size: 1.2rem; /* Tamaño de fuente */
+    padding-right: 1rem;
+    justify-content: center;
 }
 
 /* Estilos para los enlaces en la columna izquierda */
@@ -693,7 +714,7 @@ a {
     flex-direction: row; /* Alinea imagen y texto horizontalmente */
     align-items: center;
     justify-content: flex-start; /* Alinea el contenido a la izquierda */
-    padding: 0.5rem 1rem;
+    padding: 0.1rem 1rem;
     background-color: var(--color-accent);
     color: white;
     text-decoration: none;
@@ -717,7 +738,7 @@ a {
     text-decoration: none;
     border-radius: 0.5rem;
     font-weight: bold;
-    margin-top: 0.5rem;
+    margin-top: 0.1rem;
 }
 
 /* Estilos para la columna derecha */
@@ -731,26 +752,25 @@ a {
 }
 
 .partner-logos {
-    display: flex;
-    justify-content: center; /* Center justify the logos horizontally */
-    align-items: center; /* Center align the logos vertically */
-    gap: 1rem; /* Add gap between images */
+    display: inline-flex; /* Cambia a inline-flex */
+    justify-content: center; /* Centra los logos horizontalmente */
+    align-items: center; /* Centra los logos verticalmente */
+    gap: 2rem; /* Espacio entre los logos */
     margin-top: 1rem;
-    width: auto; /* Ensure it takes full width */
-    height: auto; /* Adjust height to fit content */
-    background-color: #343a40; /* Add background color */
-    padding: 1rem; /* Add padding */
-    border-radius: 1rem; /* Add border radius */
-    flex-wrap: wrap; /* Allow wrapping */
-    overflow: hidden; /* Prevent overflow */
+    background-color: #343a40; /* Color de fondo */
+    padding: 1rem; /* Espaciado interno */
+    border-radius: 1rem; /* Bordes redondeados */
+    flex-wrap: wrap; /* Permite que los logos se envuelvan */
+    overflow: hidden; /* Evita desbordamiento */
+    max-width: 100%; /* Limita el ancho máximo */
 }
 
 .partner-logos img {
-    flex: 0 1 auto; /* Allow images to grow and take available space */
-    max-width: 120px; /* Reduce the maximum width */
-    height: auto;
-    object-fit: contain; /* Ensure images fit well within their container */
-    border-radius: 1rem; /* Add rounded corners */
+    flex: 0 1 auto; /* Permite que las imágenes crezcan y ocupen el espacio disponible */
+    max-width: 150px; /* Reduce el ancho máximo de los logos */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: contain; /* Asegura que las imágenes se ajusten bien */
+    border-radius: 1rem; /* Bordes redondeados para las imágenes */
 }
 
 .footer .left-column .github-link {
@@ -761,17 +781,17 @@ a {
 }
 
 .footer .left-column .github-link img {
-    width: 50%; /* Reduce the size to half */
+    width: 50%; /* Reduce el tamaño a la mitad */
     margin-bottom: 0.5rem;
 }
 
 @media (min-width: 1024px) {
     .partner-logos {
-        width: 100%; /* Increase the width of the container */
-        padding: 0.5rem; /* Adjust padding */
+        width: auto; /* Ajusta el ancho al contenido */
+        padding: 1.5rem 2rem; /* Ajusta el padding */
     }
     .partner-logos img {
-        border-radius: 1rem; /* Round the corners for desktop */
+        border-radius: 1rem; /* Bordes redondeados para desktop */
     }
 }
 
@@ -804,7 +824,7 @@ a {
 
     .footer .right-column {
         width: 100%; /* Full width */
-        margin-top: 1rem; /* Add margin for spacing */
+        margin-top: rem; /* Add margin for spacing */
     }
 
     .footer .left-column {

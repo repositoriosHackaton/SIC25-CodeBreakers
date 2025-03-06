@@ -137,7 +137,8 @@ const Camera = () => {
     useEffect(() => {
         const handleStateModel = () => {
             if (document.visibilityState === "visible") {
-                setNarration(`Modo actual: ${toggleModelRef.current ? "Bolívares" : "Dólares"}`);
+                const ModeScan = `Modo actual: ${toggleModel ? "Bolívares" : "Dólares"}`;
+                setNarration(ModeScan);
             }
         };
 
