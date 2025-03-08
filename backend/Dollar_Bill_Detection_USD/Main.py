@@ -25,7 +25,7 @@ def train_model(m_name, moneda, disable=False):
                 batch = 16,
                 imgsz = 416,
                 cls=0.7,
-                patience = 10, #Detener el entrenamiento si no hay mejora en 10 epochs
+                patience = 20, #Detener el entrenamiento si no hay mejora en 10 epochs
                 optimizer = "SGD",
                 #freeze = [0,1], #indice de las cpas que se congelarán
                 task = "detect",
@@ -156,9 +156,9 @@ def pred_model(evaluate_model, image_path, conf_threshold=0.25, iou_threshold=0.
 if __name__ == "__main__":
     mp.freeze_support()  #Evitar un error con Windows
     train_model(
-                m_name="USD_model_13", 
+                m_name="USD_model_13f", 
                 moneda="USD",
-                disable=True
+                disable=False
                 )  #Llamar a la función que entrena el modelo
     test_model(
                 m_name="VEF_Model_09_Val_01f",
@@ -169,6 +169,6 @@ if __name__ == "__main__":
     r = pred_model(evaluate_model="USD_Model_13",
                 image_path="backend/Dollar_Bill_Detection_USD/test/images/IMG_2079_jpg.rf.99e98d88844006e9f948ace274d42b2e.jpg",
                 use_pil=False,
-                disable=False
+                disable=True
                 ) #Llammar a la funcion que realiza predicciones
     print(r)

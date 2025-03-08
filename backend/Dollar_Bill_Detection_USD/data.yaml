@@ -23,35 +23,35 @@ names:
 softmax: True # para multiclases
 
 # Hyperparameters for SGD
-lr0: 0.01 # SGD
-momentum: 0.9 # Momentum for SGD
-weight_decay: 0.0005 # Optimizer weight decay for SGD
-warmup_epochs: 3.0 # Warmup epochs
-warmup_momentum: 0.8 # Warmup initial momentum
-warmup_bias_lr: 0.1 # Warmup initial bias lr
-box: 0.05 # Box loss gain
-cls: 0.7 # Class loss gain
-cls_pw: 1.0 # Class positive weight
-obj: 1.0 # Object loss gain
-obj_pw: 1.0 # Object positive weight x
-iou_t: 0.20 # IoU training threshold subir
-anchor_t: 4.0 # Anchor-multiple threshold
-fl_gamma: 0.0 # Focal loss gamma
+lr0: 0.01
+momentum: 0.9
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+warmup_bias_lr: 0.1
+box: 0.05
+cls: 0.7
+cls_pw: 1.0
+obj: 1.0
+obj_pw: 1.0
+iou_t: 0.20
+anchor_t: 4.0
+fl_gamma: 0.0
 
 # Hyperparameters para augmentación
-hsv_h: 0.025 # Image HSV-Hue augmentation
-hsv_s: 0.8 # Image HSV-Saturation augmentation
-hsv_v: 0.9 # Image HSV-Value augmentation
-degrees: 0.0 # Image rotation (+/- deg)
-translate: 0.1 # Image translation (+/- fraction)
-scale: 0.0 # Image scale (+/- gain) subir
-shear: 0.0 # Image shear (+/- deg)
-perspective: 0.0 # Image perspective (+/- fraction)
-flipud: 0.0 # Image flip up-down (probability)
-fliplr: 0.0 # Image flip left-right (probability)
-mosaic: 1.0 # Image mosaic (probability)
-mixup: 0.0 # Image mixup (probability)
-copy_paste: 0.0 # Segment copy-paste (probability)
+hsv_h: 0.05            # Incrementado para mayor variabilidad en el tono
+hsv_s: 0.9             # Ligero incremento para saturación
+hsv_v: 1.0             # Incrementado para permitir variaciones en la iluminación
+degrees: 15.0          # Permite rotaciones de ±15 grados
+translate: 0.1         # Mantiene la traslación
+scale: 0.1             # Permite ligeras variaciones de escala
+shear: 2.0             # Permite una leve inclinación
+perspective: 0.005     # Pequeña perspectiva para simular distorsiones
+flipud: 0.0            # No se recomienda flip vertical
+fliplr: 0.1            # Baja probabilidad de volteo horizontal
+mosaic: 1.0            # Se mantiene, ya que ayuda a mezclar contextos
+mixup: 0.0             # Podrías probar habilitarlo levemente si es necesario
+copy_paste: 0.0        # Se puede evaluar si mejora en futuras pruebas
 
 roboflow:
     workspace: alex-hyams-cosqx
