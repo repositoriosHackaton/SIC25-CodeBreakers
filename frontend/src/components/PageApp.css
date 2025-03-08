@@ -21,7 +21,7 @@ a {
 .front-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    max-height: 100vh; /* Ensure it takes the full height of the viewport */
+    min-height: 90vh; /* Ensure it takes the full height of the viewport */
     background: no-repeat center center;
     background-size: cover;
     position: relative;
@@ -98,6 +98,7 @@ a {
 .image-container { /* imagen del telefono corregida*/
     display: flex;
     justify-content: center;
+    align-items: center;
     height: auto;
     width: 100%;
     max-width: 700px;
@@ -120,6 +121,7 @@ a {
     max-width: 650px;
     z-index: 2;
     margin-bottom: 0; /* Elimina el margen inferior */
+    align-items: center;
 }
 
 /* ----- MEDIA QUERIES PARA RESPONSIVE ----- */
