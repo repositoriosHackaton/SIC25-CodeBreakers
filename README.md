@@ -19,7 +19,7 @@ Para el desarrollo de este proyecto se emplearon un conjunto de tecnologías mod
 
 - **FastAPI:** Como framework backend, facilitando la creación de una **API** robusta y eficiente para la comunicación entre la interfaz web y los modelos de inteligencia artificial.
 
-- **YOLO (You Only Look Once):**  Un modelo **pre-entrenado** para la detección de objetos en tiempo real. Se usó como base *yolov8n* y mediante una técnica conocida como **fine-tunning** se ajustó la última capa para hacer que clasifique billetes de *dólares y bolívares*.
+- **YOLO (You Only Look Once):**  Un modelo **pre-entrenado** para la detección de objetos en tiempo real. Se usó como base *yolov8s* y mediante una técnica conocida como **fine-tunning** se ajustó la última capa para hacer que clasifique billetes de *dólares y bolívares*.
 
 ## Integrantes del proyecto
 - Francisco Ramos *(Samsung y Pro III)*
