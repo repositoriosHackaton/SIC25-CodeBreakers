@@ -1,40 +1,52 @@
-train: ../datasets/images
-val: ../valid/images
-test: ../test/images
+train: ./dataset-extend/train/images
+val: ./dataset-extend/val/images
 
 nc: 12
-names: ['fifty-back-vef','fifty-front-vef','five-back-vef','five-front-vef','ten-back-vef','ten-front-vef','twenty-back-vef','twenty-front-vef','one_hundred-back-vef','one_hundred-front-vef','two_hundred-back-vef','two_hundred-front-vef']
+names: [
+        "fifty-back-vef", #0
+        "fifty-front-vef", #1
+        "five-back-vef", #2
+        "five-front-vef", #3
+        "one_hundred-back-vef", #4
+        "one_hundred-front-vef", #5
+        "ten-back-vef", #6
+        "ten-front-vef", #7
+        "twenty-back-vef", #8
+        "twenty-front-vef", #9
+        "two_hundred-back-vef", #10
+        "two_hundred-front-vef", #11
+    ]
 
 #función de activación
 softmax: True # para multiclases
 
 # Hyperparameters for SGD
 lr0: 0.001 # SGD
-momentum: 0.8  # Momentum for SGD
-weight_decay: 0.005  # Optimizer weight decay for SGD
-warmup_epochs: 3.0  # Warmup epochs
-warmup_momentum: 0.7  # Warmup initial momentum
-warmup_bias_lr: 0.1  # Warmup initial bias lr
-box: 0.05  # Box loss gain
-cls: 1.0  # Class loss gain
-cls_pw: 1.0  # Class positive weight
-obj: 1.5  # Object loss gain
-obj_pw: 2.0  # Object positive weight x
-iou_t: 0.18  # IoU training threshold subir
-anchor_t: 4.0  # Anchor-multiple threshold
-fl_gamma: 0.1  # Focal loss gamma
+momentum: 0.8 # Momentum for SGD
+weight_decay: 0.005 # Optimizer weight decay for SGD
+warmup_epochs: 3.0 # Warmup epochs
+warmup_momentum: 0.7 # Warmup initial momentum
+warmup_bias_lr: 0.1 # Warmup initial bias lr
+box: 0.05 # Box loss gain
+cls: 2 # Class loss gain
+cls_pw: 1.0 # Class positive weight
+obj: 1.2 # Object loss gain
+obj_pw: 2.0 # Object positive weight x
+iou_t: 0.25 # IoU training threshold subir
+anchor_t: 2.0 # Anchor-multiple threshold
+fl_gamma: 0.1 # Focal loss gamma
 
 # Hyperparameters para augmentación
-hsv_h: 0.015  # Image HSV-Hue augmentation
-hsv_s: 0.7  # Image HSV-Saturation augmentation
-hsv_v: 0.9  # Image HSV-Value augmentation
-degrees: 0.0  # Image rotation (+/- deg)
-translate: 0.1  # Image translation (+/- fraction)
-scale: 0.0  # Image scale (+/- gain) subir
-shear: 0.0  # Image shear (+/- deg)
-perspective: 0.0  # Image perspective (+/- fraction)
-flipud: 0.0  # Image flip up-down (probability)
-fliplr: 0.0  # Image flip left-right (probability)
-mosaic: 1.0  # Image mosaic (probability)
-mixup: 0.0  # Image mixup (probability)
-copy_paste: 0.0  # Segment copy-paste (probability)
+hsv_h: 0.015 # Image HSV-Hue augmentation
+hsv_s: 0.7 # Image HSV-Saturation augmentation
+hsv_v: 0.9 # Image HSV-Value augmentation
+degrees: 0.0 # Image rotation (+/- deg)
+translate: 0.1 # Image translation (+/- fraction)
+scale: 0.2 # Image scale (+/- gain) subir
+shear: 2.0 # Image shear (+/- deg)
+perspective: 0.001 # Image perspective (+/- fraction)
+flipud: 0.0 # Image flip up-down (probability)
+fliplr: 0.5 # Image flip left-right (probability)
+mosaic: 1.0 # Image mosaic (probability)
+mixup: 0.2 # Image mixup (probability)
+copy_paste: 0.2 # Segment copy-paste (probability)
