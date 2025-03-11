@@ -32,12 +32,12 @@ CORS(app)
 DEBUG = False
 HOST = '127.0.0.1'
 PORT = 5000
-UPLOAD_FOLDER = 'backend/src/api/uploads/'
+UPLOAD_FOLDER = r"C:\Users\jesus\Desktop\Clones\cash_reader\backend\src\api\uploads"
 
 # Carga del modelo YOLO
 models = {
-    'USD': YOLO('backend/src/models/Dollar_Model_7.pt'),
-    'VEF': YOLO('backend/src/models/VEF_Model_06.pt'),
+    'USD': YOLO(r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\src\models\Dollar_Model_7.pt'),
+    'VEF': YOLO(r'C:\Users\jesus\Desktop\Clones\cash_reader\backend\src\models\VEF_Model_06.pt'),
 }
 
 versions = {
@@ -104,7 +104,7 @@ def vef_detection():
                         'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
                     })
                 app.logger.info(boxes)
-                log(f'backend/src/api/logs/VEF{versions['VEF']}/', boxes, img)
+                log(f"backend/src/api/logs/VEF{versions['VEF']}/", boxes, img)
                 return jsonify({'detections': boxes}), 200
             else:
                 return jsonify({'message': 'No objects detected'}), 200
@@ -151,7 +151,7 @@ def usd_detection():
                         'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
                     })
                 app.logger.info(boxes)
-                log(f'backend/src/api/logs/USD{versions['USD']}/', boxes, img)
+                log(f"backend/src/api/logs/USD{versions['USD']}/", boxes, img)
                 return jsonify({'detections': boxes}), 200
             else:
                 return jsonify({'message': 'No objects detected'}), 200
