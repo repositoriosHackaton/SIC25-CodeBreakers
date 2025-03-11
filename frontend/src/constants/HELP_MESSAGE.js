@@ -12,5 +12,6 @@ export const HELP_MESSAGE = `
     Comandos de voz alternativos (mantenga presionado el centro de la pantalla):
     - "Tomar Foto": Iniciar evaluación del billete.
     - "Cambiar Moneda": Alternar entre bolívares y dólares.
+    - "Suma": Activar la funciona de sumar los billetes.
     - "Ayuda": Repetir instrucciones.
 `;

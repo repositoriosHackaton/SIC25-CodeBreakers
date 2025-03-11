@@ -29,7 +29,7 @@ const responseMapping = {
     "": { visual: "", narrator: "No se ha detectado ningún billete." },
 };
 
-const useApiResponseProcessor = (narrate, setVisualRef) => {
+const useApiResponseProcessor = (narrate, setVisualRe, addToTotal) => {
     const isNarratingRef = useRef(false);
 
     const processResponse = useCallback(
@@ -65,11 +65,25 @@ const useApiResponseProcessor = (narrate, setVisualRef) => {
                 const label = validDetections[0].label;
                 const mapping = responseMapping[label];
                 narrateWithUnlock(mapping.narrator, mapping.visual);
+                
+                const value = parseFloat(mapping.visual.replace(/[^0-9.]/g, "")); // Extraer el valor numérico
+
+                if (!isNaN(value)) {
+                    if (isSumActive) {
+                        addToTotal(value); // Sumar el valor al total
+                        narrateWithUnlock(
+                            `${mapping.narrator}, sumando ${value}. Total acumulado: ${total + value} ${toggleModel ? "bolívares" : "dólares"}.`,
+                            mapping.visual
+                        );
+                    } else {
+                        narrateWithUnlock(mapping.narrator, mapping.visual); // Narrar solo el valor del billete
+                    }
+                }
             } else {
                 narrateWithUnlock("No se ha detectado el valor del billete correctamente.", "Repetir Foto");
             }
         },
-        [narrate, setVisualRef]
+        [narrate, setVisualRef, addToTotal, isSumActive,total,toggleModel]
     );
 
     return { processResponse };

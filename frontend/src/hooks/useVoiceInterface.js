@@ -14,6 +14,7 @@ export const useVoiceInterface = ({
     callTakePhoto,
     callToggleModel,
     callHelpMessage,
+    callToggleSum,
     additionalCommands = [],
     debug = false,
 }) => {

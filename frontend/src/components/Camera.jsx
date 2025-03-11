@@ -4,6 +4,7 @@ import ActionButtons from "./ActionButtons";
 import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
 import useNarrator from "../hooks/useNarrator";
 import { useVoiceInterface } from "../hooks/useVoiceInterface";
+import useBillSum from "../hooks/useBillSum"; // Importar el hook de suma
 import { HELP_MESSAGE } from "../constants/HELP_MESSAGE";
 import "./Camera.css";
 
@@ -29,6 +30,10 @@ const Camera = () => {
     const [toggleModel, setToggleModel] = useState(true);
     // Estado para mostrar la respuesta visual de la API sobre el stream
     const [apiPrediction, setApiPrediction] = useState("");
+    const [isSumActive, setIsSumActive] = useState(false);
+ 
+ 
+    const { total, addToTotal, resetTotal } = useBillSum();
 
     /* ================================
      FUNCIONES AUXILIARES
@@ -37,6 +42,13 @@ const Camera = () => {
     const handleNarrationComplete = () => {
         setNarration("");
     };
+
+    const toggleSumHandler = () => {
+        setIsSumActive((prev) => !prev);
+        setNarration(`Suma ${!isSumActive ? "activada" : "desactivada"}.`);
+    };
+
+
 
     // Mantener sincronizado toggleModelRef con el estado toggleModel
     useEffect(() => {
@@ -48,10 +60,13 @@ const Camera = () => {
      ================================ */
     // Configura el narrador
     useNarrator(narration, handleNarrationComplete);
-    // Configura el procesamiento de la respuesta de la API.
-    // Se pasa setApiPrediction para actualizar la referencia visual (overlay).
-    const { processResponse } = useApiResponseProcessor((message) => setNarration(message), setApiPrediction);
-
+    const { processResponse } = useApiResponseProcessor(
+        (text) => setNarration(text),
+        setApiPrediction,
+        addToTotal,
+        isSumActive, // Pasar el estado de la suma
+        total // Pasar el total acumulado
+    );
     /* ================================
      CONTROL DEL FLASH
      ================================ */
@@ -252,6 +267,7 @@ const Camera = () => {
         callTakePhoto: takePhoto,
         callToggleModel: toggleModelHandler,
         callHelpMessage: HelpMessage,
+        callToggleSum: toggleSumHandler,
         debug: true,
     });
 
@@ -279,6 +295,13 @@ const Camera = () => {
             </div>
             {/* Botones de acción */}
             <ActionButtons onCameraButton={takePhoto} onToggleModel={toggleModelHandler} />
+            
+            {/* Mostrar el total acumulado si la suma está activa */}
+            {isSumActive && (
+                 <div className="total-sum">
+                     Total acumulado: {total} {toggleModel ? "Bs." : "$"}
+                 </div>
+             )}
         </section>
     );
 };
