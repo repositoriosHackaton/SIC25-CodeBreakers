@@ -39,7 +39,7 @@ def procesar_imagen(img, blurKernel=7, minThres=250, maxThres=0, blockSize=2, ks
 
     # Convertir la imagen a un array de NumPy
     if not isinstance(img, np.ndarray):
-        img = cv2.cvtColor(np.array(img), cv.COLOR_RGB2BGR) # Convertir a cv2
+        img = cv.cvtColor(np.array(img), cv.COLOR_RGB2BGR) # Convertir a cv2
 
     # Asegurarse de que el tamaño del kernel sea impar y mayor que 1
     if blurKernel < 1:
