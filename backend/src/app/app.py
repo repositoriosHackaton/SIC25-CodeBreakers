@@ -55,58 +55,35 @@ app.add_middleware(
 )
 
 
-@app.post("/detection/vef")
+@app.post("/detection/")
 async def detection_vef(image: UploadFile):
     # Se carga la imagen de forma dinámica
     imageBytes = await image.read()
     imageStream = io.BytesIO(imageBytes)
     imageFile = Image.open(imageStream)
 
+    #TODO Aquí iría la clasificación del modelo para inferir si es VEF o USD
+    currency = 'VEF'
+
     # Se recorta y se centra, o no
     if ROI_ACTIVATION:
-        results = models['VEF'].predict(procesar_imagen(imageFile), verbose=False) # Se pasa la imagen por el modelo
+        results = models[currency].predict(procesar_imagen(imageFile), verbose=False) # Se pasa la imagen por el modelo
     else:
-        results = models['VEF'].predict(imageFile, verbose=False) # Se pasa la imagen por el modelo
+        results = models[currency].predict(imageFile, verbose=False) # Se pasa la imagen por el modelo
 
     # Se extraen las cajas de los resultados
     if len(results[0].boxes) > 0:
         boxes = []
         for box in results[0].boxes:
             boxes.append({
-                'label': classes['VEF'][int(box.cls.item())], # Clase detectada
+                'label': classes[currency][int(box.cls.item())], # Clase detectada
                 'confidence': box.conf.item(),   # Confianza
                 'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
             })
         print(boxes)
         # Guardamos los resultados en la carpeta img-API
-        await log(f'backend/src/data/img-API/VEF/Model_{versions['VEF']}/', boxes, imageFile)
+        await log(f'backend/src/data/img-API/VEF/Model_{versions[currency]}/', boxes, imageFile)
         # Retornamos los resultados
-        return {'detections': boxes}
-    else:
-        return {'message': 'No objects detected'}
-
-@app.post("/detection/usd")
-async def detection_usd(image: UploadFile):
-    imageBytes = await image.read()
-    imageStream = io.BytesIO(imageBytes)
-    imageFile = Image.open(imageStream)
-
-    # Se recorta y se centra, o no
-    if ROI_ACTIVATION:
-        results = models['USD'].predict(procesar_imagen(imageFile), verbose=False) # Se pasa la imagen por el modelo
-    else:
-        results = models['USD'].predict(imageFile, verbose=False) # Se pasa la imagen por el modelo
-
-    if len(results[0].boxes) > 0:
-        boxes = []
-        for box in results[0].boxes:
-            boxes.append({
-                'label': classes['USD'][int(box.cls.item())], # Clase detectada
-                'confidence': box.conf.item(),   # Confianza
-                'bbox': box.xyxy.tolist()        # Coordenadas del cuadro
-            })
-        print(boxes)
-        await log(f'backend/src/data/img-API/USD/Model_{versions['USD']}/', boxes, imageFile)
         return {'detections': boxes}
     else:
         return {'message': 'No objects detected'}
