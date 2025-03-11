@@ -3,6 +3,10 @@ from PIL import Image
 from log import log
 import io
 
+# Activar recorte y centrado
+if (ROI_ACTIVATION:=False):
+    from roi import procesar_imagen
+
 # Modelos para el server
 models = {
     'USD': YOLO('backend/src/models/train/USD_Model_13/weights/best.pt'),
@@ -58,8 +62,11 @@ async def detection_vef(image: UploadFile):
     imageStream = io.BytesIO(imageBytes)
     imageFile = Image.open(imageStream)
 
-    # Se pasa la imagen por el modelo
-    results = models['VEF'].predict(imageFile, verbose=False)
+    # Se recorta y se centra, o no
+    if ROI_ACTIVATION:
+        results = models['VEF'].predict(procesar_imagen(imageFile), verbose=False) # Se pasa la imagen por el modelo
+    else:
+        results = models['VEF'].predict(imageFile, verbose=False) # Se pasa la imagen por el modelo
 
     # Se extraen las cajas de los resultados
     if len(results[0].boxes) > 0:
@@ -84,7 +91,11 @@ async def detection_usd(image: UploadFile):
     imageStream = io.BytesIO(imageBytes)
     imageFile = Image.open(imageStream)
 
-    results = models['USD'].predict(imageFile, verbose=False)
+    # Se recorta y se centra, o no
+    if ROI_ACTIVATION:
+        results = models['USD'].predict(procesar_imagen(imageFile), verbose=False) # Se pasa la imagen por el modelo
+    else:
+        results = models['USD'].predict(imageFile, verbose=False) # Se pasa la imagen por el modelo
 
     if len(results[0].boxes) > 0:
         boxes = []
