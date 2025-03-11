@@ -1,97 +1,122 @@
+import cv2 as cv
 import numpy as np
-import cv2
+from scipy.spatial.distance import cdist
 
-IMAGES = './images/'
-FILENAME = "05"
+def eliminar_outliers(puntos, umbral_distancia=50):
+    """
+    Elimina los puntos que están demasiado lejos del centroide.
+    :param puntos: Array de coordenadas de puntos (N, 2).
+    :param umbral_distancia: Distancia máxima permitida desde el centroide.
+    :return: Puntos filtrados.
+    """
+    if len(puntos) == 0:
+        return puntos
 
-# Función para unir puntos cercanos en un contorno
-def simplify_contour(contour, distance_threshold):
-    simplified_contour = [contour[0][0]]  # Inicia con el primer punto
-    for point in contour[1:]:
-        last_point = simplified_contour[-1]
-        # Calcular la distancia euclidiana entre el punto actual y el último en la lista
-        distance = np.linalg.norm(point[0] - last_point)
-        if distance > distance_threshold:
-            simplified_contour.append(point[0])  # Agregar si la distancia es mayor al umbral
-    return np.array(simplified_contour, dtype="int32")
+    # Calcular el centroide de los puntos
+    centroide = np.mean(puntos, axis=0)
 
+    # Calcular la distancia de cada punto al centroide
+    distancias = cdist(puntos, [centroide]).flatten()  # Aplanar la matriz de distancias
 
-# Cargar imagen
-image = cv2.imread(IMAGES+FILENAME+".jpg")
+    # Filtrar los puntos que están dentro del umbral de distancia
+    puntos_filtrados = puntos[distancias <= umbral_distancia]
 
-# Convertir a escala de grises
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    return puntos_filtrados
 
+def procesar_imagen(img, blurKernel=7, minThres=250, maxThres=0, blockSize=2, ksize=3, harrisThres=0, umbralDistancia=280):
+    """
+    Procesa una imagen para detectar esquinas con Harris, segmentar la ROI y devolver la imagen final.
+    :param img: Imagen de entrada.
+    :param blurKernel: Tamaño del kernel para el filtro borroso.
+    :param minThres: Umbral mínimo para Canny.
+    :param maxThres: Umbral máximo para Canny.
+    :param blockSize: Tamaño del bloque para Harris Corner Detection.
+    :param ksize: Tamaño del kernel para Harris Corner Detection.
+    :param harrisThres: Umbral para Harris Corner Detection.
+    :param umbralDistancia: Umbral de distancia para eliminar outliers.
+    :return: Imagen final de la segmentación.
+    """
+    # Asegurarse de que el tamaño del kernel sea impar y mayor que 1
+    if blurKernel < 1:
+        blurKernel = 1
+    if blurKernel % 2 == 0:
+        blurKernel += 1
 
-# Aplicar un filtro para reducir el ruido
-# blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-blurred = cv2.bilateralFilter(gray, 9, 75, 75)
+    # Aplicar el filtro borroso
+    blurredImg = cv.GaussianBlur(img, (blurKernel, blurKernel), 0)
 
+    # Aplicar el filtro de Canny a la imagen borrosa
+    cannyEdge = cv.Canny(blurredImg, minThres, maxThres)
 
-# Detectar bordes con Canny
-low_threshold = 300  # Ajustar estos valores según el contraste de la imagen
-high_threshold = 25
-edges = cv2.Canny(blurred, low_threshold, high_threshold)
+    # Asegurarse de que ksize sea impar y mayor que 1
+    if ksize < 3:
+        ksize = 3
+    if ksize % 2 == 0:
+        ksize += 1
 
+    # Convertir la imagen de Canny a formato float32 para Harris Corner Detection
+    cannyFloat32 = np.float32(cannyEdge)
 
-# Dilate the image
-kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))  # Tamaño del kernel ajustable
-dilataded = cv2.dilate(edges, kernel, iterations=1)
-dilataded = cv2.morphologyEx(dilataded, cv2.MORPH_CLOSE, kernel)
+    # Aplicar Harris Corner Detection a la imagen de Canny
+    dst = cv.cornerHarris(cannyFloat32, blockSize, ksize, 0.04)
 
+    # Dilatar el resultado para resaltar las esquinas
+    dst = cv.dilate(dst, None)
 
-# Mostrar la imagen de bordes
-cv2.imshow("Bordes Detectados (Canny)", dilataded)
+    # Umbral para identificar las esquinas
+    threshold = harrisThres / 100 * dst.max()  # Normalizar el umbral
 
-# Encontrar contornos
-contours, _ = cv2.findContours(dilataded, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # Obtener las coordenadas de los puntos detectados por Harris
+    corner_coords = np.column_stack(np.where(dst > threshold))
 
-if contours:
-    # Buscar el contorno más grande (suponiendo que es el billete)
-    largest_contour = max(contours, key=cv2.contourArea)
+    # Invertir las coordenadas (fila, columna) a (x, y) para OpenCV
+    corner_coords = corner_coords[:, ::-1]
 
-    peri = cv2.arcLength(largest_contour, True)
-    epsilon = 0.02 * peri
-    approx = cv2.approxPolyDP(largest_contour, epsilon, True)
+    # Eliminar puntos outsiders
+    corner_coords_filtrados = eliminar_outliers(corner_coords, umbral_distancia=umbralDistancia)
 
-    distance_threshold = 250  # Umbral de distancia
-    simplified_contour = simplify_contour(approx, distance_threshold)
-    print(len(approx), "->", len(simplified_contour))
+    # Verificar si hay suficientes puntos para calcular un rectángulo
+    if len(corner_coords_filtrados) >= 4:
+        # Calcular el rectángulo alineado con los ejes que cubre todos los puntos
+        x, y, w, h = cv.boundingRect(corner_coords_filtrados)
 
-    # Dibujar el contorno detectado
-    result = image.copy()
-    cv2.drawContours(result, [simplified_contour], -1, (0, 255, 0), 2)
+        # Crear una copia de la imagen original para dibujar el rectángulo
+        img_rect = img.copy()
 
-    # Mostrar la imagen con el contorno detectado
-    cv2.imshow("Billete", image)
-    cv2.imshow("Billete gray", gray)
-    cv2.imshow("Billete blurred", blurred)
-    cv2.imshow("Billete edges", edges)
-    cv2.imshow("Billete dilataded", dilataded)
-    cv2.imshow("Billete resultado", result)
-    cv2.imwrite(IMAGES+"binary_image.jpg", dilataded)
-    cv2.imwrite(IMAGES+FILENAME+"_result"+".jpg", result)
-else:
-    print("No se encontraron contornos.")
+        # Dibujar el rectángulo en la imagen original
+        cv.rectangle(img_rect, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Rectángulo en verde
 
+        # Recortar la ROI usando el rectángulo alineado con los ejes
+        roi = img[y:y + h, x:x + w]
 
+        # Crear una imagen negra del mismo tamaño que la imagen original
+        black_image = np.zeros_like(img)
 
-from PIL import Image, ImageDraw, ImageOps
+        # Colocar la ROI segmentada en la imagen negra
+        # Primero, necesitamos calcular la posición donde colocar la ROI en la imagen negra
+        # Para simplificar, colocamos la ROI en el centro de la imagen negra
+        x_offset = (black_image.shape[1] - roi.shape[1]) // 2
+        y_offset = (black_image.shape[0] - roi.shape[0]) // 2
 
-PIL_org_image = Image.open(IMAGES+FILENAME+".jpg")
-PIL_bin_image = Image.fromarray(dilataded).convert('L')
-binary_image = PIL_bin_image.point(lambda p: p > 128 and 255)
+        # Asegurarse de que la ROI no exceda los límites de la imagen negra
+        if x_offset >= 0 and y_offset >= 0:
+            black_image[y_offset:y_offset+roi.shape[0], x_offset:x_offset+roi.shape[1]] = roi
 
-bbox = binary_image.getbbox()  # (x_min, y_min, x_max, y_max)
+        # Mostrar la ROI segmentada en la imagen negra
+        return black_image
+    else:
+        # Si no hay suficientes puntos, mostrar la imagen original
+        return img
 
-draw = ImageDraw.Draw(PIL_org_image)
-draw.rectangle(bbox, outline="green", width=10)
-draw = ImageDraw.Draw(PIL_bin_image)
-draw.rectangle(bbox, outline="green", width=10)
+if __name__ == '__main__':
+    # Cargar una imagen
+    img = cv.imread('backend/src/data/img-API/USD/Model_12/1f-usd_01-03-25_21_22_34_orign.jpg')
 
-# Mostrar resultado
-PIL_org_image.show()
-#PIL_bin_image.show()
+    # Procesar la imagen
+    resultado = procesar_imagen(img, blurKernel=5, minThres=250, maxThres=0, blockSize=2, ksize=3, harrisThres=0, umbralDistancia=280)
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    # Guardar o mostrar el resultado
+    cv.imwrite('resultado_segmentacion.jpg', resultado)
+    cv.imshow('Resultado', resultado)
+    cv.waitKey(0)
+    cv.destroyAllWindows()
