@@ -63,9 +63,9 @@ def process_files(label_dir, image_dir, output_dir):
                 print(f"No se encontraron cifras en el archivo {txt_file}")
 
 # Configuración de rutas
-label_dir = r'dataset/label'  # Ruta de la carpeta que contiene los archivos de etiquetas (.txt)
-image_dir = r'dataset/image'  # Ruta de la carpeta que contiene las imágenes (.jpg)
-output_dir = r'dataset_ordenado/output'  # Ruta de la carpeta de salida donde se organizarán los archivos
+label_dir = r'C:/Users/User/Desktop/[AugmentationRoboflow]datasetvef-logs.v1i.yolov8/train/labels'  # Ruta de la carpeta que contiene los archivos de etiquetas (.txt)
+image_dir = r'C:/Users/User/Desktop/[AugmentationRoboflow]datasetvef-logs.v1i.yolov8/train/images'  # Ruta de la carpeta que contiene las imágenes (.jpg)
+output_dir = r'C:/Users/User/Desktop/[AugmentationRoboflow]datasetvef-logs.v1i.yolov8/train/divisionClasses'  # Ruta de la carpeta de salida donde se organizarán los archivos
 
 # Llama a la función para procesar los archivos
 process_files(label_dir, image_dir, output_dir)
