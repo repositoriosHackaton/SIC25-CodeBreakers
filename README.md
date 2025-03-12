@@ -9,7 +9,7 @@
 <a href="https://cashreader.netlify.app/"><strong>Visita nuestra página web »</strong></a>
 <br/>
 <br/>
-<a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/issues/new?labels=bug&amp;template=bug_report.md">Reportar Bug |</a>
+<a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/issues/new?labels=bug&amp;template=bug_report.md">| Reportar Bug |</a>
 <a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/issues/new?labels=enhancement&amp;&template=feature_request.md"> Solicitar funcionalidad |</a>
 </p>
 
@@ -29,6 +29,7 @@
 **Cash Reader** es un proyecto realizado para el módulo de **Inteligencia Artificial** del curso *Samsung Innovation Campus*, y a su vez como proyecto final para la materia Programación III de la *Universidad Marítima del Caribe*.
 
 ## Índice de Contenidos
+- [Índice de Contenidos](#índice-de-contenidos)
 - [💡 ¿Qué es Cash Reader?](#-qué-es-cash-reader)
 - [⚙️ Características clave](#️-características-clave)
 - [🔧 Tecnologías](#-tecnologías)
