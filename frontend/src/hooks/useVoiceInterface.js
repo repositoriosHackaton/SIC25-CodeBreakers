@@ -16,6 +16,7 @@ export const useVoiceInterface = ({
     callHelpMessage,
     callStartSum,
     callStopSum,
+    callLastSum,
     additionalCommands = [],
     debug = false,
 }) => {

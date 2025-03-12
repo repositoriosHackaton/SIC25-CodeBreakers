@@ -66,10 +66,10 @@ const Camera = () => {
     
         // Solo actualiza narration si el mensaje es diferente al actual
         if (narration !== totalMessage) {
-            console.log("Actualizando narración:", totalMessage);
             setNarration(totalMessage);
         }
     
+        // Guardar los totales en localStorage antes de reiniciar
         resetTotal();
     };
 
