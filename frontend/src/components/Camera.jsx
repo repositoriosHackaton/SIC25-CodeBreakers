@@ -92,6 +92,22 @@ const Camera = () => {
         setNarration(message);
     };
 
+    const callCurrentSum = () => {
+        let message = "";
+    
+        if (totalBolivares > 0 && totalDolares > 0) {
+            message = `Suma actual: ${totalBolivares} bolívares y ${totalDolares} dólares.`;
+        } else if (totalBolivares > 0) {
+            message = `Suma actual: ${totalBolivares} bolívares.`;
+        } else if (totalDolares > 0) {
+            message = `Suma actual: ${totalDolares} dólares.`;
+        } else {
+            message = "No hay una suma actual acumulada.";
+        }
+    
+        setNarration(message);
+    };
+
     const toggleSumHandler = () => {
         if (isSumActive) {
             stopSumHandler();
@@ -309,6 +325,7 @@ const Camera = () => {
         callStartSum: startSumHandler,
         callStopSum: stopSumHandler,
         callLastSum: callLastSum, // Nueva función
+        callCurrentSum: callCurrentSum, // Nueva función
         debug: true,
     });
 

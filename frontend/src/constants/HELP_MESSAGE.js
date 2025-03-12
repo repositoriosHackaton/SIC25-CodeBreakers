@@ -14,5 +14,6 @@ export const HELP_MESSAGE = `
     - "contar": Activar la funciona de suma de billetes.
     - "detener conteo": desactiva la funcion de suma de billetes
     - "suma anterior": para revisar la ultima suma hecha
+    - "total actual": para revisar cuanto tienes sumado hasta ahora
     - "Ayuda": Repetir instrucciones.
 `;

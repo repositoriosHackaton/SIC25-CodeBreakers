@@ -17,6 +17,7 @@ export const useVoiceInterface = ({
     callStartSum,
     callStopSum,
     callLastSum,
+    callCurrentSum,
     additionalCommands = [],
     debug = false,
 }) => {
@@ -52,11 +53,15 @@ export const useVoiceInterface = ({
                 callback: callLastSum, // Función que se ejecutará
                 description: "Repite la última suma almacenada",
             },
+            {
+                keyword: "Total actual", // Nuevo comando
+                callback: callCurrentSum, // Función que se ejecutará
+                description: "Muestra la suma actual acumulada",
+            },
 
-            
         ];
         return [...defaults, ...additionalCommands];
-    }, [additionalCommands, callTakePhoto, callToggleModel, callHelpMessage, callStartSum, callStopSum, callLastSum]);
+    }, [additionalCommands, callTakePhoto, callToggleModel, callHelpMessage, callStartSum, callStopSum, callLastSum, callCurrentSum]);
 
     const [error, setError] = useState(null);
 
