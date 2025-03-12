@@ -2,7 +2,7 @@ import cv2
 from ultralytics import YOLO
 
 # Cargar el modelo YOLO
-model = YOLO(r'backend/src/models/train/VEF_model_13f/weights/best.pt')
+model = YOLO(r'backend/src/models/train/VEF_model_14f/weights/best.pt')
 
 # Inicializar la cámara
 cap = cv2.VideoCapture(0)

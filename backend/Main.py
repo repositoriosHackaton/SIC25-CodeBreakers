@@ -122,9 +122,9 @@ def evalPredict_model(evaluate_model, image_path, conf_threshold=0.25, iou_thres
             conf=conf_threshold,
             iou=iou_threshold,
             imgsz=416,  # Tamaño de la imagen para la predicción
-            device=0,
+            #device=0,
             save=False,  # No guardar la imagen predicha
-            show=False,  # No mostrar la imagen predicha
+            #show=False,  # No mostrar la imagen predicha
         )
 
         # Procesar las predicciones
@@ -178,7 +178,7 @@ def fastPredict_log(model_path, image_path, conf_threshold=0.25, iou_threshold=0
             conf=conf_threshold,
             iou=iou_threshold,
             imgsz=416,
-            device=0,
+            #device=0,
             save=False,
             show=False
             
@@ -235,13 +235,16 @@ def predModel_iterable(model_directory, input_dir, output_dir, conf_threshold=0.
 
 if __name__ == "__main__":
     mp.freeze_support()  #Evitar un error con Windows
-
+    r = evalPredict_model("VEF_model_13f", "backend/src/data/img-API/VEF/100f-vef_12-03-25_04_57_13_orign.jpg")
+    for i in r:
+        print(r)
+    """
     train_model(
                 m_name="VEF_model_14f", 
                 moneda="VEF",
                 disable=False
                 )  #Llamar a la función que entrena el modelo
-
+    """
     """
     test_model(
                 m_name="VEF_Model_09_Val_01f",
