@@ -48,7 +48,7 @@ export const useVoiceInterface = ({
                 description: "Detiene la suma y narra el total acumulado",
             },
             {
-                keyword: "ultima suma", // Nuevo comando
+                keyword: "suma", // Nuevo comando
                 callback: callLastSum, // Función que se ejecutará
                 description: "Repite la última suma almacenada",
             },
