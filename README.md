@@ -1,6 +1,6 @@
 <br/>
 <div align="center">
-<a href="https://cashreader.netlify.app/"><img src="/frontend/public/favicon.svg" alt="Logo Cash Reader" width="50" height="50" style="vertical-align: middle;"></a>
+<a href="https://cashreader.netlify.app/"><img src="/frontend/public/favicon.svg" alt="Logo Cash Reader" width="80" height="80" style="vertical-align: middle;"></a>
 <h3 align="center"><strong>Cash Reader</strong></h3>
 <p align="center">
 ¡Transforma la manera en que interactúas con el dinero!
