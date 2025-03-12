@@ -8,7 +8,7 @@ const Header = () => {
     const [isFirstVisit, setIsFirstVisit] = useState(true);
 
     // Verificar si es la primera visita al montar el componente
-    seEffect(() => {
+    useEffect(() => {
         const hasVisited = localStorage.getItem("hasVisited");
         if (!hasVisited) {
             // Mostrar la ayuda de la interfaz + instrucción adicional al inicio

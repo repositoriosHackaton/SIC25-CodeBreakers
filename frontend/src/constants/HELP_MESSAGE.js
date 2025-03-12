@@ -4,8 +4,7 @@ export const HELP_INTERFACE = `
     - "Botón derecho": Tomar foto para evaluación.
     
     En la parte superior: 
-    - "Botón de ayuda": Escuchar estas instrucciones nuevamente.
-`;
+    - "Botón de ayuda": Escuchar estas instrucciones nuevamente.`;
 
 // Mensaje de ayuda para los comandos de voz
 export const HELP_COMMANDS = `
