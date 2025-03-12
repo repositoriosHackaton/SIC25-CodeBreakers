@@ -13,7 +13,8 @@ import { useSpeechRecognition } from "./useSpeechRecognition";
 export const useVoiceInterface = ({
     callTakePhoto,
     callToggleModel,
-    callHelpMessage,
+    callHelpInterface, // Nueva función
+    callHelpCommands, // Nueva función
     callStartSum,
     callStopSum,
     callLastSum,
@@ -34,10 +35,15 @@ export const useVoiceInterface = ({
                 description: "Cambia el modelo de IA usado",
             },
             {
-                keyword: "ayuda",
-                callback: callHelpMessage,
-                description: "Repite mensaje de instrucciones",
+                keyword: "ayuda interfaz", // Nuevo comando
+                callback: callHelpInterface, // Función que explica la interfaz gráfica
+                description: "Explica qué hay en la interfaz gráfica",
             },
+            {
+                keyword: "ayuda comandos", // Nuevo comando
+                callback: callHelpCommands, // Función que explica los comandos de voz
+                description: "Explica todos los comandos de voz disponibles",
+            },    
             {
                 keyword: "contar",
                 callback: callStartSum,

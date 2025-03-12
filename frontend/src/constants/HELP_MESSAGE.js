@@ -1,19 +1,20 @@
-// Mensaje de ayuda inicial
-export const HELP_MESSAGE = `
-    Instrucciones de uso de la aplicación: 
-    
+// Mensaje de ayuda para la interfaz gráfica
+export const HELP_INTERFACE = `
     En la parte inferior de la pantalla: 
     - "Botón izquierdo": Activar y desactivar el modo suma.
     - "Botón derecho": Tomar foto para evaluación.
     
     En la parte superior: 
     - "Botón de ayuda": Escuchar estas instrucciones nuevamente.
+`;
 
+// Mensaje de ayuda para los comandos de voz
+export const HELP_COMMANDS = `
     Comandos de voz alternativos (mantenga presionado el centro de la pantalla):
     - "Tomar Foto": Iniciar evaluación del billete.
-    - "contar": Activar la funciona de suma de billetes.
-    - "detener conteo": desactiva la funcion de suma de billetes
-    - "suma anterior": para revisar la ultima suma hecha
-    - "total actual": para revisar cuanto tienes sumado hasta ahora
+    - "Contar": Activar la función de suma de billetes.
+    - "Detener conteo": Desactiva la función de suma de billetes.
+    - "Suma anterior": Para revisar la última suma hecha.
+    - "Total actual": Para revisar cuánto tienes sumado hasta ahora.
     - "Ayuda": Repetir instrucciones.
 `;

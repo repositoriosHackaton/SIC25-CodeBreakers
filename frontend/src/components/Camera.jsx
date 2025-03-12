@@ -309,7 +309,13 @@ const Camera = () => {
     /* ================================
      MENSAJE DE AYUDA
      ================================ */
-    const HelpMessage = () => setNarration(HELP_MESSAGE);
+     const callHelpInterface = () => {
+        setNarration(HELP_INTERFACE);
+    };
+    
+    const callHelpCommands = () => {
+        setNarration(HELP_COMMANDS);
+    };
 
     /* ================================
      CONFIGURACIÓN DE LA INTERFAZ DE VOZ
@@ -321,11 +327,11 @@ const Camera = () => {
         stop,
     } = useVoiceInterface({
         callTakePhoto: takePhoto,
-        callHelpMessage: HelpMessage,
+        callHelpInterface: callHelpInterface, // Nueva función
+        callHelpCommands: callHelpCommands, // Nueva función
         callStartSum: startSumHandler,
         callStopSum: stopSumHandler,
         callLastSum: callLastSum, // Nueva función
-        callCurrentSum: callCurrentSum, // Nueva función
         debug: true,
     });
 
