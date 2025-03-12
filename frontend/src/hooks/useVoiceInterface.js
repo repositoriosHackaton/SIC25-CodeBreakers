@@ -1,5 +1,6 @@
 import { useMemo, useCallback, useState } from "react";
 import { useSpeechRecognition } from "./useSpeechRecognition";
+import { HELP_INTERFACE, HELP_COMMANDS } from "../constants/HELP_MESSAGE"; // Ajusta la ruta según tu estructura
 
 /**
  * Hook para manejar comandos de voz.
