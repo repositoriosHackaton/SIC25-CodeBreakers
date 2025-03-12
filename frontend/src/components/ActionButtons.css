@@ -36,7 +36,7 @@
 }
 
 .camera-button img {
-    width: 6rem; /* Tamaño específico para el ícono de la cámara */
+    width: 7rem; /* Tamaño específico para el ícono de la cámara */
     height: auto;
     transition: transform 0.2s ease;
 }
