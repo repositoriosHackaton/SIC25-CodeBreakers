@@ -1,4 +1,3 @@
-// Mensaje de ayuda para la interfaz gráfica
 export const HELP_INTERFACE = `
     En la parte inferior de la pantalla: 
     - "Botón izquierdo": Activar y desactivar el modo suma.

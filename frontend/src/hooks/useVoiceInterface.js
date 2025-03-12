@@ -1,6 +1,6 @@
 import { useMemo, useCallback, useState } from "react";
 import { useSpeechRecognition } from "./useSpeechRecognition";
-import { HELP_INTERFACE, HELP_COMMANDS } from "../constants/HELP_MESSAGE"; // Ajusta la ruta según tu estructura
+import { HELP_INTERFACE, HELP_COMMANDS } from "../constants/HELP_MESSAGE"; 
 
 /**
  * Hook para manejar comandos de voz.
@@ -44,7 +44,7 @@ export const useVoiceInterface = ({
                 keyword: "ayuda comandos", // Nuevo comando
                 callback: callHelpCommands, // Función que explica los comandos de voz
                 description: "Explica todos los comandos de voz disponibles",
-            },    
+            },
             {
                 keyword: "contar",
                 callback: callStartSum,

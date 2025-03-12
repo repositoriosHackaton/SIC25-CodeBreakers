@@ -5,7 +5,7 @@ import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
 import useNarrator from "../hooks/useNarrator";
 import { useVoiceInterface } from "../hooks/useVoiceInterface";
 import useBillSum from "../hooks/useBillSum"; // Importar el hook de suma
-import { HELP_INTERFACE, HELP_COMMANDS } from "../HELP_MESSAGE"; // Ajusta la ruta según tu estructura
+import { HELP_COMMANDS, HELP_INTERFACE } from "../constants/HELP_MESSAGE";
 import "./Camera.css";
 
 const Camera = () => {
@@ -316,7 +316,6 @@ const Camera = () => {
     const callHelpCommands = () => {
         setNarration(HELP_COMMANDS);
     };
-
     /* ================================
      CONFIGURACIÓN DE LA INTERFAZ DE VOZ
      ================================ */
