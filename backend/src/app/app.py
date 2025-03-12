@@ -70,7 +70,9 @@ async def detection_vef(image: UploadFile):
     # Se recorta y se centra si
     if ROI_ACTIVATION: # El ROI activado
         which_currency = models['INFERENCIA'].predict(procesar_imagen(imageFile), verbose=False)
-        currency_label = classes['INFERENCIA'][int(which_currency[0].boxes[0].cls.item())]
+        if len(which_currency[0].boxes) == 0: # Comprobar si no detecto un billete
+            return {'message': 'No objects detected'} # Y si no detecto entonces no regresa nada
+        currency_label = classes['INFERENCIA'][int(which_currency[0].boxes[0].cls.item())] # Se saca el label de la clase correspondiente
         if 'vef' in currency_label:
             currency = 'VEF'
         else:
@@ -79,6 +81,8 @@ async def detection_vef(image: UploadFile):
 
     else: # ROI no activado
         which_currency = models['INFERENCIA'].predict(imageFile, verbose=False)
+        if len(which_currency[0].boxes) == 0:
+                    return {'message': 'No objects detected'}
         currency_label = classes['INFERENCIA'][int(which_currency[0].boxes[0].cls.item())]
         if 'vef' in currency_label:
             currency = 'VEF'
