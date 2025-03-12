@@ -62,7 +62,7 @@ Se trata de un programa que integra:
 
 ## 📸 Imágenes
 ### Interfaz Web
-![alt text](/frontend/src/assets/landing.gif)
+![Video de la landing page](/frontend/src/assets/landing.gif)
 
 ### Modelo de Clasificación de Bolívares
 <img src="./backend/src/models/train/VEF_Model_09/val_batch1_pred.jpg" alt="Imagen del Modelo VEF" style="max-width:50%; height:auto;">
