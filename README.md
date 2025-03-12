@@ -66,12 +66,12 @@ Este proyecto se planteó como un programa de asistencia dirigido a personsas co
 ![Video de la landing page](/frontend/src/assets/landing.gif)
 
 ### Modelo de Clasificación de Bolívares:
-<img src="./backend/src/models/train/VEF_Model_09/val_batch1_pred.jpg" alt="Imagen del Modelo VEF" style="max-width:50%; height:auto;">
-<img src="./backend/src/models/train/VEF_Model_09/PR_curve.png" alt="PR Curve VEF" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/VEF_model_13f/val_batch1_pred.jpg" alt="Imagen del Modelo VEF" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/VEF_model_13f/PR_curve.png" alt="PR Curve VEF" style="max-width:50%; height:auto;">
 
 ### Modelo de Clasificación de Dólares:
-<img src="./backend/src/models/train/USD_Model_13/val_batch1_pred.jpg" alt="Imagen del Modelo USD" style="max-width:50%; height:auto;">
-<img src="./backend/src/models/train/USD_Model_13/PR_curve.png" alt="PR Curve USD" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/USD_model_plus_01/val_batch1_pred.jpg" alt="Imagen del Modelo USD" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/USD_model_plus_01/PR_curve.png" alt="PR Curve USD" style="max-width:50%; height:auto;">
 
 ## 📜 Licencia
 Distribuido bajo la licencia MIT. Consulte [LICENCIA](./LICENSE.txt) para más información.
