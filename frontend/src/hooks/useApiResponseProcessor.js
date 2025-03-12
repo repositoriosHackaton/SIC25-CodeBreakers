@@ -29,7 +29,7 @@ const responseMapping = {
     "": { visual: "", narrator: "No se ha detectado ningún billete." },
 };
 
-const useApiResponseProcessor = (narrate, setVisualRe, addToTotal) => {
+const useApiResponseProcessor = (narrate, setVisualRef, addToTotal, isSumActive, total, toggleModel) => {
     const isNarratingRef = useRef(false);
 
     const processResponse = useCallback(
@@ -64,15 +64,15 @@ const useApiResponseProcessor = (narrate, setVisualRe, addToTotal) => {
             if (validDetections.length > 0) {
                 const label = validDetections[0].label;
                 const mapping = responseMapping[label];
-                narrateWithUnlock(mapping.narrator, mapping.visual);
-                
-                const value = parseFloat(mapping.visual.replace(/[^0-9.]/g, "")); // Extraer el valor numérico
+                const value = parseFloat(mapping.visual.replace(/[^0-9]/g, "")); // Extraer solo los dígitos
 
                 if (!isNaN(value)) {
                     if (isSumActive) {
                         addToTotal(value); // Sumar el valor al total
+                        const newTotal = total + value; // Calcular el nuevo total
+                        const currency = toggleModel ? "bolívares" : "dólares"; // Determinar la moneda
                         narrateWithUnlock(
-                            `${mapping.narrator}, sumando ${value}. Total acumulado: ${total + value} ${toggleModel ? "bolívares" : "dólares"}.`,
+                            `${mapping.narrator}, sumando ${value}. Total acumulado: ${newTotal} ${currency}.`,
                             mapping.visual
                         );
                     } else {
@@ -83,7 +83,7 @@ const useApiResponseProcessor = (narrate, setVisualRe, addToTotal) => {
                 narrateWithUnlock("No se ha detectado el valor del billete correctamente.", "Repetir Foto");
             }
         },
-        [narrate, setVisualRef, addToTotal, isSumActive,total,toggleModel]
+        [narrate, setVisualRef, addToTotal, isSumActive, total, toggleModel]
     );
 
     return { processResponse };

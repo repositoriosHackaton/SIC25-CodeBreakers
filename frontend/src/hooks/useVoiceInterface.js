@@ -14,7 +14,8 @@ export const useVoiceInterface = ({
     callTakePhoto,
     callToggleModel,
     callHelpMessage,
-    callToggleSum,
+    callStartSum,
+    callStopSum,
     additionalCommands = [],
     debug = false,
 }) => {
@@ -35,9 +36,21 @@ export const useVoiceInterface = ({
                 callback: callHelpMessage,
                 description: "Repite mensaje de instrucciones",
             },
+            {
+                keyword: "contar",
+                callback: callStartSum,
+                description: "Activa o desactiva la suma",
+            },
+            {
+                keyword: "detener conteo",
+                callback: callStopSum,
+                description: "Detiene la suma y narra el total acumulado",
+            },
+
+            
         ];
         return [...defaults, ...additionalCommands];
-    }, [additionalCommands, callTakePhoto, callToggleModel, callHelpMessage]);
+    }, [additionalCommands, callTakePhoto, callToggleModel, callHelpMessage, callStartSum, callStopSum,]);
 
     const [error, setError] = useState(null);
 

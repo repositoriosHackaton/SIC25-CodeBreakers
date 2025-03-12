@@ -1,13 +1,12 @@
 import { useEffect, useRef, useCallback } from "react";
 
 // Tiempos configurables
-const RETRY_DELAY = 1000; // 1 segundo entre reintentos
-const MAX_RETRIES = 3; // Máximo de reintentos tras errores
+const INACTIVITY_TIMEOUT = 15000; // 15 segundos de inactividad
 const COMMAND_DEBOUNCE = 500; // Tiempo mínimo entre comandos procesados
 
 export const useSpeechRecognition = (onCommand) => {
     const recognitionRef = useRef(null);
-    const retryCount = useRef(0);
+    const inactivityTimerRef = useRef(null);
     const lastCommandTime = useRef(0);
     const commandQueue = useRef([]);
     const isProcessing = useRef(false);
@@ -47,8 +46,7 @@ export const useSpeechRecognition = (onCommand) => {
         const recognition = new SpeechRecognition();
         recognition.lang = "es-ES";
         recognition.interimResults = false;
-        // Uso continuous=false para que se active solo durante la pulsación, para evitar sobrecarga
-        recognition.continuous = false;
+        recognition.continuous = false; // No es necesario mantenerlo activo continuamente
 
         recognition.onresult = (event) => {
             try {
@@ -56,6 +54,7 @@ export const useSpeechRecognition = (onCommand) => {
                 console.log("Comando detectado:", command);
                 commandQueue.current.push(command);
                 processQueue();
+                resetInactivityTimer(); // Reiniciar el temporizador de inactividad
             } catch (error) {
                 console.error("Error procesando resultado:", error);
             }
@@ -63,10 +62,7 @@ export const useSpeechRecognition = (onCommand) => {
 
         recognition.onerror = (event) => {
             console.error("Error:", event.error);
-            if (retryCount.current < MAX_RETRIES) {
-                retryCount.current += 1;
-                setTimeout(() => recognition.start(), RETRY_DELAY);
-            }
+            stopRecognition(); // Detener el reconocimiento en caso de error
         };
 
         recognition.onend = () => {
@@ -77,36 +73,46 @@ export const useSpeechRecognition = (onCommand) => {
         return recognition;
     }, [processQueue]);
 
-    useEffect(() => {
-        const recognition = setupRecognition();
-        if (!recognition) return;
-        recognitionRef.current = recognition;
-        // Eliminamos el start automático para que se invoque solo mediante la función expuesta.
-        return () => {
-            if (recognitionRef.current) {
-                recognitionRef.current.abort();
-                recognitionRef.current = null;
-            }
-        };
-    }, [setupRecognition]);
+    // Función para reiniciar el temporizador de inactividad
+    const resetInactivityTimer = useCallback(() => {
+        if (inactivityTimerRef.current) {
+            clearTimeout(inactivityTimerRef.current);
+        }
+        inactivityTimerRef.current = setTimeout(() => {
+            stopRecognition(); // Detener el reconocimiento después de 15 segundos de inactividad
+        }, INACTIVITY_TIMEOUT);
+    }, []);
 
-    // Función para iniciar la escucha manualmente
-    const start = useCallback(() => {
+    // Función para detener el reconocimiento
+    const stopRecognition = useCallback(() => {
+        if (recognitionRef.current) {
+            recognitionRef.current.stop();
+        }
+        if (inactivityTimerRef.current) {
+            clearTimeout(inactivityTimerRef.current);
+        }
+    }, []);
+
+    // Función para iniciar el reconocimiento
+    const startRecognition = useCallback(() => {
         if (recognitionRef.current) {
             try {
                 recognitionRef.current.start();
+                resetInactivityTimer(); // Reiniciar el temporizador de inactividad
             } catch (error) {
                 console.error("Error iniciando reconocimiento:", error);
             }
         }
-    }, []);
+    }, [resetInactivityTimer]);
 
-    // Función para detener la escucha manualmente
-    const stop = useCallback(() => {
-        if (recognitionRef.current) {
-            recognitionRef.current.stop();
-        }
-    }, []);
+    useEffect(() => {
+        const recognition = setupRecognition();
+        if (!recognition) return;
+        recognitionRef.current = recognition;
+        return () => {
+            stopRecognition(); // Limpiar al desmontar el componente
+        };
+    }, [setupRecognition, stopRecognition]);
 
-    return { start, stop };
+    return { start: startRecognition, stop: stopRecognition };
 };

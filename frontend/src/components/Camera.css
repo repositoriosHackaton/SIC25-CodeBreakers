@@ -19,6 +19,10 @@
     margin-top: 1rem;
 }
 
+.scan-indicator-placeholder {
+    height: 10rem; /* Ajusta este valor según el espacio que necesites */
+}
+
 .camera-video {
     position: absolute;
     top: 0;
@@ -50,16 +54,6 @@
     text-align: center;
 }
 
-.scan-indicator {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--color-base-dark);
-    margin-top: 15px;
-    margin-bottom: 15px;
-    /* Aplica la animación cada vez que el elemento se renderiza */
-    animation: fadeInUp2 1s ease-out;
-}
 
 @keyframes fadeInUp {
     0% {
