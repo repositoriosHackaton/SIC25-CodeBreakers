@@ -31,16 +31,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> model_AI
 *.cache
 **.cache
 
+*.pyc
 wandb
-<<<<<<< HEAD
-=======
->>>>>>> origin/backend
-=======
->>>>>>> model_AI

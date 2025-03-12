@@ -6,7 +6,7 @@ const useNarrator = (text, onNarrationComplete) => {
     const lastTextRef = useRef(""); // Almacenar el último texto narrado
 
     useEffect(() => {
-        if (text) {
+        if (text && text !== lastTextRef.current) { // Solo narrar si el texto es diferente al último narrado
             lastTextRef.current = text;
             console.log("Narración:", text);
 

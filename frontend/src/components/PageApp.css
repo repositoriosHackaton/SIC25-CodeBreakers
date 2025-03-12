@@ -120,6 +120,10 @@ a {
     max-width: 650px;
     z-index: 2;
     margin-bottom: 0; /* Elimina el margen inferior */
+<<<<<<< HEAD
+=======
+    align-items: center;
+>>>>>>> netlify_deploy_test
 }
 
 /* ----- MEDIA QUERIES PARA RESPONSIVE ----- */

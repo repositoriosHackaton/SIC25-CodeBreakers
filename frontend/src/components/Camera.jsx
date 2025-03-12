@@ -4,7 +4,8 @@ import ActionButtons from "./ActionButtons";
 import useApiResponseProcessor from "../hooks/useApiResponseProcessor";
 import useNarrator from "../hooks/useNarrator";
 import { useVoiceInterface } from "../hooks/useVoiceInterface";
-import { HELP_MESSAGE } from "../constants/HELP_MESSAGE";
+import useBillSum from "../hooks/useBillSum"; // Importar el hook de suma
+import { HELP_COMMANDS, HELP_INTERFACE } from "../constants/HELP_MESSAGE";
 import "./Camera.css";
 
 const Camera = () => {
@@ -29,6 +30,10 @@ const Camera = () => {
     const [toggleModel, setToggleModel] = useState(true);
     // Estado para mostrar la respuesta visual de la API sobre el stream
     const [apiPrediction, setApiPrediction] = useState("");
+    const [isSumActive, setIsSumActive] = useState(false);
+
+
+    const { totalBolivares, totalDolares, addToTotal, resetTotal } = useBillSum();
 
     /* ================================
      FUNCIONES AUXILIARES
@@ -38,6 +43,78 @@ const Camera = () => {
         setNarration("");
     };
 
+    const startSumHandler = () => {
+        setIsSumActive(true);
+        setNarration("Suma iniciada.");
+    };
+
+    // Función para detener la suma y narrar el total acumulado
+    const stopSumHandler = () => {
+        setIsSumActive(false);
+    
+        let totalMessage = "";
+    
+        if (totalBolivares > 0 && totalDolares > 0) {
+            totalMessage = `Suma detenida. Total en bolívares: ${totalBolivares}. Total en dólares: ${totalDolares}.`;
+        } else if (totalBolivares > 0) {
+            totalMessage = `Suma detenida. Total en bolívares: ${totalBolivares}.`;
+        } else if (totalDolares > 0) {
+            totalMessage = `Suma detenida. Total en dólares: ${totalDolares}.`;
+        } else {
+            totalMessage = "Suma detenida. No se ha detectado ningún billete.";
+        }
+    
+        // Solo actualiza narration si el mensaje es diferente al actual
+        if (narration !== totalMessage) {
+            setNarration(totalMessage);
+        }
+    
+        // Guardar los totales en localStorage antes de reiniciar
+        resetTotal();
+    };
+
+    const callLastSum = () => {
+        const lastSumBs = parseInt(localStorage.getItem("CumSum_old_bs")) || 0;
+        const lastSumUsd = parseInt(localStorage.getItem("CumSum_old_usd")) || 0;
+    
+        let message = "";
+    
+        if (lastSumBs > 0 && lastSumUsd > 0) {
+            message = `Última suma: ${lastSumBs} bolívares y ${lastSumUsd} dólares.`;
+        } else if (lastSumBs > 0) {
+            message = `Última suma: ${lastSumBs} bolívares.`;
+        } else if (lastSumUsd > 0) {
+            message = `Última suma: ${lastSumUsd} dólares.`;
+        } else {
+            message = "No hay una última suma almacenada.";
+        }
+    
+        setNarration(message);
+    };
+
+    const callCurrentSum = () => {
+        let message = "";
+    
+        if (totalBolivares > 0 && totalDolares > 0) {
+            message = `Suma actual: ${totalBolivares} bolívares y ${totalDolares} dólares.`;
+        } else if (totalBolivares > 0) {
+            message = `Suma actual: ${totalBolivares} bolívares.`;
+        } else if (totalDolares > 0) {
+            message = `Suma actual: ${totalDolares} dólares.`;
+        } else {
+            message = "No hay una suma actual acumulada.";
+        }
+    
+        setNarration(message);
+    };
+
+    const toggleSumHandler = () => {
+        if (isSumActive) {
+            stopSumHandler();
+        } else {
+            startSumHandler();
+        }
+    };
     // Mantener sincronizado toggleModelRef con el estado toggleModel
     useEffect(() => {
         toggleModelRef.current = toggleModel;
@@ -47,11 +124,15 @@ const Camera = () => {
      HOOKS DE NARRACIÓN Y RESPUESTA DE LA API
      ================================ */
     // Configura el narrador
-    useNarrator(narration, handleNarrationComplete);
-    // Configura el procesamiento de la respuesta de la API.
-    // Se pasa setApiPrediction para actualizar la referencia visual (overlay).
-    const { processResponse } = useApiResponseProcessor((message) => setNarration(message), setApiPrediction);
-
+   useNarrator(narration, handleNarrationComplete);
+    const { processResponse } = useApiResponseProcessor(
+        (text) => setNarration(text),
+        setApiPrediction,
+        addToTotal, // Pasar la función addToTotal actualizada
+        isSumActive,
+        totalBolivares, // Pasar el total de bolívares
+        totalDolares // Pasar el total de dólares
+    );
     /* ================================
      CONTROL DEL FLASH
      ================================ */
@@ -107,6 +188,8 @@ const Camera = () => {
             if (document.visibilityState === "visible") {
                 // Al volver al primer plano, limpiar la narración y reiniciar la cámara si es necesario
                 handleNarrationComplete();
+    
+                // Reiniciar la cámara si es necesario
                 if (!videoRef.current.srcObject) {
                     getCameraStream();
                 }
@@ -120,9 +203,11 @@ const Camera = () => {
                 setFlash(false);
             }
         };
-
+    
+        // Agregar el listener para el evento visibilitychange
         document.addEventListener("visibilitychange", handleVisibilityChange);
-
+    
+        // Limpiar el listener al desmontar el componente
         return () => {
             document.removeEventListener("visibilitychange", handleVisibilityChange);
             if (videoRef.current && videoRef.current.srcObject) {
@@ -131,29 +216,14 @@ const Camera = () => {
             }
             clearInterval(autoCaptureRef.current);
         };
-    }, []);
-
-    // Efecto adicional para notificar el estado del modelo al volver al primer plano
-    useEffect(() => {
-        const handleStateModel = () => {
-            if (document.visibilityState === "visible") {
-                const ModeScan = `Modo actual: ${toggleModel ? "Bolívares" : "Dólares"}`;
-                setNarration(ModeScan);
-            }
-        };
-
-        document.addEventListener("visibilitychange", handleStateModel);
-        if (document.visibilityState === "visible") {
-            handleStateModel();
-        }
-        return () => document.removeEventListener("visibilitychange", handleStateModel);
-    }, []);
+}, [toggleModel]); // Dependencia: toggleModel
 
     /* ================================
      CAMBIAR MODELO
      ================================ */
     const toggleModelHandler = () => {
         setToggleModel((prev) => !prev);
+        resetTotal(); // Reinicia el total acumulado
         setNarration(`Modo cambiado a ${!toggleModel ? "Bolívares" : "Dólares"}`);
     };
 
@@ -179,10 +249,15 @@ const Camera = () => {
                 const blob = await (await fetch(imageData)).blob();
                 const formData = new FormData();
                 formData.append("image", blob, "captura.jpg");
+                
 
                 // Seleccionar el endpoint según el modelo actual
                 const endpoint = toggleModel ? "vef" : "usd";
+<<<<<<< HEAD
                 const url = `https://cashreaderapi.share.zrok.io/detection/${endpoint}`;
+=======
+                const url = `https://cashreaderapi.share.zrok.io/detection`;
+>>>>>>> netlify_deploy_test
 
                 const response = await axios.post(url, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
@@ -238,8 +313,13 @@ const Camera = () => {
     /* ================================
      MENSAJE DE AYUDA
      ================================ */
-    const HelpMessage = () => setNarration(HELP_MESSAGE);
-
+     const callHelpInterface = () => {
+        setNarration(HELP_INTERFACE);
+    };
+    
+    const callHelpCommands = () => {
+        setNarration(HELP_COMMANDS);
+    };
     /* ================================
      CONFIGURACIÓN DE LA INTERFAZ DE VOZ
      ================================ */
@@ -250,35 +330,32 @@ const Camera = () => {
         stop,
     } = useVoiceInterface({
         callTakePhoto: takePhoto,
-        callToggleModel: toggleModelHandler,
-        callHelpMessage: HelpMessage,
+        callHelpInterface: callHelpInterface, // Nueva función
+        callHelpCommands: callHelpCommands, // Nueva función
+        callStartSum: startSumHandler,
+        callStopSum: stopSumHandler,
+        callLastSum: callLastSum, // Nueva función
         debug: true,
     });
 
     /* ================================
      RENDERIZADO DEL COMPONENTE
      ================================ */
-    return (
+     return (
         <section className="camera-section">
             <div
                 className="camera-container"
                 onTouchStart={start}
-                onTouchEnd={stop}
                 onMouseDown={start}
-                onMouseUp={stop}
-                onMouseLeave={stop}
             >
-                {/* Video en vivo */}
                 <video ref={videoRef} autoPlay playsInline className="camera-video" />
-                {/* Overlay visual para la respuesta de la API */}
                 {apiPrediction && <div className="api-response-overlay">{apiPrediction}</div>}
             </div>
-            {/* Indicador visual del modo actual */}
-            <div className="scan-indicator" key={toggleModel ? "VEF" : "USD"}>
-                Scan: {toggleModel ? "VEF" : "USD"}
-            </div>
-            {/* Botones de acción */}
-            <ActionButtons onCameraButton={takePhoto} onToggleModel={toggleModelHandler} />
+            <div className="scan-indicator-placeholder"></div>
+            <ActionButtons onCameraButton={takePhoto}
+                onToggleSum={toggleSumHandler} 
+                isSumActive={isSumActive}  />
+            {/* Mostrar el total acumulado si la suma está activa */}
         </section>
     );
 };

@@ -1,16 +1,18 @@
-// Mensaje de ayuda inicial
-export const HELP_MESSAGE = `
-    Instrucciones de uso de la aplicación: 
-    
+export const HELP_INTERFACE = `
     En la parte inferior de la pantalla: 
-    - Botón izquierdo: Seleccionar tipo de billete a escanear.
-    - Botón derecho: Tomar foto para evaluación.
+    - "Botón izquierdo": Activar y desactivar el modo suma.
+    - "Botón derecho": Tomar foto para evaluación.
     
     En la parte superior: 
-    - Botón de ayuda: Escuchar estas instrucciones nuevamente.
+    - "Botón de ayuda": Escuchar estas instrucciones nuevamente.`;
 
-    Comandos de voz alternativos (mantenga presionado el centro de la pantalla):
+// Mensaje de ayuda para los comandos de voz
+export const HELP_COMMANDS = `
+    Comandos de voz alternativos (mantenga presionado el centro de la pant):
     - "Tomar Foto": Iniciar evaluación del billete.
-    - "Cambiar Moneda": Alternar entre bolívares y dólares.
+    - "Contar": Activar la función de suma de billetes.
+    - "Detener conteo": Desactiva la función de suma de billetes.
+    - "Suma anterior": Para revisar la última suma hecha.
+    - "Total actual": Para revisar cuánto tienes sumado hasta ahora.
     - "Ayuda": Repetir instrucciones.
 `;
