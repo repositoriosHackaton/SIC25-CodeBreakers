@@ -166,7 +166,6 @@ const Camera = () => {
         };
     }, [toggleModel]); // Dependencia: toggleModel
 
-    // Efecto adicional para notificar el estado del modelo al volver al primer plano
     /* ================================
      CAMBIAR MODELO
      ================================ */
