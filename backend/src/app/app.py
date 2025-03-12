@@ -24,20 +24,20 @@ versions = {
 # Clases de los modelos
 classes = {
     'USD': [
-        'fifty-back',  'fifty-front', 
-        'five-back',   'five-front', 
-        'one-back',    'one-front', 
-        'ten-back',    'ten-front', 
-        'twenty-back', 'twenty-front',
-        'one_hundred-back', 'one_hundred-front',
+        'fifty-back',        'fifty-front', 
+        'five-back',         'five-front', 
+        'one-back',          'one-front', 
+        'one_hundred-back',  'one_hundred-front',
+        'ten-back',          'ten-front', 
+        'twenty-back',       'twenty-front',
     ],
     'VEF': [
         'fifty-back-vef',       'fifty-front-vef',
         'five-back-vef',        'five-front-vef',
-        'ten-back-vef',         'ten-front-vef',
-        'twenty-back-vef',      'twenty-front-vef',
         'one_hundred-back-vef', 'one_hundred-front-vef',
-        'two_hundred-back-vef', 'two_hundred-front-vef'
+        'ten-back-vef',         'ten-front-vef', 
+        'twenty-back-vef',      'twenty-front-vef', 
+        'two_hundred-back-vef', 'two_hundred-front-vef', 
     ],
     'INFERENCIA': [
         'dollar_back', 'dollar_front',
@@ -60,8 +60,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-@app.post("/detection/")
+@app.post("/detection")
 async def detection_vef(image: UploadFile):
     # Se carga la imagen de forma dinámica
     imageBytes = await image.read()
@@ -98,7 +97,7 @@ async def detection_vef(image: UploadFile):
             })
         print(boxes)
         # Guardamos los resultados en la carpeta img-API
-        await log(f'backend/src/data/img-API/VEF/Model_{versions[currency]}/', boxes, imageFile)
+        await log(f'backend/src/data/img-API/{currency}/Model_{versions[currency]}/', boxes, imageFile)
         # Retornamos los resultados
         return {'detections': boxes}
     else:
