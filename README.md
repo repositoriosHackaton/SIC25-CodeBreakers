@@ -29,7 +29,8 @@
 
 **Cash Reader** es un proyecto realizado para el módulo de **Inteligencia Artificial** del curso *Samsung Innovation Campus*, y a su vez como proyecto final para la materia Programación III de la *Universidad Marítima del Caribe*.
 
-[Índice de Contenidos]
+## Índice de Contenidos
+- [Índice de Contenidos](#índice-de-contenidos)
 - [💡 ¿Qué es Cash Reader?](#-qué-es-cash-reader)
 - [⚙️ Características](#️-características)
 - [🔧 Tecnologías](#-tecnologías)
