@@ -13,5 +13,6 @@ export const HELP_MESSAGE = `
     - "Tomar Foto": Iniciar evaluación del billete.
     - "contar": Activar la funciona de suma de billetes.
     - "detener conteo": desactiva la funcion de suma de billetes
+    - "ultima suma": para revisar la ultima suma hecha
     - "Ayuda": Repetir instrucciones.
 `;
