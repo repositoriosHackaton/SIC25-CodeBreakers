@@ -6,10 +6,9 @@
 ¡Transforma la manera en que interactúas con el dinero!
 <br/>
 <br/>
-<a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/wiki"><strong>Explora nuestra wiki »</strong></a>
+<a href="https://cashreader.netlify.app/"><strong>Visita nuestra página web »</strong></a>
 <br/>
 <br/>
-<a href="https://cashreader.netlify.app/">| Ver Pagina |</a>  
 <a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/issues/new?labels=bug&amp;template=bug_report.md">Reportar Bug |</a>
 <a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/issues/new?labels=enhancement&amp;&template=feature_request.md"> Solicitar funcionalidad |</a>
 </p>
@@ -32,20 +31,20 @@
 ## Índice de Contenidos
 - [Índice de Contenidos](#índice-de-contenidos)
 - [💡 ¿Qué es Cash Reader?](#-qué-es-cash-reader)
-- [⚙️ Características](#️-características)
+- [⚙️ Características clave](#️-características-clave)
 - [🔧 Tecnologías](#-tecnologías)
 - [📸 Imágenes](#-imágenes)
   - [Interfaz Web](#interfaz-web)
   - [Modelo de Clasificación de Bolívares](#modelo-de-clasificación-de-bolívares)
   - [Modelo de Clasificación de Dólares](#modelo-de-clasificación-de-dólares)
-- [📜 License](#-license)
+- [📜 Licencia](#-licencia)
 - [👥 Integrantes del proyecto](#-integrantes-del-proyecto)
 - [🎁 Donaciones](#-donaciones)
 
 ## 💡 ¿Qué es Cash Reader?
 Se trata de un programa que integra:
 - Dos modelos avanzados de **clasificación de objetos** para identificar las denominaciones de los billetes de **dólares y bolívares** y uno modelo diferenciador entre ambos tipos de moneda.
-- **landing page** donde los usuarios pueden descargar la app (PWA) y conocer informacion general del proyecto.
+- **Landing page** donde los usuarios pueden descargar la app (PWA) y conocer informacion general del proyecto.
 - **App PWA** desarrollada bajo el cumplimiento del manual de los estandares de accesibilidad (**WCAG 2.0**) integrando un narrador, una interfaz de comandos de voz, una funcion de utilidad para contar de forma asistida y los modelos de IA para la clasificacion de billetes.
 
 ## ⚙️ Características clave
@@ -75,8 +74,8 @@ Se trata de un programa que integra:
 <img src="./backend/src/models/train/USD_Model_13/val_batch1_pred.jpg" alt="Imagen del Modelo USD" style="max-width:50%; height:auto;">
 <img src="./backend/src/models/train/USD_Model_13/PR_curve.png" alt="PR Curve USD" style="max-width:50%; height:auto;">
 
-## 📜 License
-Distributed under the MIT License. See [LICENSE](./LICENSE.txt) for more information.
+## 📜 Licencia
+Distribuido bajo la licencia MIT. Consulte [LICENCIA](./LICENSE.txt) para más información.
 
 ## 👥 Integrantes del proyecto
 - [Francisco Ramos](https://www.linkedin.com/in/francisco-ramos-santos-dev)
