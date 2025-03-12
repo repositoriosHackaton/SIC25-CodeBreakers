@@ -217,7 +217,7 @@ const Camera = () => {
 
                 // Seleccionar el endpoint según el modelo actual
                 const endpoint = toggleModel ? "vef" : "usd";
-                const url = `https://cashreader.share.zrok.io/detection`;
+                const url = `https://cashreaderapi.share.zrok.io/detection`;
 
                 const response = await axios.post(url, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
