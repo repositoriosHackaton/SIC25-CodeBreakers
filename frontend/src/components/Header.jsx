@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { HELP_MESSAGE } from "../constants/HELP_MESSAGE";
+import { HELP_COMMANDS, HELP_INTERFACE } from "../constants/HELP_MESSAGE"; // Importar los nuevos mensajes
 import useNarrator from "../hooks/useNarrator";
 import "./Header.css";
 
@@ -11,7 +11,8 @@ const Header = () => {
     useEffect(() => {
         const hasVisited = localStorage.getItem("hasVisited");
         if (!hasVisited) {
-            setNarration(HELP_MESSAGE);
+            // Mostrar ambos mensajes al inicio (interfaz + comandos)
+            setNarration(`${HELP_INTERFACE} ${HELP_COMMANDS}`);
             localStorage.setItem("hasVisited", "true");
         }
         setIsFirstVisit(!hasVisited);
@@ -21,8 +22,11 @@ const Header = () => {
     const handleNarrationComplete = () => setNarration("");
     useNarrator(narration, handleNarrationComplete);
 
-    // Handler del botón
-    const handleClick = () => setNarration(HELP_MESSAGE);
+    // Handler del botón de ayuda
+    const handleClick = () => {
+        // Mostrar solo la ayuda de la interfaz al hacer clic
+        setNarration(HELP_INTERFACE);
+    };
 
     return (
         <button className={`header-button`} onClick={handleClick}>
