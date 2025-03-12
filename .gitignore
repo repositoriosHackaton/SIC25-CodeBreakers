@@ -4,3 +4,6 @@ temp
 *.key
 logs
 *.pyc
+wandb
+*.cache
+**.cache
