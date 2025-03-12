@@ -9,14 +9,16 @@ if (ROI_ACTIVATION:=False):
 
 # Modelos para el server
 models = {
-    'USD': YOLO('backend/src/models/train/USD_Model_13/weights/best.pt'),
-    'VEF': YOLO('backend/src/models/train/VEF_Model_09/weights/best.pt'),
+    'USD':        YOLO('backend/src/models/train/USD_model_plus_01/weights/best.pt'),
+    'VEF':        YOLO('backend/src/models/train/VEF_model_13f/weights/best.pt'),
+    'INFERENCIA': YOLO('backend/src/models/train/USD_VEF_Model_01j/weights/best.pt'),
 }
 
 # Versiones de los modelos
 versions = {
-    'USD': 13,
-    'VEF': 9,
+    'USD': 'plus_01',
+    'VEF': '13f',
+    'INFERENCIA': '1',
 }
 
 # Clases de los modelos
@@ -36,7 +38,11 @@ classes = {
         'twenty-back-vef',      'twenty-front-vef',
         'one_hundred-back-vef', 'one_hundred-front-vef',
         'two_hundred-back-vef', 'two_hundred-front-vef'
-    ]
+    ],
+    'INFERENCIA': [
+        'dollar_back', 'dollar_front',
+        'vef_back', '   vef_front',
+    ],
 }
 
 # Importamos FastAPI
@@ -62,13 +68,23 @@ async def detection_vef(image: UploadFile):
     imageStream = io.BytesIO(imageBytes)
     imageFile = Image.open(imageStream)
 
-    #TODO Aquí iría la clasificación del modelo para inferir si es VEF o USD
-    currency = 'VEF'
-
-    # Se recorta y se centra, o no
-    if ROI_ACTIVATION:
+    # Se recorta y se centra si
+    if ROI_ACTIVATION: # El ROI activado
+        which_currency = models['INFERENCIA'].predict(procesar_imagen(imageFile), verbose=False)
+        currency_label = classes['INFERENCIA'][int(which_currency[0].boxes[0].cls.item())]
+        if 'vef' in currency_label:
+            currency = 'VEF'
+        else:
+            currency = 'USD'
         results = models[currency].predict(procesar_imagen(imageFile), verbose=False) # Se pasa la imagen por el modelo
-    else:
+
+    else: # ROI no activado
+        which_currency = models['INFERENCIA'].predict(imageFile, verbose=False)
+        currency_label = classes['INFERENCIA'][int(which_currency[0].boxes[0].cls.item())]
+        if 'vef' in currency_label:
+            currency = 'VEF'
+        else:
+            currency = 'USD'
         results = models[currency].predict(imageFile, verbose=False) # Se pasa la imagen por el modelo
 
     # Se extraen las cajas de los resultados
