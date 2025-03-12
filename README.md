@@ -45,11 +45,14 @@ Se trata de un programa que integra:
 - **Landing page** donde los usuarios pueden descargar la app (PWA) y conocer informacion general del proyecto.
 - **App PWA** desarrollada bajo el cumplimiento del manual de los estandares de accesibilidad (**WCAG 2.0**) integrando un narrador, una interfaz de comandos de voz, una funcion de utilidad para contar de forma asistida y los modelos de IA para la clasificacion de billetes.
 
+## 🦯 ¿Por qué se hizo este proyecto?
+Este proyecto se planteó como un programa de asistencia dirigido a personsas con **discapacidades visuales**, con el objetivo de brindar una herramienta que les resulte de utilidad y conveniencia en su vida cotidiana, facilitando su autonomía y mejorando su calidad de vida.
+
 ## ⚙️ Características clave
 - Detección y clasificación de billetes (unico modelo compatible en el mercado con el cono monetario actual de Venezuela) 💵
 - Interfaz a traves de una progressive web app (PWA) 🌐:
-  -    
-- 3 Modelos basados en **YOLOv8s** ajustados con fine-tuning para mayor precisión 🎯:
+  
+- 3 Modelos basados en **YOLOv8s** 🎯:
   - Clasificador de Denominacion de billetes de Dolares Americanos
   - Clasificador de Denominacion de billetes de Bolivares Venezolanos
   - Diferenciador entre ambos tipos de divisas
