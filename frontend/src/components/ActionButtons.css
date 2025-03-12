@@ -34,3 +34,9 @@
 .camera-button {
     background-color: var(--color-base-dark);
 }
+
+.camera-button img {
+    width: 7rem; /* Tamaño específico para el ícono de la cámara */
+    height: auto;
+    transition: transform 0.2s ease;
+}

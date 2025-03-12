@@ -29,7 +29,7 @@ const responseMapping = {
     "": { visual: "", narrator: "No se ha detectado ningún billete." },
 };
 
-const useApiResponseProcessor = (narrate, setVisualRef, addToTotal, isSumActive, total, toggleModel) => {
+totalDolares) => {
     const isNarratingRef = useRef(false);
 
     const processResponse = useCallback(
@@ -64,26 +64,49 @@ const useApiResponseProcessor = (narrate, setVisualRef, addToTotal, isSumActive,
             if (validDetections.length > 0) {
                 const label = validDetections[0].label;
                 const mapping = responseMapping[label];
+
+                // Extraer el valor del mapeo
                 const value = parseFloat(mapping.visual.replace(/[^0-9]/g, "")); // Extraer solo los dígitos
 
                 if (!isNaN(value)) {
                     if (isSumActive) {
-                        addToTotal(value); // Sumar el valor al total
-                        const newTotal = total + value; // Calcular el nuevo total
-                        const currency = toggleModel ? "bolívares" : "dólares"; // Determinar la moneda
-                        narrateWithUnlock(
-                            `${mapping.narrator}, sumando ${value}. Total acumulado: ${newTotal} ${currency}.`,
-                            mapping.visual
-                        );
+                        // Determinar la moneda basada en el label
+                        const currency = label.includes("vef") ? "bolivares" : "dolares";
+
+                        // Sumar el valor al total correspondiente
+                        addToTotal(value, currency);
+
+                        // Calcular los nuevos totales
+                        const newTotalBolivares = currency === "bolivares" ? totalBolivares + value : totalBolivares;
+                        const newTotalDolares = currency === "dolares" ? totalDolares + value : totalDolares;
+
+                        // Narrar el resultado
+                        if (newTotalBolivares > 0 && newTotalDolares > 0) {
+                            narrateWithUnlock(
+                                `${mapping.narrator}, sumando ${value}. Total en bolívares: ${newTotalBolivares}. Total en dólares: ${newTotalDolares}.`,
+                                mapping.visual
+                            );
+                        } else if (newTotalBolivares > 0) {
+                            narrateWithUnlock(
+                                `${mapping.narrator}, sumando ${value}. Total en bolívares: ${newTotalBolivares}.`,
+                                mapping.visual
+                            );
+                        } else if (newTotalDolares > 0) {
+                            narrateWithUnlock(
+                                `${mapping.narrator}, sumando ${value}. Total en dólares: ${newTotalDolares}.`,
+                                mapping.visual
+                            );
+                        }
                     } else {
-                        narrateWithUnlock(mapping.narrator, mapping.visual); // Narrar solo el valor del billete
+                        // Si la suma no está activa, narrar solo el valor del billete
+                        narrateWithUnlock(mapping.narrator, mapping.visual);
                     }
                 }
             } else {
                 narrateWithUnlock("No se ha detectado el valor del billete correctamente.", "Repetir Foto");
             }
         },
-        [narrate, setVisualRef, addToTotal, isSumActive, total, toggleModel]
+        [narrate, setVisualRef, addToTotal, isSumActive, totalBolivares, totalDolares]
     );
 
     return { processResponse };

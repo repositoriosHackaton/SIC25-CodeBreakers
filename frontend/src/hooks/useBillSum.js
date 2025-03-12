@@ -1,19 +1,25 @@
 import { useState } from "react";
 
 const useBillSum = () => {
-    const [total, setTotal] = useState(0); // Estado para almacenar el total acumulado
+    const [totalBolivares, setTotalBolivares] = useState(0); // Total en bolívares
+    const [totalDolares, setTotalDolares] = useState(0); // Total en dólares
 
-    // Función para agregar un nuevo valor al total
-    const addToTotal = (value) => {
-        setTotal((prevTotal) => prevTotal + value);
+    // Función para agregar un nuevo valor al total correspondiente
+    const addToTotal = (value, currency) => {
+        if (currency === "bolivares") {
+            setTotalBolivares((prevTotal) => prevTotal + value);
+        } else if (currency === "dolares") {
+            setTotalDolares((prevTotal) => prevTotal + value);
+        }
     };
 
-    // Función para reiniciar el total a 0
+    // Función para reiniciar los totales
     const resetTotal = () => {
-        setTotal(0);
+        setTotalBolivares(0);
+        setTotalDolares(0);
     };
 
-    return { total, addToTotal, resetTotal };
+    return { totalBolivares, totalDolares, addToTotal, resetTotal };
 };
 
 export default useBillSum;

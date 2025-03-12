@@ -33,7 +33,7 @@ const Camera = () => {
     const [isSumActive, setIsSumActive] = useState(false);
 
 
-    const { total, addToTotal, resetTotal } = useBillSum();
+    const { totalBolivares, totalDolares, addToTotal, resetTotal } = useBillSum();
 
     /* ================================
      FUNCIONES AUXILIARES
@@ -51,9 +51,25 @@ const Camera = () => {
     // Función para detener la suma y narrar el total acumulado
     const stopSumHandler = () => {
         setIsSumActive(false);
-        const totalMessage = `Suma detenida. Total acumulado: ${total} bolívares.`; // Cambia a dólares si es necesario
+    
+        let totalMessage = "";
+    
+        if (totalBolivares > 0 && totalDolares > 0) {
+            // Si se están sumando ambas monedas
+            totalMessage = `Suma detenida. Total en bolívares: ${totalBolivares}. Total en dólares: ${totalDolares}.`;
+        } else if (totalBolivares > 0) {
+            // Si solo se están sumando bolívares
+            totalMessage = `Suma detenida. Total en bolívares: ${totalBolivares}.`;
+        } else if (totalDolares > 0) {
+            // Si solo se están sumando dólares
+            totalMessage = `Suma detenida. Total en dólares: ${totalDolares}.`;
+        } else {
+            // Si no se ha sumado nada
+            totalMessage = "Suma detenida. No se ha detectado ningún billete.";
+        }
+    
         setNarration(totalMessage);
-        resetTotal();
+        resetTotal(); // Reiniciar los totales
     };
 
     const toggleSumHandler = () => {
@@ -76,10 +92,10 @@ const Camera = () => {
     const { processResponse } = useApiResponseProcessor(
         (text) => setNarration(text),
         setApiPrediction,
-        addToTotal,
-        isSumActive, // Pasar el estado de la suma
-        total, // Pasar el total acumulado
-        toggleModel
+        addToTotal, // Pasar la función addToTotal actualizada
+        isSumActive,
+        totalBolivares, // Pasar el total de bolívares
+        totalDolares // Pasar el total de dólares
     );
     /* ================================
      CONTROL DEL FLASH
