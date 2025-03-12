@@ -20,7 +20,7 @@ def train_model(m_name, moneda, disable=False):
 
             # Entrenar el modelo
             results = model.train(
-                data=f"backend/Dollar_Bill_Detection_{moneda}/data.yaml",
+                data=f"backend/datasets/{moneda}/dataset-extend-{moneda}/data.yaml",
                 project = r'backend/src/models/train', #Ruta donde se guardará el modelo
                 name = m_name, #Nombre de la carpeta del modelo
                 epochs = 400,
@@ -46,7 +46,7 @@ def test_model(m_name, moneda, evaluate_model, disable=False):
             
             # Evaluar en el conjunto de test
             results = model.val(
-                data=f"backend/Dollar_Bill_Detection_{moneda}/data.yaml",  # Archivo YAML con rutas a los datos
+                data=f"backend/datasets/{moneda}/dataset-extend-{moneda}/data.yaml",  # Archivo YAML con rutas a los datos
                 project = r'backend/src/models/train', #Ruta donde se guardará la validacion(test)
                 name = m_name, #Nombre de la carpeta de la validacion(test)
                 split="test",      # Especifica que use el conjunto de test
