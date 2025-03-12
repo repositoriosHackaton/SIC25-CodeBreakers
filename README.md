@@ -63,11 +63,11 @@ Se trata de un programa que integra:
 ### Interfaz Web
 ![Video de la landing page](/frontend/src/assets/landing.gif)
 
-### Modelo de Clasificación de Bolívares
+### Modelo de Clasificación de Bolívares:
 <img src="./backend/src/models/train/VEF_Model_09/val_batch1_pred.jpg" alt="Imagen del Modelo VEF" style="max-width:50%; height:auto;">
 <img src="./backend/src/models/train/VEF_Model_09/PR_curve.png" alt="PR Curve VEF" style="max-width:50%; height:auto;">
 
-### Modelo de Clasificación de Dólares
+### Modelo de Clasificación de Dólares:
 <img src="./backend/src/models/train/USD_Model_13/val_batch1_pred.jpg" alt="Imagen del Modelo USD" style="max-width:50%; height:auto;">
 <img src="./backend/src/models/train/USD_Model_13/PR_curve.png" alt="PR Curve USD" style="max-width:50%; height:auto;">
 
