@@ -55,23 +55,22 @@ const Camera = () => {
         let totalMessage = "";
     
         if (totalBolivares > 0 && totalDolares > 0) {
-            // Si se están sumando ambas monedas
             totalMessage = `Suma detenida. Total en bolívares: ${totalBolivares}. Total en dólares: ${totalDolares}.`;
         } else if (totalBolivares > 0) {
-            // Si solo se están sumando bolívares
             totalMessage = `Suma detenida. Total en bolívares: ${totalBolivares}.`;
         } else if (totalDolares > 0) {
-            // Si solo se están sumando dólares
             totalMessage = `Suma detenida. Total en dólares: ${totalDolares}.`;
         } else {
-            // Si no se ha sumado nada
             totalMessage = "Suma detenida. No se ha detectado ningún billete.";
         }
     
-        setNarration(totalMessage);
-        resetTotal(); // Reiniciar los totales
+        // Solo actualiza narration si el mensaje es diferente al actual
+        if (narration !== totalMessage) {
+            setNarration(totalMessage);
+        }
+    
+        resetTotal();
     };
-
     const toggleSumHandler = () => {
         if (isSumActive) {
             stopSumHandler();

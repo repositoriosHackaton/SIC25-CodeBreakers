@@ -30,6 +30,7 @@ const responseMapping = {
 };
 
 const useApiResponseProcessor = (narrate, setVisualRef, addToTotal, isSumActive, totalBolivares, totalDolares) => {
+
     const isNarratingRef = useRef(false);
 
     const processResponse = useCallback(
@@ -43,10 +44,9 @@ const useApiResponseProcessor = (narrate, setVisualRef, addToTotal, isSumActive,
                     setVisualRef(visualMessage);
                 }
                 setTimeout(() => {
-                    isNarratingRef.current = false;
-                }, 1000); // Ajustar según la duración del mensaje
+                    isNarratingRef.current = false; // Desbloquear después de un tiempo
+                }, 2000); // Ajusta este valor según la duración de la narración
             };
-
             if (!apiResponse || apiResponse.message === "No objects detected") {
                 narrateWithUnlock("No se ha detectado ningún billete.", "");
                 return;

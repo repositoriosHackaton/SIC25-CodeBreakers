@@ -7,8 +7,9 @@ import CssIcon from "../assets/page/css.png"
 import HtmlIcon from "../assets/page/html.png"
 import JavaIcon from "../assets/page/javascript.png"
 import YoloIcon from "../assets/page/yolo.png"
+import WandIcon from "../assets/page/wandb.svg"
 const InfiniteSlider = () => {
-    const logos = [pytorchicon, FastIcon, ReactIcon, PytIcon,CssIcon,HtmlIcon,JavaIcon,YoloIcon];
+    const logos = [pytorchicon, FastIcon, ReactIcon, PytIcon,CssIcon,HtmlIcon,JavaIcon,YoloIcon, WandIcon];
 
     return (
         <div className="infinite-slider">
