@@ -62,7 +62,7 @@ Este proyecto se planteó como un programa de asistencia dirigido a personsas co
 - **YOLO Ultralitics:** Arquitectura de un Modelo CNN para la detección y clasificación.
 
 ## 📸 Imágenes
-### Interfaz Web
+### Interfaz Web:
 ![Video de la landing page](/frontend/src/assets/landing.gif)
 
 ### Modelo de Clasificación de Bolívares:
