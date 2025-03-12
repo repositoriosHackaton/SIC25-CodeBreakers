@@ -1,0 +1,20 @@
+body.no-overscroll {
+    overscroll-behavior: none;
+}
+/* Contenedor principal con flexbox */
+.container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Asegura que ocupe toda la altura de la ventana */
+}
+
+/* Estilo del encabezado */
+.header {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    padding: 0.8rem 0;
+    /* border: 2px solid var(--color-emphasis); */
+}

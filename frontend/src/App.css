@@ -1,0 +1,14 @@
+#root {
+    --color-base-light: #f8f9fa;
+    --color-base-dark: #343a40;
+    --color-base-dark-support: #6c757d;
+    --color-base-dark-shadow: rgba(52, 58, 64, 0.4);
+    --color-accent: #28a745;
+    --color-accent-support: #e0efe3;
+    --color-emphasis: #dc3545;
+
+    width: 100%;
+    height: calc(var(--vh, 1vh) * 100);
+
+    background-color: var(--color-base-light);
+}

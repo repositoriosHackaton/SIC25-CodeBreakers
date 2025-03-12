@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+src/data/
+src/data/**/*
+src/scripts/
+Dollar_Bill_Detection_USD/
+Dollar_Bill_Detection_VEF/
+*.jpg
+**.jpg
+yolo**
+yolo*
+
+*.env
+*.env.*
+env.*
