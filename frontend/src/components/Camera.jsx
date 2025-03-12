@@ -31,7 +31,7 @@ const Camera = () => {
     // Estado para mostrar la respuesta visual de la API sobre el stream
     const [apiPrediction, setApiPrediction] = useState("");
     const [isSumActive, setIsSumActive] = useState(false);
-    const [isProcessing, setIsProcessing] = useState(false);
+    
 
 
     const { totalBolivares, totalDolares, addToTotal, resetTotal } = useBillSum();
@@ -250,61 +250,47 @@ const Camera = () => {
                 const blob = await (await fetch(imageData)).blob();
                 const formData = new FormData();
                 formData.append("image", blob, "captura.jpg");
-    
+                
+
+                // Seleccionar el endpoint según el modelo actual
                 const endpoint = toggleModel ? "vef" : "usd";
                 const url = `https://cashreaderapi.share.zrok.io/detection`;
-    
+
                 const response = await axios.post(url, formData, {
                     headers: { "Content-Type": "multipart/form-data" },
                 });
-    
+
                 console.log("Respuesta de la API:", response.data);
-                processResponse(response.data); // Procesar la respuesta
+                processResponse(response.data);
             } catch (error) {
                 console.error("Error al enviar la imagen a la API:", error);
-                setNarration("No se ha podido comunicar con el servidor. Inténtalo más tarde.");
-                throw error; // Relanzar el error para que `takePhoto` lo maneje
+                setNarration("No se ha podido comunicar con el servidor, intentelo mas tarde");
             }
         },
         [processResponse, toggleModel]
     );
 
     // Función para capturar la imagen en resolución nativa y enviarla a la API
-    const takePhoto = useCallback(async () => {
-        if (isProcessing) return; // Si ya se está procesando una foto, no hacer nada
-    
+    const takePhoto = useCallback(() => {
         const video = videoRef.current;
         if (!video) {
             console.error("Video no disponible.");
             return;
         }
-    
-        // Bloquear el botón
-        setIsProcessing(true);
-    
         const nativeWidth = video.videoWidth;
         const nativeHeight = video.videoHeight;
-    
+
         const canvas = document.createElement("canvas");
         canvas.width = nativeWidth;
         canvas.height = nativeHeight;
         const context = canvas.getContext("2d");
         context.drawImage(video, 0, 0, nativeWidth, nativeHeight);
-    
+
         const imageUrl = canvas.toDataURL("image/jpeg", 1.0);
         setPhoto(imageUrl);
         console.log("Foto tomada");
-    
-        try {
-            await sendPhotoToAPI(imageUrl); // Enviar la foto al servidor
-        } catch (error) {
-            console.error("Error al enviar la foto a la API:", error);
-            setNarration("Error al procesar la foto. Intenta de nuevo.");
-        } finally {
-            // Desbloquear el botón, independientemente de si hubo un error o no
-            setIsProcessing(false);
-        }
-    }, [isProcessing, sendPhotoToAPI]);
+        sendPhotoToAPI(imageUrl);
+    }, [sendPhotoToAPI]);
 
     /* ================================
      CAPTURA AUTOMÁTICA (SI SE CONFIGURA)
@@ -365,7 +351,6 @@ const Camera = () => {
             <div className="scan-indicator-placeholder"></div>
             <ActionButtons onCameraButton={takePhoto}
                 onToggleSum={toggleSumHandler} 
-                isCameraDisabled={isProcessing}
                 isSumActive={isSumActive}  />
             {/* Mostrar el total acumulado si la suma está activa */}
         </section>
