@@ -41,7 +41,7 @@
 
 ## 💡 ¿Qué es Cash Reader?
 Se trata de un programa que integra:
-- Dos modelos avanzados de **clasificación de objetos** para identificar las denominaciones de los billetes de **dólares y bolívares** y uno modelo diferenciador entre ambos tipos de moneda.
+- Dos modelos avanzados de **clasificación de objetos** para identificar las denominaciones de los billetes de **dólares y bolívares** y un modelo diferenciador entre ambos tipos de moneda.
 - **Landing page** donde los usuarios pueden descargar la app (PWA) y conocer informacion general del proyecto.
 - **App PWA** desarrollada bajo el cumplimiento del manual de los estandares de accesibilidad (**WCAG 2.0**) integrando un narrador, una interfaz de comandos de voz, una funcion de utilidad para contar de forma asistida y los modelos de IA para la clasificacion de billetes.
 
@@ -55,10 +55,9 @@ Se trata de un programa que integra:
   - Diferenciador entre ambos tipos de divisas
 
 ## 🔧 Tecnologías
-- **React:**: Para una experiencia web fluida y arquitectura orientada a componentes.
+- **React:** Para una experiencia web fluida y arquitectura orientada a componentes.
 - **FastAPI:** Para la creación de una API robusta.
 - **YOLO Ultralitics:** Arquitectura de un Modelo CNN para la detección y clasificación.
-- **
 
 ## 📸 Imágenes
 ### Interfaz Web
