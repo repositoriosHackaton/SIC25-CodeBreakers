@@ -29,7 +29,7 @@ const responseMapping = {
     "": { visual: "", narrator: "No se ha detectado ningún billete." },
 };
 
-totalDolares) => {
+const useApiResponseProcessor = (narrate, setVisualRef, addToTotal, isSumActive, totalBolivares, totalDolares) => {
     const isNarratingRef = useRef(false);
 
     const processResponse = useCallback(
