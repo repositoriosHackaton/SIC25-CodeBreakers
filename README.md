@@ -29,6 +29,18 @@
 
 **Cash Reader** es un proyecto realizado para el módulo de **Inteligencia Artificial** del curso *Samsung Innovation Campus*, y a su vez como proyecto final para la materia Programación III de la *Universidad Marítima del Caribe*.
 
+[Índice de Contenidos]
+- [💡 ¿Qué es Cash Reader?](#-qué-es-cash-reader)
+- [⚙️ Características](#️-características)
+- [🔧 Tecnologías](#-tecnologías)
+- [📸 Imágenes](#-imágenes)
+  - [Interfaz Web](#interfaz-web)
+  - [Modelo de Clasificación de Bolívares](#modelo-de-clasificación-de-bolívares)
+  - [Modelo de Clasificación de Dólares](#modelo-de-clasificación-de-dólares)
+- [📜 License](#-license)
+- [👥 Integrantes del proyecto](#-integrantes-del-proyecto)
+- [🎁 Donaciones](#-donaciones)
+
 ## 💡 ¿Qué es Cash Reader?
 Se trata de un programa que integra:
 - Dos modelos avanzados de **clasificación de objetos** para identificar billetes de **dólares y bolívares**.
