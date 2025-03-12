@@ -1,11 +1,10 @@
 <br/>
 <div align="center">
-<a href="https://cashreader.netlify.app/">
-<img src="/favicon.svg" alt="Logo Cash Reader" width="80" height="80">
-</a>
-<h3 align="center">Cash Reader</h3>
+<h3 align="center">
+<a href="https://cashreader.netlify.app/"><img src="/frontend/public/favicon.svg" alt="Logo Cash Reader" width="50" height="50" style="vertical-align: middle;"></a> Cash Reader
+</h3>
 <p align="center">
-Transforma la manera en que interactúas con el dinero!
+¡Transforma la manera en que interactúas con el dinero!
 <br/>
 <br/>
 <a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/wiki"><strong>Explora nuestra wiki »</strong></a>
