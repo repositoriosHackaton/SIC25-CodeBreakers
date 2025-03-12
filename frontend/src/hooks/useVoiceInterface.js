@@ -67,7 +67,7 @@ export const useVoiceInterface = ({
 
         ];
         return [...defaults, ...additionalCommands];
-    }, [additionalCommands, callTakePhoto, callToggleModel, callHelpMessage, callStartSum, callStopSum, callLastSum, callCurrentSum]);
+    }, [additionalCommands, callTakePhoto, callToggleModel, callHelpInterface, callHelpCommands, callStartSum, callStopSum, callLastSum, callCurrentSum]);
 
     const [error, setError] = useState(null);
 
