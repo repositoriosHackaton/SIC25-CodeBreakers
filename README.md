@@ -16,7 +16,6 @@
 ![Contributors](https://img.shields.io/github/contributors/repositoriosHackaton/SIC25-CodeBreakers)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![GitHub stars](https://img.shields.io/github/stars/repositoriosHackaton/SIC25-CodeBreakers)
-![GitHub forks](https://img.shields.io/github/forks/repositoriosHackaton/SIC25-CodeBreakers)
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
