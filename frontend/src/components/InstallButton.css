@@ -1,0 +1,15 @@
+.install-button {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-accent);
+    color: white;
+    font-size: clamp(1.5rem, 2.5vw, 1.6rem);
+    border: none;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    max-width: 250px;
+    align-self: center;
+    margin-bottom: 5%;
+}

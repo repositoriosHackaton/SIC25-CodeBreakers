@@ -1,0 +1,61 @@
+.header-button {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    padding: 10px;
+    background-color: var(--color-base-light);
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 8px var(--color-base-dark-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    width: calc(85% + 0.5rem);
+}
+
+.header-button:active {
+    transform: scale(1.025); /* Escala el botón ligeramente */
+    box-shadow: 0 10px 10px var(--color-base-dark-shadow);
+    filter: brightness(50%);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center; /* Centrado vertical dentro del contenedor */
+}
+
+.logo {
+    width: 5rem;
+    height: auto;
+    margin-right: 10px;
+}
+
+.app-name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--color-base-dark);
+    margin: 0;
+}
+
+/* Indicador de nueva guía (punto pulsante) */
+.pulsing-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(0.9);
+    }
+}

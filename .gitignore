@@ -32,9 +32,15 @@ dist-ssr
 *.sln
 *.sw?
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> model_AI
 *.cache
 **.cache
 
 wandb
+<<<<<<< HEAD
 =======
 >>>>>>> origin/backend
+=======
+>>>>>>> model_AI
