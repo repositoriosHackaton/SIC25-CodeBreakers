@@ -73,6 +73,25 @@ const Camera = () => {
         resetTotal();
     };
 
+    const callLastSum = () => {
+        const lastSumBs = parseInt(localStorage.getItem("CumSum_old_bs")) || 0;
+        const lastSumUsd = parseInt(localStorage.getItem("CumSum_old_usd")) || 0;
+    
+        let message = "";
+    
+        if (lastSumBs > 0 && lastSumUsd > 0) {
+            message = `Última suma: ${lastSumBs} bolívares y ${lastSumUsd} dólares.`;
+        } else if (lastSumBs > 0) {
+            message = `Última suma: ${lastSumBs} bolívares.`;
+        } else if (lastSumUsd > 0) {
+            message = `Última suma: ${lastSumUsd} dólares.`;
+        } else {
+            message = "No hay una última suma almacenada.";
+        }
+    
+        setNarration(message);
+    };
+
     const toggleSumHandler = () => {
         if (isSumActive) {
             stopSumHandler();
@@ -289,6 +308,7 @@ const Camera = () => {
         callHelpMessage: HelpMessage,
         callStartSum: startSumHandler,
         callStopSum: stopSumHandler,
+        callLastSum: callLastSum, // Nueva función
         debug: true,
     });
 
