@@ -67,11 +67,11 @@ Este proyecto se planteó como un programa de asistencia dirigido a personsas co
 
 ### Modelo de Clasificación de Bolívares:
 <img src="./backend/src/models/train/VEF_model_13f/val_batch1_pred.jpg" alt="Imagen del Modelo VEF" style="max-width:50%; height:auto;">
-<img src="./backend/src/models/train/VEF_model_13f/PR_curve.png" alt="PR Curve VEF" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/VEF_model_13f/results.png" alt="PR Curve VEF" style="max-width:50%; height:auto;">
 
 ### Modelo de Clasificación de Dólares:
 <img src="./backend/src/models/train/USD_model_plus_01/val_batch1_pred.jpg" alt="Imagen del Modelo USD" style="max-width:50%; height:auto;">
-<img src="./backend/src/models/train/USD_model_plus_01/PR_curve.png" alt="PR Curve USD" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/USD_model_plus_01/results.png" alt="PR Curve USD" style="max-width:50%; height:auto;">
 
 ## 📜 Licencia
 Distribuido bajo la licencia MIT. Consulte [LICENCIA](./LICENSE.txt) para más información.
