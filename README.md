@@ -1,32 +1,88 @@
-# Cash Reader
+<br/>
+<div align="center">
+<a href="https://cashreader.netlify.app/"><img src="/frontend/public/favicon.svg" alt="Logo Cash Reader" width="80" height="80" style="vertical-align: middle;"></a>
+<h3 align="center"><strong>Cash Reader</strong></h3>
+<p align="center">
+¡Transforma la manera en que interactúas con el dinero!
+<br/>
+<br/>
+<a href="https://cashreader.netlify.app/"><strong>Visita nuestra página web »</strong></a>
+<br/>
+<br/>
+<a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/issues/new?labels=bug&amp;template=bug_report.md">| Reportar Bug |</a>
+<a href="https://github.com/repositoriosHackaton/SIC25-CodeBreakers/issues/new?labels=enhancement&amp;&template=feature_request.md"> Solicitar funcionalidad |</a>
+</p>
 
-**Cash Reader** es un proyecto realizado para el módulo de **Inteligencia Artificial** del curso *Samsung Innovation Campus*, y su vez como proyecto final para la materia Programación III de la *Universidad Marítima del Caribe*.
+![Contributors](https://img.shields.io/github/contributors/repositoriosHackaton/SIC25-CodeBreakers)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![GitHub stars](https://img.shields.io/github/stars/repositoriosHackaton/SIC25-CodeBreakers)
 
-## ¿Qué es?
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Ultralytics YOLO](https://img.shields.io/badge/YOLO-blue?style=for-the-badge&logo=ultralytics)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 
-Se trata de un programa que integra dos componentes principales:
+</div>
 
-1. Dos modelos avanzados de **clasificación de objetos** diseñados específicamente para identificar billetes de **dólares y bolívares**, como también su respectiva denominación.
-2. Una **interfaz web** intuitiva y fácilmente accesible, desarrollada para trabajar sobre los modelos anteriormente mencionados.
+**Cash Reader** es un proyecto realizado para el módulo de **Inteligencia Artificial** del curso *Samsung Innovation Campus*, y a su vez como proyecto final para la materia Programación III de la *Universidad Marítima del Caribe*.
 
-## ¿Por qué este proyecto?
-Este proyecto se planteó como un programa de asistencia dirigido a **personas invidentes o con dificultades visuales**, con el objetivo de brindar una herramienta que les resulte de utilidad y conveniencia en su vida cotidiana, facilitando su autonomía y mejorando su calidad de vida.
+## Índice de Contenidos
+- [💡 ¿Qué es Cash Reader?](#-qué-es-cash-reader)
+- [⚙️ Características clave](#️-características-clave)
+- [🔧 Tecnologías](#-tecnologías)
+- [📸 Imágenes](#-imágenes)
+  - [Interfaz Web](#interfaz-web)
+  - [Modelo de Clasificación de Bolívares](#modelo-de-clasificación-de-bolívares)
+  - [Modelo de Clasificación de Dólares](#modelo-de-clasificación-de-dólares)
+- [📜 Licencia](#-licencia)
+- [👥 Integrantes del proyecto](#-integrantes-del-proyecto)
+- [🎁 Donaciones](#-donaciones)
 
-## ¿Cómo fue creado?
-Para el desarrollo de este proyecto se emplearon un conjunto de tecnologías modernas y eficientes que permitieron integrar funcionalidades avanzadas y garantizar un alto rendimiento. Las herramientas y frameworks utilizados incluyen:
+## 💡 ¿Qué es Cash Reader?
+Se trata de un programa que integra:
+- Dos modelos avanzados de **clasificación de objetos** para identificar las denominaciones de los billetes de **dólares y bolívares** y uno modelo diferenciador entre ambos tipos de moneda.
+- **Landing page** donde los usuarios pueden descargar la app (PWA) y conocer informacion general del proyecto.
+- **App PWA** desarrollada bajo el cumplimiento del manual de los estandares de accesibilidad (**WCAG 2.0**) integrando un narrador, una interfaz de comandos de voz, una funcion de utilidad para contar de forma asistida y los modelos de IA para la clasificacion de billetes.
 
-- **React:** Para la creación de una **aplicación web progresiva (PWA)**, brindando una experiencia de usuario fluida y accesible desde cualquier dispositivo.
+## ⚙️ Características clave
+- Detección y clasificación de billetes (unico modelo compatible en el mercado con el cono monetario actual de Venezuela) 💵
+- Interfaz a traves de una progressive web app (PWA) 🌐:
+  -    
+- 3 Modelos basados en **YOLOv8s** ajustados con fine-tuning para mayor precisión 🎯:
+  - Clasificador de Denominacion de billetes de Dolares Americanos
+  - Clasificador de Denominacion de billetes de Bolivares Venezolanos
+  - Diferenciador entre ambos tipos de divisas
 
-- **FastAPI:** Como framework backend, facilitando la creación de una **API** robusta y eficiente para la comunicación entre la interfaz web y los modelos de inteligencia artificial.
+## 🔧 Tecnologías
+- **React:**: Para una experiencia web fluida y arquitectura orientada a componentes.
+- **FastAPI:** Para la creación de una API robusta.
+- **YOLO Ultralitics:** Arquitectura de un Modelo CNN para la detección y clasificación.
+- **
 
-- **YOLO (You Only Look Once):**  Un modelo **pre-entrenado** para la detección de objetos en tiempo real. Se usó como base *yolov8s* y mediante una técnica conocida como **fine-tunning** se ajustó la última capa para hacer que clasifique billetes de *dólares y bolívares*.
+## 📸 Imágenes
+### Interfaz Web
+![Video de la landing page](/frontend/src/assets/landing.gif)
 
-## Integrantes del proyecto
-- Francisco Ramos *(Samsung y Pro III)*
-- Joshua Carrera *(Samsung y Pro III)*
-- Joel Escobar  *(Samsung)*
-- Jesús Cabello *(Samsung)*
-- Jesús Ramírez *(Samsung y Pro III)*
+### Modelo de Clasificación de Bolívares
+<img src="./backend/src/models/train/VEF_Model_09/val_batch1_pred.jpg" alt="Imagen del Modelo VEF" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/VEF_Model_09/PR_curve.png" alt="PR Curve VEF" style="max-width:50%; height:auto;">
 
-## Donaciones
-Si desea apoyar el proyecto, aceptamos **USDT** mediante la red de **Binance(BSC)**: 0xe826bd3f1b387eef0974d57c6b04d047cc443e75
+### Modelo de Clasificación de Dólares
+<img src="./backend/src/models/train/USD_Model_13/val_batch1_pred.jpg" alt="Imagen del Modelo USD" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/USD_Model_13/PR_curve.png" alt="PR Curve USD" style="max-width:50%; height:auto;">
+
+## 📜 Licencia
+Distribuido bajo la licencia MIT. Consulte [LICENCIA](./LICENSE.txt) para más información.
+
+## 👥 Integrantes del proyecto
+- [Francisco Ramos](https://www.linkedin.com/in/francisco-ramos-santos-dev)
+- [Joshua Carrera](https://www.linkedin.com/in/joshua-carrera-r/) 
+- [Joel Escobar](https://www.linkedin.com/in/joel-escobar/) 
+- [Jesús Cabello](https://www.linkedin.com/in/jesus-cabello18/) 
+- [Jesús Ramírez](https://www.linkedin.com/in/jesus-ramirez-dev/) 
+
+## 🎁 Donaciones
+Si deseas apoyar el proyecto, puedes enviar **USDT** a través de la red **Binance (BSC)**:
+**Dirección:** 0xe826bd3f1b387eef0974d57c6b04d047cc443e75  
+¡Tu contribución ayuda a impulsar la innovación!
