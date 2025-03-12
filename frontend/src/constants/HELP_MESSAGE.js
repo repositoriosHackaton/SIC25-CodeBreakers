@@ -9,7 +9,7 @@ export const HELP_INTERFACE = `
 
 // Mensaje de ayuda para los comandos de voz
 export const HELP_COMMANDS = `
-    Comandos de voz alternativos (mantenga presionado el centro de la pantalla):
+    Comandos de voz alternativos (mantenga presionado el centro de la pant):
     - "Tomar Foto": Iniciar evaluación del billete.
     - "Contar": Activar la función de suma de billetes.
     - "Detener conteo": Desactiva la función de suma de billetes.

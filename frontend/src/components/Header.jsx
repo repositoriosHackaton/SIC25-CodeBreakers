@@ -8,11 +8,11 @@ const Header = () => {
     const [isFirstVisit, setIsFirstVisit] = useState(true);
 
     // Verificar si es la primera visita al montar el componente
-    useEffect(() => {
+    seEffect(() => {
         const hasVisited = localStorage.getItem("hasVisited");
         if (!hasVisited) {
-            // Mostrar ambos mensajes al inicio (interfaz + comandos)
-            setNarration(`${HELP_INTERFACE} ${HELP_COMMANDS}`);
+            // Mostrar la ayuda de la interfaz + instrucción adicional al inicio
+            setNarration(`${HELP_INTERFACE} Si quieres conocer los comandos de voz, toca el centro de la pantalla y di 'Ayuda comandos'.`);
             localStorage.setItem("hasVisited", "true");
         }
         setIsFirstVisit(!hasVisited);
@@ -24,8 +24,8 @@ const Header = () => {
 
     // Handler del botón de ayuda
     const handleClick = () => {
-        // Mostrar solo la ayuda de la interfaz al hacer clic
-        setNarration(HELP_INTERFACE);
+        // Mostrar la ayuda de la interfaz + instrucción adicional al hacer clic
+        setNarration(`${HELP_INTERFACE} Si quieres conocer los comandos de voz, toca el centro de la pantalla y di 'Ayuda comandos'.`);
     };
 
     return (
