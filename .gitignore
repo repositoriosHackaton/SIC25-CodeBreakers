@@ -31,4 +31,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-*.pyc
+*.cache
+**.cache
+
+wandb
