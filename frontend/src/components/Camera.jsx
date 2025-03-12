@@ -31,6 +31,7 @@ const Camera = () => {
     // Estado para mostrar la respuesta visual de la API sobre el stream
     const [apiPrediction, setApiPrediction] = useState("");
     const [isSumActive, setIsSumActive] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false); // Estado para bloquear el botón
     
 
 
@@ -271,26 +272,41 @@ const Camera = () => {
     );
 
     // Función para capturar la imagen en resolución nativa y enviarla a la API
-    const takePhoto = useCallback(() => {
+    const takePhoto = useCallback(async () => {
+        if (isProcessing) return; // Si ya se está procesando una foto, no hacer nada
+    
         const video = videoRef.current;
         if (!video) {
             console.error("Video no disponible.");
             return;
         }
+    
+        // Bloquear el botón
+        setIsProcessing(true);
+    
         const nativeWidth = video.videoWidth;
         const nativeHeight = video.videoHeight;
-
+    
         const canvas = document.createElement("canvas");
         canvas.width = nativeWidth;
         canvas.height = nativeHeight;
         const context = canvas.getContext("2d");
         context.drawImage(video, 0, 0, nativeWidth, nativeHeight);
-
+    
         const imageUrl = canvas.toDataURL("image/jpeg", 1.0);
         setPhoto(imageUrl);
         console.log("Foto tomada");
-        sendPhotoToAPI(imageUrl);
-    }, [sendPhotoToAPI]);
+    
+        try {
+            await sendPhotoToAPI(imageUrl); // Enviar la foto al servidor
+        } catch (error) {
+            console.error("Error al enviar la foto a la API:", error);
+            setNarration("Error al procesar la foto. Intenta de nuevo.");
+        } finally {
+            // Desbloquear el botón, independientemente de si hubo un error o no
+            setIsProcessing(false);
+        }
+    }, [isProcessing, sendPhotoToAPI]);
 
     /* ================================
      CAPTURA AUTOMÁTICA (SI SE CONFIGURA)
@@ -350,6 +366,7 @@ const Camera = () => {
             </div>
             <div className="scan-indicator-placeholder"></div>
             <ActionButtons onCameraButton={takePhoto}
+                isCameraDisabled={isProcessing}
                 onToggleSum={toggleSumHandler} 
                 isSumActive={isSumActive}  />
             {/* Mostrar el total acumulado si la suma está activa */}
