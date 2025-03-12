@@ -2,7 +2,7 @@ import cv2
 from ultralytics import YOLO
 
 # Cargar el modelo YOLO
-model = YOLO(r'backend/src/models/train/VEF_Model_11/weights/best.pt')
+model = YOLO(r'backend/src/models/train/VEF_model_13f/weights/best.pt')
 
 # Inicializar la cámara
 cap = cv2.VideoCapture(0)
@@ -20,7 +20,7 @@ while True:
         break
 
     # Realizar la predicción
-    results = model.predict(frame)
+    results = model.predict(frame, verbose=False, conf=0.7, iou=0.7)
 
     # Dibujar las detecciones en el frame
     for result in results:

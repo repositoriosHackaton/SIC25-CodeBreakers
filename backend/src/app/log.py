@@ -12,6 +12,7 @@ colors = [
     'black',
 ]
 
+<<<<<<< HEAD
 values = {
     # USD
     'fifty-back'       : '50f-usd',  'fifty-front'       : '50f-usd',
@@ -44,6 +45,17 @@ async def log(path, boxes, image):
         with open(text_output_path, "w") as text_file:
             text_file.write(json.dumps(boxes, indent=4))
         # Guardar Boxes
+=======
+def log(path, boxes, image):
+    file_name = datetime.now().strftime("%d-%m-%y %H:%M:%S")
+    image_output_path = f"{path}{file_name}.jpg"
+    text_output_path = f"{path}{file_name}.txt"
+    try:
+        # Guardar texto
+        with open(text_output_path, "w") as text_file:
+            text_file.write(json.dumps(boxes, indent=4))
+        # Guardar imagen
+>>>>>>> model_AI_devFran
         draw = ImageDraw.Draw(image)
         font = ImageFont.load_default() 
         for detection, color in zip(boxes, colors):
@@ -55,8 +67,16 @@ async def log(path, boxes, image):
             text_bg_position = (bbox[0], bbox[1] - 10, bbox[2], bbox[1])  # Fondo del texto
             draw.rectangle(text_bg_position, fill=color)  # Fondo rojo
             draw.text(text_position, label, fill="white", font=font)  # Texto blanco
+<<<<<<< HEAD
         image.save(boxes_image_output_path)
 
     except Exception as e:
         print(f"Error al guardar el log: {e}")
         return
+=======
+        image.save(image_output_path)
+
+    except Exception as e:
+        print(f"Error al guardar el log: {e}")
+        return
+>>>>>>> model_AI_devFran

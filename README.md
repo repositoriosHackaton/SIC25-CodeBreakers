@@ -1,32 +1,25 @@
-# Cash Reader
+# cash_reader
 
-**Cash Reader** es un proyecto realizado para el módulo de **Inteligencia Artificial** del curso *Samsung Innovation Campus*, y su vez como proyecto final para la materia Programación III de la *Universidad Marítima del Caribe*.
+Proyecto de modelo de IA para el reconocimiento de billetes (VEF, USD)
 
-## ¿Qué es?
+# Instrucciones de Instalación
 
-Se trata de un programa que integra dos componentes principales:
+Este proyecto requiere la instalación de varias dependencias. A continuación, se detallan los pasos necesarios para configurar el entorno.
 
-1. Dos modelos avanzados de **clasificación de objetos** diseñados específicamente para identificar billetes de **dólares y bolívares**, como también su respectiva denominación.
-2. Una **interfaz web** intuitiva y fácilmente accesible, desarrollada para trabajar sobre los modelos anteriormente mencionados.
+## Requisitos Previos
 
-## ¿Por qué este proyecto?
-Este proyecto se planteó como un programa de asistencia dirigido a **personas invidentes o con dificultades visuales**, con el objetivo de brindar una herramienta que les resulte de utilidad y conveniencia en su vida cotidiana, facilitando su autonomía y mejorando su calidad de vida.
+-   Python 3.12.7
+-   pip (gestor de paquetes de Python)
 
-## ¿Cómo fue creado?
-Para el desarrollo de este proyecto se emplearon un conjunto de tecnologías modernas y eficientes que permitieron integrar funcionalidades avanzadas y garantizar un alto rendimiento. Las herramientas y frameworks utilizados incluyen:
+## Instalación de Dependencias
 
-- **React:** Para la creación de una **aplicación web progresiva (PWA)**, brindando una experiencia de usuario fluida y accesible desde cualquier dispositivo.
+Para instalar las dependencias necesarias, ejecuta los siguientes comandos en tu terminal:
 
-- **FastAPI:** Como framework backend, facilitando la creación de una **API** robusta y eficiente para la comunicación entre la interfaz web y los modelos de inteligencia artificial.
+1. **Instalación de PyTorch con soporte para CUDA 12.6:**
 
-- **YOLO (You Only Look Once):**  Un modelo **pre-entrenado** para la detección de objetos en tiempo real. Se usó como base *yolov8s* y mediante una técnica conocida como **fine-tunning** se ajustó la última capa para hacer que clasifique billetes de *dólares y bolívares*.
-
-## Integrantes del proyecto
-- Francisco Ramos *(Samsung y Pro III)*
-- Joshua Carrera *(Samsung y Pro III)*
-- Joel Escobar  *(Samsung)*
-- Jesús Cabello *(Samsung)*
-- Jesús Ramírez *(Samsung y Pro III)*
-
-## Donaciones
-Si desea apoyar el proyecto, aceptamos **USDT** mediante la red de **Binance(BSC)**: 0xe826bd3f1b387eef0974d57c6b04d047cc443e75
+    ```bash
+    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+    pip install ultralytics
+    pip install wandb
+    pip install Pillow
+    ```
