@@ -8,7 +8,7 @@ import shutil
 import random
 
 # Define el directorio raíz donde están las carpetas 1, 2 y 3
-root_dir = r'C:/Users/User/Desktop/[AugmentationRoboflow]datasetvef-logs.v1i.yolov8/train/divisionClasses'
+root_dir = r'C:\Users\jesus\Downloads\2025-03-10_11k_USD\dataset-extend-USD\train\Output'
 
 # Definir las rutas de las carpetas
 folders = ["0", "1", "2", "3","4","5","6","7","8","9","10","11"]
@@ -21,7 +21,7 @@ os.makedirs(test_images_path, exist_ok=True)
 os.makedirs(test_labels_path, exist_ok=True)
 
 # Cantidad de imágenes a extraer por en cada subfolder del folder
-num_images = {"0":424 , "1":443, "2":506, "3":498,"4":431,"5":458,"6":519,"7":659,"8":701,"9":773,"10":447,"11":410}
+num_images = {"0":188 , "1":204, "2":243, "3":362,"4":140,"5":158,"6":117,"7":197,"8":268,"9":306,"10":272,"11":241}
 for folder in folders:
     for subfolder in subfolders:
         image_path = os.path.join(root_dir, folder,"images")
