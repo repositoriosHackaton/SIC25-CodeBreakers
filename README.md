@@ -46,20 +46,20 @@ Se trata de un programa que integra:
 - **App PWA** desarrollada bajo el cumplimiento del manual de los estandares de accesibilidad (**WCAG 2.0**) integrando un narrador, una interfaz de comandos de voz, una funcion de utilidad para contar de forma asistida y los modelos de IA para la clasificacion de billetes.
 
 ## 🦯 ¿Por qué se hizo este proyecto?
-Este proyecto se planteó como un programa de asistencia dirigido a personsas con **discapacidades visuales**, con el objetivo de brindar una herramienta que les resulte de utilidad y conveniencia en su vida cotidiana, facilitando su autonomía y mejorando su calidad de vida.
+Este proyecto se planteó como un programa de asistencia dirigido a personas con **discapacidades visuales**, con el objetivo de brindar una herramienta que les resulte de utilidad y conveniencia en su vida cotidiana, facilitando su autonomía y mejorando su calidad de vida.
 
 ## ⚙️ Características clave
-- Detección y clasificación de billetes (unico modelo compatible en el mercado con el cono monetario actual de Venezuela) 💵
+- Detección y clasificación de billetes (único modelo compatible en el mercado con el cono monetario actual de Venezuela) 💵
 - Interfaz a traves de una progressive web app (PWA) 🌐
 - 3 Modelos basados en **YOLOv8s** 🎯:
-  - Clasificador de Denominacion de billetes de Dolares Americanos
-  - Clasificador de Denominacion de billetes de Bolivares Venezolanos
+  - Clasificador de Denominación de billetes de Dolares Americanos
+  - Clasificador de Denominación de billetes de Bolivares Venezolanos
   - Diferenciador entre ambos tipos de divisas
 
 ## 🔧 Tecnologías
 - **React:** Para una experiencia web fluida y arquitectura orientada a componentes.
 - **FastAPI:** Para la creación de una API robusta.
-- **YOLO Ultralitics:** Arquitectura de un Modelo CNN para la detección y clasificación.
+- **YOLO Ultralytics:** Arquitectura de un Modelo CNN para la detección y clasificación.
 
 ## 📸 Imágenes
 ### Interfaz Web:
@@ -67,11 +67,11 @@ Este proyecto se planteó como un programa de asistencia dirigido a personsas co
 
 ### Modelo de Clasificación de Bolívares:
 <img src="./backend/src/models/train/VEF_model_13f/val_batch1_pred.jpg" alt="Imagen del Modelo VEF" style="max-width:50%; height:auto;">
-<img src="./backend/src/models/train/VEF_model_13f/results.png" alt="PR Curve VEF" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/VEF_model_13f/results.png" alt="Gráficas del modelo de Bolívares" style="max-width:50%; height:auto;">
 
 ### Modelo de Clasificación de Dólares:
 <img src="./backend/src/models/train/USD_model_plus_01/val_batch1_pred.jpg" alt="Imagen del Modelo USD" style="max-width:50%; height:auto;">
-<img src="./backend/src/models/train/USD_model_plus_01/results.png" alt="PR Curve USD" style="max-width:50%; height:auto;">
+<img src="./backend/src/models/train/USD_model_plus_01/results.png" alt="Gráficas del modelo de Dólares " style="max-width:50%; height:auto;">
 
 ## 📜 Licencia
 Distribuido bajo la licencia MIT. Consulte [LICENCIA](./LICENSE.txt) para más información.
