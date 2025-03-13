@@ -61,9 +61,9 @@ Este proyecto se planteó como un programa de asistencia dirigido a personas con
 - **FastAPI:** Para la creación de una API robusta.
 - **YOLO Ultralytics:** Arquitectura de un Modelo CNN para la detección y clasificación.
 
-## Datasets
-- 11 mil fotos para el modelo de los dólares
-- 9 mil fotos para el modelo de los bolívares
+## 🗄️ Datasets
+- **11 mil fotos** para el modelo de los **dólares**
+- **9 mil fotos** para el modelo de los **bolívares**
 
 ## 📸 Imágenes
 ### Interfaz Web:
