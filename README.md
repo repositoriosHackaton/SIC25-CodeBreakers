@@ -63,8 +63,7 @@ Este proyecto se planteó como un programa de asistencia dirigido a personas con
 
 ## 🗄️ Datasets
 - **11 mil fotos** para el modelo de los **dólares**
-- **9 mil fotos** para el modelo de los **bolívares**
-
+- **9 mil fotos** para el modelo de los **bolívares**, creada desde 0, todas tomadas por los miembros del equipo
 ## 📸 Imágenes
 ### Interfaz Web:
 ![Video de la landing page](/frontend/src/assets/landing.gif)
