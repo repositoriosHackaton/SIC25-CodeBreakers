@@ -83,6 +83,13 @@ Distribuido bajo la licencia MIT. Consulte [LICENCIA](./LICENSE.txt) para más i
 - [Jesús Cabello](https://www.linkedin.com/in/jesus-cabello18/) 
 - [Jesús Ramírez](https://www.linkedin.com/in/jesus-ramirez-dev/) 
 
+## 🤝 Agradecimientos
+- Pedro Borges: Admin de [Ciegos Venezuela](https://www.ciegosvenezuela.com/). Nos ayudó dandonos feedback de la aplicación desde la perspectiva del usuario final
+- Giancarlos Colasante: Profesor de Samsung
+- Stheisy Pimentel: Tutora de Samsung
+- Jenny Remolina: Profesora de Samsung
+- Álvaro Arauz: Tutor de Samsung
+
 ## 🎁 Donaciones
 Si deseas apoyar el proyecto, puedes enviar **USDT** a través de la red **Binance (BSC)**:
 **Dirección:** 0xe826bd3f1b387eef0974d57c6b04d047cc443e75  
