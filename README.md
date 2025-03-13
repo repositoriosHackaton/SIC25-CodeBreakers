@@ -49,12 +49,12 @@ Se trata de un programa que integra:
 Este proyecto se planteó como un programa de asistencia dirigido a personas con **discapacidades visuales**, con el objetivo de brindar una herramienta que les resulte de utilidad y conveniencia en su vida cotidiana, facilitando su autonomía y mejorando su calidad de vida.
 
 ## ⚙️ Características clave
-- Detección y clasificación de billetes (único modelo compatible en el mercado con el cono monetario actual de Venezuela) 💵
-- Interfaz a traves de una progressive web app (PWA) 🌐
+- Detección y clasificación de billetes (único modelo compatible en el mercado con el cono monetario actual de Venezuela) 💵.
+- Interfaz a traves de una progressive web app (PWA) 🌐.
 - 3 Modelos basados en **YOLOv8s** 🎯:
-  - Clasificador de Denominación de billetes de Dolares Americanos
-  - Clasificador de Denominación de billetes de Bolivares Venezolanos
-  - Diferenciador entre ambos tipos de divisas
+  - Clasificador de Denominación de billetes de Dolares Americanos.
+  - Clasificador de Denominación de billetes de Bolivares Venezolanos.
+  - Diferenciador entre ambos tipos de divisas.
 
 ## 🔧 Tecnologías
 - **React:** Para una experiencia web fluida y arquitectura orientada a componentes.
@@ -84,11 +84,11 @@ Distribuido bajo la licencia MIT. Consulte [LICENCIA](./LICENSE.txt) para más i
 - [Jesús Ramírez](https://www.linkedin.com/in/jesus-ramirez-dev/) 
 
 ## 🤝 Agradecimientos
-- Pedro Borges: Admin de [Ciegos Venezuela](https://www.ciegosvenezuela.com/). Nos ayudó dandonos feedback de la aplicación desde la perspectiva del usuario final
-- Giancarlos Colasante: Profesor de Samsung
-- Stheisy Pimentel: Tutora de Samsung
-- Jenny Remolina: Profesora de Samsung
-- Álvaro Arauz: Tutor de Samsung
+- Pedro Borges: Admin de [Ciegos Venezuela](https://www.ciegosvenezuela.com/). Nos ayudó dándonos feedback de la aplicación desde la perspectiva del usuario final.
+- Giancarlos Colasante: Profesor de Samsung.
+- Stheisy Pimentel: Tutora de Samsung.
+- Jenny Remolina: Profesora de Samsung.
+- Álvaro Arauz: Tutor de Samsung.
 
 ## 🎁 Donaciones
 Si deseas apoyar el proyecto, puedes enviar **USDT** a través de la red **Binance (BSC)**:
